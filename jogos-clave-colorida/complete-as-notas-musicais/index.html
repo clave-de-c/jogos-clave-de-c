@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete a Escala Musical - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="logo-clave-colorida.png" alt="Logo Clave Colorida" id="logo-global">
+
+    <div class="main-container">
+        <div id="menu-screen" class="screen">
+            <div class="content-box">
+                <h1>Complete a Escala</h1>
+                <p>Um jogo com 25 desafios para testar seus conhecimentos musicais!</p>
+                <button id="play-btn">Jogar</button>
+                <button id="instructions-btn">Instruções</button>
+            </div>
+        </div>
+        <div id="instructions-screen" class="screen hidden">
+            <div class="content-box">
+                <h2>Instruções</h2>
+                <p>Arraste as notas musicais que faltam para completar a sequência da escala.</p>
+                <p>A cada nível, um novo desafio com mais notas para completar!</p>
+                <button class="back-to-menu">Voltar ao Menu</button>
+            </div>
+        </div>
+        <div id="game-screen" class="screen hidden">
+            <header>
+                <button class="back-to-menu small-btn">Sair</button>
+            </header>
+            <main id="game-container">
+                <h2 id="level-title">Nível 1 - Desafio 1</h2>
+                <div id="scale-sequence"></div>
+                <div id="draggable-notes"></div>
+                <div id="feedback" class="hidden"></div>
+                <button id="control-btn" class="hidden">Próximo Desafio</button>
+            </main>
+        </div>
+        
+        <div id="end-screen" class="screen hidden">
+            <div class="content-box">
+                <h2>Parabéns!</h2>
+                <p>Você completou todos os desafios e mostrou que é um mestre das notas musicais!</p>
+                <button id="play-again-btn">Jogar Novamente</button>
+                <button id="end-back-to-menu-btn" class="back-to-menu">Voltar ao Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Desenvolvido por <strong>Clave de C</strong> | <a href="https://clavedec.com.br/" target="_blank">https://clavedec.com.br/</a> | <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a></p>
+    </footer>
+
+    <audio id="audio-background" src="musica-fundo.mp3" loop></audio>
+    <audio id="audio-drag" src="drop.mp3"></audio>
+    <audio id="audio-success" src="sucess.mp3"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
