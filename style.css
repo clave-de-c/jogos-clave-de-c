@@ -1,0 +1,133 @@
+/* Estilos Gerais */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f9;
+    color: #333;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Cabeçalho e Rodapé */
+header, footer {
+    background-color: #2D9CDB; /* Azul da sua identidade visual */
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+footer a {
+    color: #fff;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Seções de Jogos */
+section {
+    margin-bottom: 40px;
+}
+
+section h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+section p {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+}
+
+/* Vitrine de Jogos */
+.vitrine-jogos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+/* Card do Jogo */
+.jogo-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.jogo-card:hover {
+    transform: translateY(-5px);
+}
+
+.jogo-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.jogo-card h3 {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.jogo-card p {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* Botões */
+.jogo-card button {
+    background-color: #FEC601; /* Amarelo da sua identidade visual */
+    color: #333;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.jogo-card button:hover {
+    background-color: #e6b300;
+}
+
+/* Estilos para Jogos Exclusivos */
+.jogo-card.exclusivo button {
+    background-color: #9B51E0; /* Roxo da sua identidade visual */
+    color: #fff;
+}
+
+.jogo-card.exclusivo button:hover {
+    background-color: #8945c8;
+}
+
+.selo-exclusivo {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #E74C3C;
+    color: white;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 4px;
+    z-index: 2;
+}
