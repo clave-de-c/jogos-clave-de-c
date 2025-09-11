@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* ... (Todo o CSS da v5.0 permanece exatamente o mesmo até o final) ... */
+
+:root {
+    --primary-color: #2D9CDB;
+    --text-color: #333;
+    --white-color: #fff;
+    --correct-color: #4CAF50;
+    --incorrect-color: #F44336;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('fundo_colorido.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-color);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center;
+    position: relative; /* Necessário para o posicionamento do logo */
+}
+
+/* Logo Global Persistente */
+#logo-global {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 120px;
+    height: auto;
+    z-index: 10; /* Garante que o logo fique acima dos outros conteúdos */
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+.screen {
+    width: 100%;
+    max-width: 900px;
+}
+
+.hidden { display: none; }
+
+.content-box {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(5px);
+}
+
+h1, h2 { margin-bottom: 20px; color: var(--primary-color); }
+p { margin-bottom: 20px; line-height: 1.6; }
+
+button {
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 5px;
+}
+button:hover { background-color: #1e88c2; transform: translateY(-2px); }
+
+/* Ajuste no cabeçalho do jogo para não sobrepor o logo */
+#game-screen header {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+    padding-left: 120px; /* Espaço para o logo não sobrepor o botão Sair */
+}
+.small-btn { padding: 10px 20px; font-size: 14px; }
+
+#game-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+}
+
+#scale-sequence {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 26px;
+    font-weight: 600;
+    margin: 30px 0;
+    min-height: 60px;
+}
+
+.drop-box {
+    width: 80px;
+    height: 60px;
+    border: 2px dashed var(--primary-color);
+    border-radius: 10px;
+    margin: 5px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.drop-box.filled { border-style: solid; border-color: var(--correct-color); }
+
+#draggable-notes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    min-height: 80px;
+}
+
+.draggable-note {
+    width: 80px;
+    height: 60px;
+    color: var(--white-color);
+    font-weight: 700;
+    font-size: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.4); /* Sombra para melhorar leitura */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    cursor: grab;
+    transition: transform 0.2s, box-shadow 0.2s;
+    user-select: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+.draggable-note.dragging { opacity: 0.5; }
+
+#feedback { margin-top: 20px; font-size: 18px; font-weight: 600; padding: 10px; border-radius: 5px; min-height: 50px; }
+.feedback-correct { color: var(--correct-color); }
+.feedback-incorrect { color: var(--incorrect-color); }
+
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #555;
+}
+footer a { color: var(--primary-color); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* Responsividade */
+@media (max-width: 600px) {
+    #logo-global { width: 80px; top: 10px; left: 10px; }
+    #game-screen header { padding-left: 0; justify-content: flex-end; } /* Em telas pequenas, o Sair vai para a direita */
+    .main-container { padding: 10px; align-items: flex-start; padding-top: 80px; }
+    #game-container { padding: 15px; }
+    #scale-sequence { font-size: 16px; }
+    .drop-box, .draggable-note { width: 50px; height: 40px; font-size: 14px; }
+}
+
+/* NOVA Animação de "pop" para a nota correta */
+@keyframes pop-in {
+    0% { transform: scale(0.8); }
+    70% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.note-pop {
+    animation: pop-in 0.3s ease-in-out;
+}
