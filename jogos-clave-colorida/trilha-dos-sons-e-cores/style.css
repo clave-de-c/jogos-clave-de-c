@@ -1,0 +1,476 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Poppins:wght@400;700&display=swap');
+
+:root {
+    --color-do: #FF6B6B;
+    --color-re: #FFA07A;
+    --color-mi: #FEC601;
+    --color-fa: #4CAF50;
+    --color-sol: #00BFFF;
+    --color-la: #4682B4;
+    --color-si: #9B51E0;
+    --font-title: 'Baloo 2', cursive;
+    --font-text: 'Poppins', sans-serif;
+}
+
+body {
+    font-family: var(--font-text);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    overflow: hidden; /* Previne a rolagem em telas grandes (desktop) */
+    background-image: url('imagens/fundo_colorido.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Mantém o fundo fixo */
+}
+
+.screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 10px;
+    padding-bottom: 60px; 
+}
+
+/* --- MAPA DA TRILHA --- */
+.map-container {
+    position: relative;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.map-logo {
+    width: 120px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    font-family: var(--font-title);
+    font-size: 2.2em;
+    margin-top: 0;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.map-helper-text {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.trail-path {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.level-node {
+    width: 80px;
+    height: 80px;
+    background-color: var(--color-sol);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-title);
+    font-size: 2.5em;
+    cursor: pointer;
+    border: 6px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: transform 0.2s, background-color 0.2s;
+}
+
+.level-node:hover {
+    transform: scale(1.1);
+}
+
+.level-node.locked {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.level-node.locked::after {
+    content: '🔒';
+    font-size: 0.6em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.level-node.locked span {
+    visibility: hidden;
+}
+
+.level-node.completed {
+    background-color: var(--color-fa);
+}
+
+.level-node.completed::after {
+    content: '⭐';
+    font-size: 0.6em;
+    position: absolute;
+    top: -15px;
+}
+
+#final-test-node {
+    background-color: #f1c40f;
+}
+
+.map-mascot {
+    position: absolute;
+    bottom: 0;
+    right: 5%;
+    width: 120px;
+    transform: rotate(-15deg);
+    z-index: -1;
+    opacity: 0.8;
+}
+
+
+/* --- TELA DE FASE --- */
+.game-panel {
+    width: 90%;
+    max-width: 900px;
+    height: 100%;
+    max-height: 650px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+.rounds-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.round-indicator {
+    width: 20px;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.round-indicator.active {
+    background-color: var(--color-mi);
+}
+
+.game-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.challenge-area {
+    width: 200px;
+    height: 200px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+.interaction-area {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding: 20px;
+}
+
+.note-button {
+    width: 70px;
+    height: 70px;
+    border-radius: 15px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.note-button:hover {
+    transform: scale(1.1);
+}
+
+.btn-exit {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #eee;
+    border-radius: 10px;
+    padding: 8px 12px;
+    cursor: pointer;
+    border: none;
+    font-size: 0.9em;
+}
+
+.game-mascot {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 90px;
+}
+
+
+/* --- MODAIS E BOTÕES DO MAPA --- */
+.modal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 2000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+.modal-content {
+    position: relative;
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 500px;
+    box-sizing: border-box;
+}
+
+.modal-content h1 {
+    margin-top: 0;
+}
+
+.modal-content p {
+    max-width: 400px;
+    line-height: 1.5;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn {
+    background-color: var(--color-fa);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-title);
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#player-name-input {
+    display: block;
+    width: 80%;
+    margin: 15px auto;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1em;
+    text-align: center;
+}
+
+.map-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.btn-instructions {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-instructions:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-reset {
+    background: none;
+    border: none;
+    color: #95a5a6;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.8em;
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #aaa;
+    z-index: 10;
+}
+
+.btn-mute {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2em;
+    cursor: pointer;
+    z-index: 1500;
+}
+
+
+/* --- CERTIFICADO --- */
+.certificate-container {
+    background-color: #ecf0f1;
+    padding: 20px;
+}
+
+#certificate {
+    width: 800px;
+    max-width: 95%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.certificate-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* --- RODAPÉ --- */
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px 0;
+    text-align: center;
+    font-size: 0.9em;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+.footer p {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que o conteúdo quebre a linha se necessário */
+}
+
+.footer .separator {
+    margin: 0 10px;
+}
+
+.footer a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* --- ESTILOS PARA IMPRESSÃO --- */
+@media print {
+    /* ... */
+}
+
+/* ==============================================
+   REGRAS DE RESPONSIVIDADE PARA CELULARES
+============================================== */
+@media (max-width: 768px) {
+    /* NOVO: Permite a rolagem em telas pequenas */
+    body {
+        overflow: auto;
+    }
+    .screen {
+        height: auto; /* A altura se ajusta ao conteúdo */
+        min-height: 100vh; /* Garante que ocupe pelo menos a tela inteira */
+        padding-bottom: 80px; /* Aumenta o espaço para o rodapé não sobrepor */
+        justify-content: flex-start; /* Alinha o conteúdo ao topo */
+        padding-top: 20px;
+    }
+
+    h1 { font-size: 1.8em; }
+    .map-container { padding: 20px; margin-top: 20px;}
+    .trail-path { flex-direction: column; gap: 20px; }
+    .level-node { width: 70px; height: 70px; }
+    .map-buttons { flex-direction: column; gap: 10px; }
+    .map-mascot { display: none; }
+
+    .game-panel {
+        width: 100%;
+        min-height: 500px;
+        border-radius: 0;
+        padding: 10px 5px;
+    }
+
+    .challenge-area { width: 140px; height: 140px; font-size: 2.5em; }
+    .interaction-area { gap: 8px; padding: 5px; }
+    .note-button { width: calc(100% / 4 - 10px); height: 50px; }
+    .game-mascot { width: 60px; bottom: 5px; right: 5px; }
+    .modal-content { padding: 20px; }
+
+    .certificate-container {
+        justify-content: flex-start;
+        padding-top: 50px;
+    }
+    #certificate {
+        width: 100%;
+        height: auto;
+        max-height: none;
+    }
+
+    /* NOVO: Regras para o rodapé em duas linhas */
+    .footer {
+        position: relative; /* Deixa de ser fixo para rolar com a página */
+        margin-top: 20px;
+    }
+    .footer p {
+        flex-direction: column; /* Empilha o conteúdo */
+        gap: 5px; /* Adiciona espaço entre as linhas */
+    }
+    .footer .separator {
+        display: none; /* Esconde os separadores "|" */
+    }
+}

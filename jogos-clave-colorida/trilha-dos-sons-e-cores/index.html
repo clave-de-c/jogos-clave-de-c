@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trilha dos Sons e Cores</title>
+    <link rel="icon" type="image/png" href="imagens/logo-clave-colorida.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="map-screen" class="screen">
+        <div class="map-container">
+            <img src="imagens/logo-clave-colorida.png" alt="Logo Clave Colorida" class="map-logo">
+            <h1>Trilha dos Sons e Cores</h1>
+            <p class="map-helper-text">Clique em uma fase para começar!</p>            
+            <div class="trail-path">
+                <div class="level-node" data-level="1"><span>1</span></div>
+                <div class="level-node" data-level="2"><span>2</span></div>
+                <div class="level-node" data-level="3"><span>3</span></div>
+                <div class="level-node locked" id="final-test-node" data-level="final"><span>🏆</span></div>
+            </div>
+            <div class="map-buttons">
+                <button id="instructions-button" class="btn-instructions">Instruções</button>
+                <button id="reset-button" class="btn-reset">Resetar Progresso</button>
+            </div>
+        </div>
+        <img src="imagens/personagem.png" alt="Mascote Coelho" class="map-mascot">
+    </div>
+    
+    <div id="game-screen" class="screen" style="display: none;">
+        <div class="game-panel">
+            <button id="exit-button" class="btn-exit">Voltar ao Mapa</button>
+            <div id="rounds-container" class="rounds-container"></div>
+            <div class="game-container">
+                <div class="challenge-area" id="challenge-area"></div>
+            </div>
+            <div class="interaction-area" id="interaction-area"></div>
+            <img src="imagens/personagem.png" alt="Mascote Coelho" class="game-mascot">
+        </div>
+    </div>
+    
+    <div id="end-screen" class="modal-container" style="display: none;">
+        <div class="modal-content">
+            <h1>Parabéns!</h1>
+            <p>Você completou a fase!</p>
+            <button id="continue-button" class="btn">Continuar na Trilha</button>
+        </div>
+    </div>
+
+    <div id="instructions-modal" class="modal-container" style="display: none;">
+        <div class="modal-content">
+            <button id="close-instructions-button" class="btn-close-modal">X</button>
+            <h1>Como Jogar</h1>
+            <p><strong>Fase 1: Cores e Sons</strong><br>Veja a cor que aparece no círculo e clique no botão da mesma cor.</p>
+            <p><strong>Fase 2: Nomes das Notas</strong><br>Leia o nome da nota e clique no botão da cor correspondente.</p>
+            <p><strong>Fase 3: Sequência Musical</strong><br>Observe e ouça a sequência de cores e repita na ordem certa.</p>
+        </div>
+    </div>
+
+    <div id="grand-finale-modal" class="modal-container" style="display: none;">
+        <div class="modal-content">
+            <h1>Você conseguiu!</h1>
+            <p>Você completou toda a Trilha! Continue praticando para se tornar um mestre da música!</p>
+            <button id="restart-button" class="btn">Voltar ao Mapa</button>
+        </div>
+    </div>
+
+    <div id="name-modal" class="modal-container" style="display: none;">
+        <div class="modal-content">
+            <button id="close-name-modal-button" class="btn-close-modal">X</button>
+            <h1>Teste Final!</h1>
+            <p>Digite seu nome para o certificado:</p>
+            <input type="text" id="player-name-input" placeholder="Seu nome aqui">
+            <button id="start-test-button" class="btn">Iniciar Teste</button>
+        </div>
+    </div>
+
+    <div id="certificate-screen" class="screen certificate-container" style="display: none;">
+        <svg id="certificate" viewBox="0 0 800 565" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <defs>
+                <linearGradient id="rainbow-border" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#FF6B6B"/> <stop offset="16.6%" stop-color="#FFA07A"/> <stop offset="33.3%" stop-color="#FEC601"/>
+                    <stop offset="50%" stop-color="#4CAF50"/> <stop offset="66.6%" stop-color="#00BFFF"/> <stop offset="83.3%" stop-color="#4682B4"/>
+                    <stop offset="100%" stop-color="#9B51E0"/>
+                </linearGradient>
+            </defs>
+            <rect x="0" y="0" width="800" height="565" fill="url(#rainbow-border)"/>
+            <rect x="10" y="10" width="780" height="545" fill="white"/>
+
+            <text x="400" y="70" font-family="'Baloo 2', cursive" font-size="32" fill="#4682B4" text-anchor="middle">🏆 Certificado de Músico(a) Colorido(a) 🏆</text>
+            
+            <text x="400" y="120" font-family="'Poppins', sans-serif" font-size="18" fill="#333" text-anchor="middle">Este certificado é concedido com muita alegria para:</text>
+            <text id="cert-svg-name" x="400" y="180" font-family="'Baloo 2', cursive" font-size="48" fill="#00BFFF" text-anchor="middle">[Nome da Criança]</text>
+            <line x1="150" y1="195" x2="650" y2="195" stroke="#ddd" stroke-width="2"/>
+
+            <text x="400" y="235" font-family="'Poppins', sans-serif" font-size="18" fill="#333" text-anchor="middle">Por ter completado com sucesso a trilha <tspan font-weight="bold">Trilha dos Sons e Cores!</tspan></text>
+            
+            <text x="400" y="265" font-family="'Poppins', sans-serif" font-size="16" fill="#555" text-anchor="middle">
+                <tspan x="400" dy="0em">Você superou cada desafio com atenção e alegria, provando seu talento musical incrível.</tspan>
+                <tspan x="400" dy="1.4em">Nesta jornada, você:</tspan>
+            </text>
+
+            <text x="220" y="325" font-family="'Poppins', sans-serif" font-size="15" fill="#333" text-anchor="start">🎨 Associou as cores aos sons, despertando seus ouvidos musicais.</text>
+            <text x="220" y="350" font-family="'Poppins', sans-serif" font-size="15" fill="#333" text-anchor="start">🎶 Aprendeu o nome das notas, descobrindo a linguagem da música.</text>
+            <text x="220" y="375" font-family="'Poppins', sans-serif" font-size="15" fill="#333" text-anchor="start">✨ Tocou suas primeiras sequências, criando uma linda melodia!</text>
+
+            <text x="400" y="440" font-family="'Poppins', sans-serif" font-size="16" fill="#333" text-anchor="middle" font-weight="bold">Continue essa aventura musical com a mesma energia e curiosidade!</text>
+            
+            <text x="400" y="500" font-family="'Baloo 2', cursive" font-size="24" fill="#333" text-anchor="middle">Parabéns pela sua conquista!</text>
+            <text id="cert-svg-date" x="400" y="525" font-family="'Poppins', sans-serif" font-size="16" fill="#555" text-anchor="middle">[Data]</text>
+            
+            <image href="imagens/coelho_palmas.png" x="650" y="460" height="80" width="80"/>
+        </svg>
+
+        <div class="certificate-buttons">
+            <button id="print-certificate-button" class="btn">Imprimir Certificado</button>
+            <button id="back-to-map-button" class="btn-instructions">Voltar ao Mapa</button>
+        </div>
+    </div>
+
+    <button id="mute-button" class="btn-mute">🔊</button>
+    <audio id="background-music" loop src="audio/musica-fundo.mp3"></audio>
+
+    <footer class="footer">
+        <p>Desenvolvido por&nbsp;<strong>Clave de C</strong><span class="separator">|</span><a href="https://clavedec.com.br" target="_blank">clavedec.com.br</a><span class="separator">|</span><a href="https://instagram.com/clavedec" target="_blank">@clavedec</a></p>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
