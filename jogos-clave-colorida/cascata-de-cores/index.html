@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clave Colorida - Cascata de Cores</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="logo-container">
+        <img src="logo-clave-colorida.png" alt="Logo Clave Colorida">
+    </div>
+
+    <div id="mute-button">🔊</div>
+
+    <div class="wrapper">
+        <div id="start-screen" class="screen active">
+            <div class="modal">
+                <h1>Cascata de Cores</h1>
+                <p>Toque na coluna da cor correspondente quando a nota chegar na base para seguir a sequência!</p>
+                <button id="start-button" class="btn">Jogar</button>
+                <button id="training-button" class="btn btn-secondary">Modo Treino</button>
+                <button id="instructions-button" class="btn btn-secondary">Instruções</button>
+            </div>
+        </div>
+        <div id="instructions-screen" class="screen">
+            <div class="modal">
+                <h2>Instruções</h2>
+                <p>No computador, use as teclas A, S, D, F.</p>
+                <p>No celular ou tablet, toque na base da coluna correspondente.</p>
+                <p>Não quebre a sequência para fazer mais combos!</p>
+                <button class="btn back-to-menu">Voltar</button>
+            </div>
+        </div>
+        <div id="level-complete-screen" class="screen">
+            <div class="modal">
+                <h2>Nível Concluído!</h2>
+                <p>Você foi ótimo! Preparado para o próximo?</p>
+                <button id="next-level-button" class="btn">Próximo Nível</button>
+            </div>
+        </div>
+        <div id="final-challenge-screen" class="screen">
+            <div class="modal modal-challenge">
+                <h2>Prepare-se!</h2>
+                <p>O Desafio Final vai testar seus reflexos ao máximo. Boa sorte!</p>
+                <button id="start-final-challenge-button" class="btn btn-challenge">Começar o Desafio!</button>
+            </div>
+        </div>
+        <div id="win-screen" class="screen">
+            <div class="modal">
+                <div class="confetti-container"></div>
+                <h2>PARABÉNS!</h2>
+                <p>Você completou o desafio! Sua pontuação final foi:</p>
+                <span id="win-score">0</span>
+                <button id="play-again-button" class="btn">Jogar Novamente</button>
+                <button class="btn btn-secondary back-to-menu">Voltar ao Menu</button>
+            </div>
+        </div>
+        <div id="game-over-screen" class="screen">
+            <div class="modal">
+                <h2>Fim de Jogo!</h2>
+                <p class="final-score-text">Sua pontuação foi: <span id="game-over-score">0</span></p>
+                <button id="restart-button" class="btn">Tentar de Novo</button>
+                <button class="btn btn-secondary back-to-menu">Voltar ao Menu</button>
+            </div>
+        </div>
+        <div id="game-container">
+            <div id="game-header">
+                <div id="score">Pontos: 0</div>
+                <button id="back-button">Sair</button>
+                <div id="lives">Vidas: 3</div>
+            </div>
+            <div id="level-title">Nível 1</div>
+            <div id="lanes-container">
+                <div class="lane" id="lane-0"></div>
+                <div class="lane" id="lane-1"></div>
+                <div class="lane" id="lane-2"></div>
+                <div class="lane" id="lane-3"></div>
+            </div>
+            <div id="feedback-container">
+                <div id="note-feedback"></div>
+                <div id="combo-feedback"></div>
+            </div>
+            <div id="key-container">
+                <div class="key" id="key-0" data-lane="0"><span class="note-name color-0">DÓ</span></div>
+                <div class="key" id="key-1" data-lane="1"><span class="note-name color-1">RÉ</span></div>
+                <div class="key" id="key-2" data-lane="2"><span class="note-name color-2">MI</span></div>
+                <div class="key" id="key-3" data-lane="3"><span class="note-name color-3">FÁ</span></div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Desenvolvido por <strong>Clave de C</strong> | 
+        <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> | 
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+
+    <audio id="audio-background" src="sons/pino-fundo-musical.mp3" loop></audio>
+    <audio id="audio-do" src="sons/nota1.mp3" preload="auto"></audio>
+    <audio id="audio-re" src="sons/nota2.mp3" preload="auto"></audio>
+    <audio id="audio-mi" src="sons/nota3.mp3" preload="auto"></audio>
+    <audio id="audio-fa" src="sons/nota4.mp3" preload="auto"></audio>
+    <audio id="audio-erro" src="sons/erro.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
