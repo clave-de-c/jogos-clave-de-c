@@ -1,0 +1,107 @@
+:root {
+    --font-title: 'Baloo 2', cursive;
+    --font-text: 'Poppins', sans-serif;
+    --primary-color: #38b6ff;
+    --secondary-color: #10ad54;
+    --tertiary-color: #f18c4d;
+    --white: #fff;
+    --text-color: #333;
+}
+body {
+    font-family: var(--font-text);
+    background-image: url('fundo_colorido.png');
+    background-size: cover; background-position: center; background-attachment: fixed;
+    margin: 0; display: flex; flex-direction: column; min-height: 100vh;
+}
+.game-container {
+    position: relative; /* Necessário para posicionar o botão Sair */
+    flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box;
+}
+.game-content {
+    width: 100%; max-width: 900px; min-height: 500px; padding: 30px 40px; position: relative;
+    background-color: rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
+    text-align: center; display: flex; flex-direction: column; justify-content: center;
+}
+.game-logo { position: absolute; top: 25px; left: 25px; width: 120px; }
+.screen { display: none; flex-direction: column; align-items: center; justify-content: center; width: 100%; }
+h1, h2 { font-family: var(--font-title); color: var(--primary-color); font-size: 2.8rem; margin: 0 0 1rem 0; }
+h2 { font-size: 2.4rem; }
+p { font-size: 1.1rem; margin: 0 auto 1rem auto; max-width: 500px; }
+.btn {
+    font-family: var(--font-text); font-weight: 600; font-size: 1.1rem; padding: 15px 30px; margin: 10px;
+    border: none; border-radius: 50px; cursor: pointer; color: var(--white); text-transform: uppercase; letter-spacing: 1px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); transition: all 0.3s ease; background-color: var(--primary-color);
+}
+.btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); }
+.btn-secondary { background-color: var(--secondary-color); }
+.btn-tertiary { background-color: var(--tertiary-color); }
+.btn-exit {
+    position: absolute; top: 25px; right: 25px; padding: 8px 15px !important;
+    font-size: 0.8rem !important; background-color: #e74c3c; z-index: 100; display: none;
+}
+.game-header { display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px; }
+.hud-element { font-family: var(--font-title); font-size: 1.4rem; color: var(--text-color); flex: 1; }
+#score-display { text-align: left; }
+#timer-display { text-align: right; }
+.final-score { font-size: 1.4rem; font-weight: 600; color: var(--tertiary-color); }
+.level-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; }
+.level-btn { padding: 10px 20px; font-size: 1rem; line-height: 1.2; }
+.level-btn span { font-size: 0.8rem; font-weight: 400; text-transform: none; letter-spacing: 0; }
+.drop-container { background-color: rgba(0, 0, 0, 0.05); border: 2px dashed rgba(0, 0, 0, 0.2); border-radius: 15px; width: 80%; min-height: 120px; margin: 20px auto; display: flex; justify-content: center; align-items: center; gap: 20px; padding: 10px; }
+.drop-slot { width: 80px; height: 80px; background-color: rgba(255, 255, 255, 0.7); border-radius: 50%; border: 2px solid #ccc; }
+.notes-container { display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px; width: 100%; }
+.note { width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; font-size: 1.5rem; color: var(--white); cursor: grab; user-select: none; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.note.in-slot { cursor: pointer; }
+#feedback-message { min-height: 30px; font-weight: 600; font-size: 1.2rem; }
+.feedback-correct { color: var(--secondary-color); }
+.feedback-wrong { color: #d41e1e; }
+footer { width: 100%; padding: 4px 0; background-color: rgba(0, 0, 0, 0.35); color: var(--white); text-align: center; font-size: 12px; flex-shrink: 0; border-top: 1px solid rgba(255, 255, 255, 0.2); display: flex; justify-content: center; align-items: center; overflow: hidden; }
+footer p { margin: 0; white-space: nowrap; }
+footer a { color: #ddd; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+.star { position: absolute; width: 15px; height: 15px; background-color: gold; clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); animation: sparkle 1.5s ease-out forwards; pointer-events: none; }
+@keyframes sparkle { 0% { transform: scale(0) translateY(0); opacity: 1; } 80% { transform: scale(1.5) translateY(-100px); opacity: 1; } 100% { transform: scale(1.5) translateY(-120px); opacity: 0; } }
+/* style.css */
+
+/* === RESPONSIVIDADE FINAL PARA CELULAR E TABLET === */
+@media (max-width: 768px) {
+    .game-logo, footer {
+        display: none; /* Esconde logo e rodapé em telas menores */
+    }
+    .game-content {
+        padding: 20px 15px; /* Ajusta o padding */
+        min-height: 0;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Reorganiza o cabeçalho para o formato mobile */
+    .game-header {
+        flex-direction: column; /* Coloca o título abaixo dos placares */
+        align-items: center;
+        gap: 5px; /* Espaço entre os placares e o título */
+    }
+
+    /* NOVO CONTAINER PARA ALINHAR PONTUAÇÃO E TEMPO */
+    .hud-container {
+        display: flex;
+        justify-content: space-between; /* Pontuação na esquerda, Tempo na direita */
+        width: 100%;
+    }
+
+    h1, h2 { font-size: 1.6rem; }
+    h2 { font-size: 1.4rem; line-height: 1.2; }
+    
+    .hud-element { 
+        font-size: 1rem;
+        text-align: center; /* Centraliza o texto dentro de cada elemento */
+        flex: none; /* Remove o flex: 1 para que não compitam por espaço */
+    }
+    
+    .btn { padding: 12px 20px; font-size: 0.9rem; }
+    .note { width: 45px; height: 45px; font-size: 1rem; }
+    .drop-slot { width: 55px; height: 55px; }
+    .drop-container { min-height: 70px; gap: 10px; }
+}

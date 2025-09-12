@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestre dos Acordes Coloridos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <audio id="background-music" loop>
+        <source src="fundo-musical.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="game-container">
+        <button id="back-to-menu-from-game-btn" class="btn btn-exit">Sair</button>
+
+        <div class="game-content">
+            <img src="logo-clave-colorida.png" alt="Logo Clave Colorida" class="game-logo">
+            <div id="menu-screen" class="screen">
+                <h1>Mestre dos Acordes Coloridos</h1>
+                <p>Monte os acordes arrastando as notas coloridas!</p>
+                <div>
+                    <button id="play-btn" class="btn">Jogar</button>
+                    <button id="instructions-btn" class="btn btn-secondary">Instruções</button>
+                </div>
+            </div>
+            <div id="level-select-screen" class="screen">
+                <h2>Escolha um Nível</h2>
+                <div class="level-buttons">
+                    <button class="btn level-btn" data-level="1">Nível 1 <br><span>(Maiores Naturais)</span></button>
+                    <button class="btn level-btn" data-level="2">Nível 2 <br><span>(Maiores Sustenidos)</span></button>
+                    <button class="btn level-btn" data-level="3">Nível 3 <br><span>(Maiores Bemóis)</span></button>
+                </div>
+                 <button id="back-to-menu-from-levels-btn" class="btn btn-tertiary">Voltar ao Menu</button>
+            </div>
+            <div id="instructions-screen" class="screen">
+                <h2>Instruções</h2>
+                <p>Arraste as notas coloridas para os espaços corretos para formar o acorde pedido. Se errar, clique na nota para devolvê-la.</p>
+                <button id="back-to-menu-from-instructions-btn" class="btn">Voltar</button>
+            </div>
+            <div id="game-screen" class="screen">
+    <div class="game-header">
+        <div class="hud-container">
+            <div id="score-display" class="hud-element">Pontuação: 0</div>
+            <div id="timer-display" class="hud-element">Tempo: 90</div>
+        </div>
+        <h2 id="chord-name"></h2>
+    </div>
+
+    <div id="staff" class="drop-container"></div>
+    <p id="feedback-message"></p>
+    <div id="notes-pool" class="notes-container"></div>
+</div>
+            <div id="end-screen" class="screen">
+                <h2 id="end-title">Parabéns!</h2>
+                <p id="end-message">Você completou o desafio!</p>
+                <p class="final-score">Pontuação Final: <span id="final-score-value">0</span></p>
+                <div>
+                    <button id="play-again-btn" class="btn">Jogar Novamente</button>
+                    <button id="back-to-menu-from-end-btn" class="btn btn-secondary">Voltar ao Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Desenvolvido por Clave de C - 
+            <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+            <a href="https://www.instagram.com/clavedec.oficial/" target="_blank">@clavedec.oficial</a>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
