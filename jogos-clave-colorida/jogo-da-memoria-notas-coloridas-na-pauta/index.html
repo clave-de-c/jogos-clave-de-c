@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória - Pauta e Cores</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="background-music" src="background-music.mp3" loop></audio>
+
+    <div class="page-wrapper">
+        <div id="start-overlay" class="overlay show">
+            <div class="overlay-content">
+                <img src="logo-rainbow.png" alt="Logo Clave Colorida Rainbow" class="logo-menu">
+                <h2 class="overlay-title rainbow-text">Jogo da Memória</h2>
+                <p class="overlay-subtitle">Clave de Sol e Cores</p>
+                <p class="overlay-instruction">Escolha um nível para começar:</p>
+                <div class="level-buttons">
+                    <div>
+                        <button class="level-btn" data-level="easy">Fácil (4 pares)</button>
+                        <span class="best-score" id="best-score-easy"></span>
+                    </div>
+                    <div>
+                        <button class="level-btn" data-level="medium">Médio (7 pares)</button>
+                        <span class="best-score" id="best-score-medium"></span>
+                    </div>
+                </div>
+                <button id="instructions-btn">Como Jogar?</button>
+            </div>
+        </div>
+
+        <div id="win-overlay" class="overlay">
+            <div class="overlay-content">
+                <h2 class="overlay-title rainbow-text">Parabéns!</h2>
+                <div id="star-rating" class="star-rating">
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                    <i class="fa-solid fa-star"></i>
+                </div>
+                <p id="win-performance-text" class="overlay-subtitle"></p>
+                <p id="win-message-text" class="overlay-instruction">Você encontrou todos os pares!</p>
+                <button id="restart-button">Voltar ao Menu</button>
+            </div>
+        </div>
+
+        <div id="instructions-overlay" class="overlay">
+            <div class="overlay-content">
+                <h2 class="overlay-title rainbow-text">Como Jogar?</h2>
+                <ul class="instructions-list">
+                    <li>
+                        <span>1.</span>
+                        <div>Clique em uma carta para revelá-la.</div>
+                    </li>
+                    <li>
+                        <span>2.</span>
+                        <div>Encontre o par: a <strong>nota na pauta</strong> e a sua <strong>cor</strong> correspondente.</div>
+                    </li>
+                    <li class="example">
+                        <div class="example-card image"><img src="DO-pauta.png" alt="Nota Dó"></div>
+                        <div class="example-card color do"></div>
+                    </li>
+                    <li>
+                        <span>3.</span>
+                        <div>Encontre todos os pares para vencer o jogo!</div>
+                    </li>
+                </ul>
+                <button id="close-instructions-btn">Entendi!</button>
+            </div>
+        </div>
+
+        <main class="game-container">
+            <header>
+                <div class="title-container">
+                    <h1 class="rainbow-text">Jogo da Memória</h1>
+                    <h2>Clave de Sol e Cores</h2>
+                </div>
+                <div class="header-controls">
+                    <div class="game-info">
+                        <span class="moves">Movimentos: 0</span>
+                    </div>
+                    <button id="exit-game-btn" title="Sair do Jogo"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+                </div>
+            </header>
+            <div class="memory-game"></div>
+        </main>
+
+        <footer class="site-footer">
+            <p>
+                Desenvolvido por <strong><a href="https://www.clavedec.com.br" target="_blank">Clave de C</a></strong> | 
+                <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> | 
+                <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+            </p>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
