@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrelas Musicais - Clave de C</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <audio id="background-music" src="musica-fundo.mp3" loop></audio>
+
+    <main>
+        <div id="menu-inicial" class="tela visivel">
+            <button id="btn-mute" class="btn-icon">🔊</button>
+            <a href="https://colorida.clavedec.com.br/" target="_blank">
+                <img src="logo-clave-colorida.png" alt="Logo Clave Colorida" class="logo-pequeno">
+            </a>
+            <h1>Estrelas Musicais</h1>
+            <p>Toque nas estrelas para criar suas próprias melodias!</p>
+            <button id="btn-jogar">Jogar</button>
+            <button id="btn-instrucoes">Instruções</button>
+        </div>
+
+        <div id="tela-instrucoes" class="tela">
+            <h2>Como Jogar?</h2>
+            <p><strong>Modo Livre:</strong> Clique nas estrelas ou use as teclas do teclado para tocar sons e criar músicas.</p>
+            <p class="teclado-info">Teclas: [A=Dó] [S=Ré] [D=Mi] [F=Fá] [G=Sol] [H=Lá] [J=Si]</p>
+            <p><strong>Modo Guiado:</strong> Siga a estrela que brilha para tocar "Brilha, Brilha Estrelinha".</p>
+            <p class="midi-info">
+                <strong>🎹 Conexão MIDI:</strong> Conecte seu teclado musical ao computador. Em navegadores compatíveis (como Chrome ou Edge), você poderá tocar usando seu próprio instrumento!
+            </p>
+            <button class="btn-voltar">Voltar ao Menu</button>
+        </div>
+
+        <div id="tela-jogo" class="tela">
+            <header>
+                <a href="https://colorida.clavedec.com.br/" target="_blank">
+                   <img src="logo-clave-colorida.png" alt="Logo Clave Colorida" class="logo-pequeno-jogo">
+                </a>
+                <div class="botoes-modo">
+                    <button id="btn-modo-livre" class="modo-ativo">Modo Livre</button>
+                    <button id="btn-modo-guiado">Modo Guiado</button>
+                </div>
+                <button class="btn-voltar">Sair</button>
+            </header>
+            <div id="piano-estrelas"></div>
+             <p id="mensagem-guia">Siga a estrela que brilha!</p>
+        </div>
+
+        <div id="tela-final" class="tela">
+            <h2>Parabéns!</h2>
+            <p>Você tocou "Brilha, Brilha Estrelinha" perfeitamente!</p>
+            <button id="btn-jogar-novamente">Jogar Novamente</button>
+            <button class="btn-voltar">Voltar ao Menu</button>
+        </div>
+    </main>
+    <footer>
+        <p>Desenvolvido por Clave de C - 
+            <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+            <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+        </p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

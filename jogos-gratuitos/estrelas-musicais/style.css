@@ -1,0 +1,168 @@
+/* --- Configurações Gerais --- */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: #0c1445;
+    background-image: url('fundo-estrelado.png'); 
+    color: #fff;
+    /* ATUALIZAÇÃO ESTRUTURAL: Body agora organiza o conteúdo principal e o rodapé */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    text-align: center;
+}
+
+/* NOVO: Estilo para a área principal do jogo */
+main {
+    flex-grow: 1; /* Faz esta área crescer para ocupar o espaço disponível */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0; /* Adiciona um respiro vertical */
+}
+
+.tela {
+    display: none; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5); 
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    position: relative;
+}
+
+.tela.visivel { display: flex; }
+h1 { font-size: 3rem; color: #ffda43; text-shadow: 2px 2px 10px #000; }
+/* ... (o restante do CSS continua igual até o rodapé) ... */
+
+.teclado-info {
+    font-size: 0.9rem;
+    color: #ccc;
+    background-color: rgba(0,0,0,0.3);
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+.midi-info {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #e0e0e0;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(56, 182, 255, 0.5);
+    margin-top: 15px;
+}
+
+button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background-color: #ffda43;
+    color: #0c1445;
+    margin: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+button:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.3); }
+.btn-voltar { background-color: #7c45e8; color: #fff; }
+
+.btn-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    padding: 0;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-pequeno { width: 100px; position: absolute; top: 20px; left: 20px; opacity: 0.8; }
+.logo-pequeno-jogo { width: 80px; opacity: 0.8; }
+
+#tela-jogo header { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.botoes-modo button { background-color: transparent; color: #fff; border: 2px solid #fff; }
+.botoes-modo button.modo-ativo { background-color: #ffda43; color: #0c1445; border-color: #ffda43; }
+#piano-estrelas { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
+
+.estrela {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.5));
+}
+
+.estrela.tocando { transform: scale(1.15); }
+.estrela.piscando { animation: piscar 1s infinite; }
+
+@keyframes piscar {
+    0%, 100% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 5px #ffda43); }
+    50% { transform: scale(1.2); opacity: 0.8; filter: drop-shadow(0 0 20px #ffffff); }
+}
+
+#mensagem-guia { font-size: 1.2rem; font-weight: 600; color: #38b6ff; visibility: hidden; }
+
+/* ATUALIZAÇÃO ESTRUTURAL: Rodapé agora é um elemento de bloco normal */
+footer {
+    width: 100%;
+    text-align: center;
+    padding: 0 10px 10px 10px; /* Espaçamento para não ficar colado na borda */
+    font-size: 0.8rem;
+    flex-shrink: 0; /* Garante que o rodapé não encolha */
+}
+footer a { color: #ffda43; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    .estrela { width: 80px; height: 80px; font-size: 1.2rem; }
+    #tela-jogo header { flex-direction: column; gap: 15px; }
+    .logo-pequeno { position: static; margin-bottom: 10px; }
+    .logo-pequeno-jogo { position: static; margin-bottom: 10px; }
+    .btn-icon { top: 10px; right: 10px; }
+    /* A correção agora é estrutural, não precisamos mais do padding extra aqui */
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2rem; }
+    .estrela { width: 60px; height: 60px; font-size: 1rem; }
+    button { padding: 10px 20px; }
+
+    footer {
+        font-size: 0.65rem;
+    }
+}
+
+.shake { animation: shake 0.5s; }
+@keyframes shake {
+    10%, 90% { transform: translateX(-1px); }
+    20%, 80% { transform: translateX(2px); }
+    30%, 50%, 70% { transform: translateX(-4px); }
+    40%, 60% { transform: translateX(4px); }
+}
