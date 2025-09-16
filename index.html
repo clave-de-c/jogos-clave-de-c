@@ -4,65 +4,95 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jogos Musicais - Clave de C</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <div class="container">
-            <h1>Jogos Musicais</h1>
-            <p><strong>Desenvolvido por Clave de C</strong></p>
+            <h2>Experimente Nossos Jogos</h2>
+            <p>Divirta-se com estes jogos gratuitos e conheça um pouco do nosso trabalho!</p>
         </div>
     </header>
 
     <main class="container">
         <section id="jogos-gratuitos">
-            <h2>Jogos Gratuitos</h2>
-            <p>Comece a se divertir agora mesmo com nossos jogos gratuitos!</p>
             <div class="vitrine-jogos">
                 <div class="jogo-card">
-                    <img src="https://via.placeholder.com/300x200?text=Jogo+Gratuito+1" alt="Imagem do Jogo 1">
-                    <h3>Piano Virtual</h3>
-                    <p>Toque suas músicas favoritas em um piano virtual divertido e interativo.</p>
-                    <button onclick="window.open('URL_DO_SEU_JOGO_GRATUITO_1', '_blank')">
+                    <img src="capa-estrelas-musicais.png" alt="Jogo Estrelas Musicais">
+                    <h3>Estrelas Musicais</h3>
+                    <p>Acerte a sequência de notas para fazer as estrelas brilharem.</p>
+                    <button onclick="window.open('./jogos-gratuitos/estrelas-musicais/', '_self')">
                         Jogar Agora
                     </button>
                 </div>
+                <div class="jogo-card">
+                    <img src="capa-memoria-musical.png" alt="Jogo Memória Musical">
+                    <h3>Memória Musical</h3>
+                    <p>Encontre os pares de instrumentos e sons neste desafio de memória.</p>
+                    <button onclick="window.open('./jogos-gratuitos/memoria-musical/', '_self')">
+                        Jogar Agora
+                    </button>
                 </div>
+            </div>
         </section>
 
-        <section id="jogos-exclusivos">
-            <h2>Jogos Exclusivos para Assinantes</h2>
-            [cite_start]<p>Assine e tenha acesso a um acervo crescente de materiais de alta qualidade! [cite: 205]</p>
-            <div class="vitrine-jogos">
-                <div class="jogo-card exclusivo">
-                    <div class="selo-exclusivo">Exclusivo</div>
-                    <img src="https://via.placeholder.com/300x200?text=Jogo+Exclusivo+1" alt="Imagem do Jogo Exclusivo 1">
-                    <h3>Bingo Musical</h3>
-                    <p>Teste seus conhecimentos de forma divertida com um bingo de notas e ritmos.</p>
-                    <button onclick="window.open('URL_DA_SUA_PAGINA_DE_ASSINATURA', '_blank')">
-                        Assine para Jogar
+        <div class="promo-container">
+            <section class="secao-promo rainbow">
+                <div class="promo-content">
+                    <h2>Rainbow Notas Coloridas</h2>
+                    <p>Partituras, jogos e trilhas para um aprendizado musical lúdico e visual.</p>
+                    <button onclick="window.open('http://colorida.clavedec.com.br/', '_blank')">
+                        Conheça o Método
                     </button>
                 </div>
-                <div class="jogo-card exclusivo">
-                    <div class="selo-exclusivo">Exclusivo</div>
-                    <img src="https://via.placeholder.com/300x200?text=Jogo+Exclusivo+2" alt="Imagem do Jogo Exclusivo 2">
-                    <h3>Fábrica de Ritmos</h3>
-                    <p>Crie suas próprias sequências rítmicas e explore o mundo da composição.</p>
-                    <button onclick="window.open('URL_DA_SUA_PAGINA_DE_ASSINATURA', '_blank')">
-                        Assine para Jogar
+            </section>
+            
+            <section class="secao-promo prime">
+                <div class="promo-content">
+                    <h2>Clave Prime</h2>
+                    <p>Recursos em PDF, PowerPoint e jogos sobre diferentes conteúdos musicais!</p>
+                    <button onclick="window.open('https://clavedec.com.br/prime/', '_blank')">
+                        Para Educadores
                     </button>
                 </div>
-                </div>
-        </section>
+            </section>
+        </div>
     </main>
 
     <footer>
-        <div class="container">
-            <p><strong>Clave de C</strong></p>
-            <p><a href="https://seusite.com.br" target="_blank">seusite.com.br</a> | <a href="https://instagram.com/seu_perfil" target="_blank">Instagram</a></p>
+        <div class="footer-container">
+            <div class="footer-cta">
+                <h3>Vamos Conversar!</h3>
+                <p>Tem uma ideia, dúvida ou sugestão? Adoramos ouvir nossa comunidade.</p>
+                <a href="https://clavedec.com.br/contato/" class="cta-button" target="_blank">Fale Conosco!</a>
+            </div>
+            <div class="footer-links">
+                <h4>Explore Mais</h4>
+                <ul>
+                    <li><a href="https://clavedec.com.br/category/materiais-gratuitos/" target="_blank">Baixe recursos grátis</a></li>
+                    <li><a href="https://whatsapp.com/channel/0029VaMmbdk9sBICbgLEdk2S" target="_blank">Junte-se à nossa comunidade!</a></li>
+                    <li><a href="https://clavedec.com.br/sobre/" target="_blank">Sobre a Clave de C</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Siga-nos</h4>
+                <a href="https://instagram.com/clavedec.oficial" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/clavedec" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://clavedec.com.br/" target="_blank" aria-label="Blog"><i class="fas fa-blog"></i></a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© <span id="current-year">2025</span> Clave de C. Todos os direitos reservados.</p>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+
 </body>
 </html>
