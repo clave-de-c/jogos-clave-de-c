@@ -23,19 +23,19 @@ body {
     padding: 15px;
 }
 
-/* === CABEÇALHO (COM OS NOVOS TEXTOS) === */
+/* === CABEÇALHO === */
 header {
     background: #55B6E8;
     color: #fff;
     text-align: center;
-    padding: 25px 20px; /* Aumentado para caber o texto */
+    padding: 25px 20px;
     border-bottom: 5px solid var(--amarelo-destaque);
 }
 
 header h2 {
     font-size: 2.2em;
     font-weight: 700;
-    margin: 0 0 5px 0; /* Margem inferior mínima */
+    margin: 0 0 5px 0;
     text-shadow: 1px 1px 3px rgba(0,0,0,0.15);
 }
 
@@ -46,7 +46,7 @@ header p {
 }
 
 
-/* === SEÇÃO DE JOGOS GRATUITOS (MAIS COMPACTA) === */
+/* === SEÇÃO DE JOGOS GRATUITOS === */
 #jogos-gratuitos {
     padding-top: 25px;
     padding-bottom: 25px;
