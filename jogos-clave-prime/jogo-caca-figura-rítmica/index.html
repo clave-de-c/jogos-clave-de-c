@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caça Figuras Rítmicas | Clave de C Prime</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <audio id="correct-sound" src="correct.mp3"></audio>
+    <audio id="wrong-sound" src="wrong.mp3"></audio>
+
+    <div id="game-container">
+        <div id="menu-screen" class="screen active">
+            <h1>Caça Figuras Rítmicas</h1>
+            <p>Aprenda as figuras musicais de forma divertida!</p>
+            <div class="highscore-display">Recorde (Infinito): <span id="highscore-menu">0</span></div>
+            <div class="menu-buttons">
+                <button id="levels-play-button" class="btn">Jogar por Níveis</button>
+                <button id="infinite-play-button" class="btn">Modo Infinito</button>
+                <button id="instructions-button" class="btn btn-secondary">Instruções</button>
+            </div>
+        </div>
+
+        <div id="instructions-screen" class="screen hidden">
+            <h2>Instruções</h2>
+            <p>O objetivo é clicar na figura musical correta que o jogo pedir.</p>
+            <p>Clique na figura certa para ganhar pontos. Cuidado para não errar e perder vidas!</p>
+            <button id="back-to-menu-from-instructions" class="btn">Voltar</button>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div id="hud">
+                <div id="level-hud-item" class="hud-item">Nível: <span id="level-display">1</span></div>
+                <div class="hud-item">Pontos: <span id="score-display">0</span></div>
+                <div class="hud-item">Vidas: <span id="lives-display">3</span></div>
+            </div>
+            <p id="prompt">Pegue a...</p>
+            <div id="play-area"></div>
+            <button id="back-to-menu-from-game" class="btn btn-secondary btn-small">Sair</button>
+        </div>
+
+        <div id="end-screen" class="screen hidden">
+            <h2 id="end-title">Suas vidas acabaram!</h2>
+            <p id="new-highscore-message" class="hidden">🎉 Novo Recorde! 🎉</p>
+            <p>Sua pontuação final foi:</p>
+            <p id="final-score" class="score-final">0</p>
+            <div class="end-buttons">
+                <button id="restart-button" class="btn">Jogar Novamente</button>
+                <button id="back-to-menu-from-end" class="btn btn-secondary">Voltar ao Início</button>
+            </div>
+        </div>
+        
+        <div id="level-up-overlay" class="hidden">
+            <h2 id="level-up-text">Nível 2</h2>
+        </div>
+    </div>
+
+    <footer>
+        <img src="imagens/claveprimebranco.png" alt="Logo Clave Prime" class="footer-logo">
+        <p>Desenvolvido por <a href="https://www.clavedec.com.br" target="_blank">Clave de C</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
