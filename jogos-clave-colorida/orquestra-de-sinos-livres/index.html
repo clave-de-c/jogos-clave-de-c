@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orquestra de Sinos Livres - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+</head>
+<body>
+
+    <div id="game-container">
+        <img src="logo-clave-colorida.png" alt="Logo Rainbow Notas Coloridas" class="game-logo">
+
+        <button id="back-to-menu-btn" class="btn btn-secondary">Menu</button>
+
+        <section id="menu-screen" class="screen active">
+            <h1>Orquestra de Sinos Livres</h1>
+            <p>Toque nos sinos e descubra os sons das notas musicais!</p>
+            <button id="play-btn" class="btn btn-play">Jogar</button>
+            <button id="instructions-btn" class="btn btn-secondary">Instruções</button>
+        </section>
+
+        <section id="game-screen" class="screen">
+            <div id="bell-orchestra">
+                </div>
+            <div id="note-name-display"></div>
+        </section>
+
+        <div id="instructions-modal" class="modal-overlay">
+            <div class="modal-content">
+                <h2>Como Jogar</h2>
+                <p>É muito simples! Apenas clique ou toque em cada sino colorido para ouvir sua nota musical e vê-lo pular.</p>
+                <p>Explore, crie suas próprias melodias e divirta-se!</p>
+                <button id="close-modal-btn" class="btn">Entendi!</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Desenvolvido por Clave de C - 
+        <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+
+    <audio id="background-music" src="background-music.mp3" loop></audio>
+    <audio id="audio-do-sino" src="do-sino.mp3" preload="auto"></audio>
+    <audio id="audio-re-sino" src="re-sino.mp3" preload="auto"></audio>
+    <audio id="audio-mi-sino" src="mi-sino.mp3" preload="auto"></audio>
+    <audio id="audio-fa-sino" src="fa-sino.mp3" preload="auto"></audio>
+    <audio id="audio-sol-sino" src="sol-sino.mp3" preload="auto"></audio>
+    <audio id="audio-la-sino" src="la-sino.mp3" preload="auto"></audio>
+    <audio id="audio-si-sino" src="si-sino.mp3" preload="auto"></audio>
+    <audio id="audio-do-agudo-sino" src="do-agudo-sino.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

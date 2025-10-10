@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* --- Reset e Estilos Globais --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('fundo_colorido.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+}
+
+#game-container {
+    background-color: #ffffff;
+    color: #333;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 900px;
+    position: relative;
+}
+
+.game-logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100px;
+    opacity: 0.8;
+}
+
+/* --- Gerenciamento de Telas --- */
+.screen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* --- Estilo dos Botões --- */
+.btn {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin: 10px;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-play {
+    background-color: #10ad54;
+    color: white;
+}
+
+.btn-secondary {
+    background-color: #f1f1f1;
+    color: #555;
+}
+
+/* ATUALIZAÇÃO 3: Posicionando o botão 'Voltar' no topo direito */
+#back-to-menu-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin: 0; /* Remove a margem padrão do .btn */
+    display: none; /* O JavaScript vai controlar a visibilidade */
+}
+
+
+/* --- Orquestra de Sinos --- */
+#bell-orchestra {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25px; /* Espaçamento maior */
+    margin: 40px auto;
+    max-width: 680px; /* Aumentado para comportar sinos maiores */
+}
+
+/* ATUALIZAÇÃO 1: Sinos maiores no PC */
+.bell-image {
+    width: 140px; 
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+/* ATUALIZAÇÃO 2: Animação sem brilho */
+.bell-image.playing {
+    animation: jump-animation 0.5s ease;
+}
+
+@keyframes jump-animation {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(1.1); }
+    100% { transform: translateY(0) scale(1); }
+}
+
+#note-name-display {
+    font-size: 2.5em;
+    font-weight: 700;
+    height: 50px;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* --- Modal de Instruções --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 500px;
+    width: 90%;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+    color: #10ad54;
+}
+
+/* --- Rodapé --- */
+footer {
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+footer a {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    #game-container {
+        padding: 20px;
+        padding-top: 80px; /* Mais espaço no topo para o logo e botão */
+    }
+
+    #bell-orchestra {
+        gap: 15px;
+        max-width: 100%; 
+    }
+
+    /* ATUALIZAÇÃO 1: Sinos voltam a ser menores no mobile */
+    .bell-image {
+        width: 80px; 
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+}
