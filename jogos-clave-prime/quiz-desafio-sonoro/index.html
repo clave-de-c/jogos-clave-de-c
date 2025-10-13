@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Sonoro - Clave Prime</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="imagens/claveprime-favicon.png" type="image/png">
+</head>
+<body>
+    <div class="game-container">
+        <div id="tela-inicial" class="tela">
+            <h1>Desafio Sonoro</h1>
+            <p class="subtitulo">Teste seus conhecimentos sobre os parâmetros do som!</p>
+            
+            <p class="modo-jogo-label">Escolha um modo de jogo:</p>
+            <div class="modo-jogo-container">
+                <button id="btn-modo-classico" class="btn-principal">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v5h-2zm0 6h2v2h-2z" opacity=".3"/><path d="M11 7h2v5h-2zm0 6h2v2h-2zm1-15C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 20c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+                    Modo Clássico
+                </button>
+                <button id="btn-modo-tempo" class="btn-principal">
+                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><g><path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z"/><polygon points="12.5,7 11,7 11,12.5 16.5,16.2 17.5,14.8 12.5,11.5"/></g></g></svg>
+                    Contra o Tempo
+                </button>
+            </div>
+             <button id="btn-instrucoes" class="btn-secundario">
+                Instruções
+            </button>
+        </div>
+
+        <div id="tela-instrucoes" class="tela hidden">
+            <h2>Instruções</h2>
+            <p>Ouça os sons e responda às perguntas para testar seus conhecimentos sobre os parâmetros sonoros. No modo "Contra o Tempo", você tem 10 segundos para cada pergunta!</p>
+            <button id="btn-voltar-menu-instrucoes" class="btn-secundario">
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"></path></svg>
+                Voltar ao Menu
+            </button>
+        </div>
+
+        <div id="tela-quiz" class="tela hidden">
+            <div class="quiz-header">
+                <span id="progresso">Pergunta 1 / 14</span>
+                <div id="timer-container" class="hidden">
+                    <div id="timer-texto">10</div>
+                </div>
+                <span id="score">Pontos: 0</span>
+            </div>
+            <h2 id="pergunta-titulo"></h2>
+            <div id="opcoes-container" class="opcoes-grid">
+                </div>
+            <div id="feedback" class="feedback-container"></div>
+            <button id="btn-voltar-menu-quiz" class="btn-voltar-quiz">Voltar ao Menu</button>
+        </div>
+
+        <div id="tela-final" class="tela hidden">
+            <h2>Fim de Jogo!</h2>
+            <p id="mensagem-final">Parabéns!</p>
+            <p id="score-final">Sua pontuação foi: 10 de 14</p>
+            <button id="btn-jogar-novamente" class="btn-principal">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"></path></svg>
+                Jogar Novamente
+            </button>
+             <button id="btn-voltar-menu-final" class="btn-secundario">Voltar ao Menu</button>
+        </div>
+    </div>
+
+    <footer>
+        <img src="imagens/claveprime-logo.png" alt="Clave Prime Logo" class="footer-logo">
+        <span>Desenvolvido por Clave de C - 
+        <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a></span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
