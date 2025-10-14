@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Mestre Mandou: Sinos Coloridos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+</head>
+<body>
+
+    <div id="game-container">
+        <img src="logo-clave-colorida.png" alt="Logo Rainbow Notas Coloridas" class="game-logo">
+        <button id="back-to-menu-btn" class="btn btn-secondary">Menu</button>
+
+        <section id="menu-screen" class="screen active">
+            <h1>O Mestre Mandou</h1>
+            <h3>Recorde: <span id="high-score-display">0</span></h3>
+            <p>Memorize a sequência e toque os sinos na ordem correta!</p>
+
+            <div class="difficulty-selector">
+                <button class="btn-difficulty active" data-difficulty="easy">Fácil</button>
+                <button class="btn-difficulty" data-difficulty="medium">Médio</button>
+                <button class="btn-difficulty" data-difficulty="hard">Difícil</button>
+            </div>
+            
+            <button id="play-btn" class="btn btn-play">Jogar</button>
+            <button id="instructions-btn" class="btn btn-secondary">Instruções</button>
+        </section>
+
+        <section id="game-screen" class="screen">
+            <div class="game-info">
+                <h2>Pontos: <span id="score-display">0</span></h2>
+                <p id="message-display">Observe a sequência...</p>
+            </div>
+            <div id="bell-orchestra"></div>
+        </section>
+
+        <div id="instructions-modal" class="modal-overlay">
+            <div class="modal-content">
+                <h2>Como Jogar</h2>
+                <p>O Mestre vai tocar uma sequência de notas. Preste atenção!</p>
+                <p>Sua tarefa é repetir a sequência na ordem exata. A cada acerto, a sequência ficará mais longa. Desafie sua memória!</p>
+                <button id="close-modal-btn" class="btn">Entendi!</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Desenvolvido por Clave de C - 
+        <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+
+    <audio id="background-music" src="background-music.mp3" loop></audio>
+    <audio id="audio-do-sino" src="do-sino.mp3" preload="auto"></audio>
+    <audio id="audio-re-sino" src="re-sino.mp3" preload="auto"></audio>
+    <audio id="audio-mi-sino" src="mi-sino.mp3" preload="auto"></audio>
+    <audio id="audio-fa-sino" src="fa-sino.mp3" preload="auto"></audio>
+    <audio id="audio-sol-sino" src="sol-sino.mp3" preload="auto"></audio>
+    <audio id="audio-la-sino" src="la-sino.mp3" preload="auto"></audio>
+    <audio id="audio-si-sino" src="si-sino.mp3" preload="auto"></audio>
+    <audio id="audio-do-agudo-sino" src="do-agudo-sino.mp3" preload="auto"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
