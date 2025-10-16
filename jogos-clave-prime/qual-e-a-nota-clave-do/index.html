@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qual é a Nota? - Clave de Dó</title>
+    <link rel="icon" type="image/png" href="imagens/claveprime-favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>
+</head>
+<body>
+
+    <div id="menu-screen" class="screen active">
+        <div class="card">
+            <h1>Qual é a Nota?</h1>
+            <p>Identifique as notas na Clave de Dó.</p>
+            <button id="play-btn" class="btn-principal">Jogar</button>
+            <button id="instructions-btn" class="btn-secundario">Instruções</button>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen">
+        <div class="game-container">
+            <div id="streak-counter" class="streak-counter">🔥 0</div>
+            <div class="progress-container">
+                <div id="question-counter"></div>
+                <div class="progress-bar-background">
+                    <div id="progress-bar-fill"></div>
+                </div>
+            </div>
+            <div class="nota-display-container">
+                <img id="nota-imagem" src="" alt="Nota na pauta">
+            </div>
+            <p id="question-text">Que nota é esta?</p>
+            <div id="answer-buttons" class="answer-grid"></div>
+            <button id="back-to-menu-btn" class="btn-secundario">Voltar ao Menu</button>
+        </div>
+    </div>
+
+    <div id="end-screen" class="screen">
+        <div class="card card-final">
+            <div class="icon-trophy">🏆</div>
+            <h2>Parabéns!</h2>
+            <p>Você concluiu o desafio.</p>
+            <div class="final-score-container">
+                <span>Sua pontuação foi</span>
+                <strong id="final-score">0</strong>
+            </div>
+            <div class="end-buttons-container">
+                <button id="play-again-btn" class="btn-principal">Jogar Novamente</button>
+                <button id="end-back-to-menu-btn" class="btn-secundario">Voltar ao Menu</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="instructions-modal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn">&times;</button>
+            <div class="icon-instructions">💡</div>
+            <h2>Instruções</h2>
+            <p>Clique no botão com o nome correto da nota que aparece na pauta para marcar pontos.</p>
+            <button id="modal-ok-btn" class="btn-principal">Entendi!</button>
+        </div>
+    </div>
+
+    <footer>
+        <img src="imagens/claveprime-logo.png" alt="Logo Clave Prime" class="logo-footer">
+        <span>
+            Desenvolvido por Clave de C - 
+            <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+            <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+        </span>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
