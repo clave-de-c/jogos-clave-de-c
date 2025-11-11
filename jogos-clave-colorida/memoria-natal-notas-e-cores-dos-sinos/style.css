@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+:root { 
+    --primary-color: #C82A2A; 
+    --secondary-color: #D4AF37; 
+    --accent-color: #2A8C2A; 
+    --light-color: #f8f9fa; 
+    --dark-color: #333; 
+    --cor-do: #d41e1e; 
+    --cor-re: #f18c4d; 
+    --cor-mi: #ffda43; 
+    --cor-fa: #10ad54; 
+    --cor-sol: #38b6ff; 
+    --cor-la: #004aad; 
+    --cor-si: #7c45e8;
+    --cor-c5: #FFFFFF; 
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { 
+    font-family: 'Montserrat', sans-serif; 
+    color: var(--dark-color); 
+    text-align: center; 
+    background-image: url('fundo-natal.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-attachment: fixed; 
+}
+.page-wrapper { display: flex; flex-direction: column; min-height: 100vh; background-color: rgba(255, 255, 255, 0.6); }
+main.game-container { flex-grow: 1; }
+.game-container, .site-footer { visibility: hidden; opacity: 0; transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; }
+.game-container.active, .site-footer.active { visibility: visible; opacity: 1; }
+.game-container { width: 100%; max-width: 640px; padding: 20px; margin: 0 auto; display: flex; flex-direction: column; }
+
+/* 1. CABEÇALHO CORRIGIDO (AGORA VAI!) */
+header { 
+    display: flex; 
+    justify-content: space-between; /* ESSENCIAL: Joga os blocos para os lados */
+    align-items: flex-start; /* Alinha os topos */
+    gap: 20px; /* Espaço entre os blocos se eles quebrarem */
+    margin-bottom: 20px; 
+    flex-wrap: wrap; /* Permite quebrar linha em telas pequenas */
+}
+header .title-container { 
+    flex: 1; /* Ocupa o espaço disponível */
+    min-width: 250px; /* Evita que o título seja espremido demais */
+    text-align: left;
+    line-height: 1.2;
+}
+header h1 { font-size: 2em; color: var(--primary-color); }
+header h2 { font-size: 1.2em; color: var(--dark-color); font-weight: 400; }
+header .header-controls { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    flex-shrink: 0; /* Não encolhe */
+}
+.game-info { 
+    font-size: 1.2em; 
+    font-weight: 600; 
+    margin-top: 10px; 
+    color: var(--dark-color);
+    text-align: left; /* Garante que os movimentos fiquem à esquerda */
+}
+
+#exit-game-btn { background-color: transparent; border: 2px solid #ccc; color: #888; padding: 8px 15px; border-radius: 20px; font-size: 0.9em; font-weight: 600; cursor: pointer; transition: all 0.3s ease; }
+#exit-game-btn .fa-solid { margin-right: 8px; }
+#exit-game-btn:hover { background-color: #e0e0e0; color: var(--dark-color); border-color: #aaa; }
+#mute-btn {
+    background-color: transparent;
+    border: 2px solid #ccc;
+    color: #888;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+#mute-btn:hover {
+    background-color: #e0e0e0;
+    color: var(--dark-color);
+    border-color: #aaa;
+}
+
+.memory-game { width: 100%; display: grid; gap: 15px; perspective: 1000px; }
+.memory-game.level-easy { grid-template-columns: repeat(4, 1fr); max-width: 500px; margin: 20px auto; }
+.memory-game.level-medium { grid-template-columns: repeat(4, 1fr); margin: 20px auto; }
+.memory-card { border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); width: 100%; aspect-ratio: 1 / 1; position: relative; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+.memory-card.flip { transform: rotateY(180deg); }
+.front-face, .back-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; display: flex; justify-content: center; align-items: center; border-radius: 8px; }
+.front-face { 
+    background-image: url('enfeite-natal.png'), linear-gradient(45deg, var(--primary-color), var(--accent-color)); 
+    background-size: contain, cover; 
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+}
+.back-face { background-color: var(--light-color); transform: rotateY(180deg); padding: 5px; overflow: hidden; }
+.back-face img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.back-face.note-name {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--dark-color);
+    line-height: 1.1;
+    padding: 5px;
+    text-align: center;
+}
+.back-face.note-color { border: 4px solid rgba(0,0,0,0.1); }
+.back-face.color-C { background-color: var(--cor-do); } 
+.back-face.color-D { background-color: var(--cor-re); } 
+.back-face.color-E { background-color: var(--cor-mi); } 
+.back-face.color-F { background-color: var(--cor-fa); } 
+.back-face.color-G { background-color: var(--cor-sol); } 
+.back-face.color-A { background-color: var(--cor-la); } 
+.back-face.color-B { background-color: var(--cor-si); }
+.back-face.color-C5 { background-color: var(--cor-c5); border: 4px solid #ddd; }
+.overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: flex; justify-content: center; align-items: center; 
+    z-index: 100; visibility: hidden; opacity: 0; 
+    transition: opacity 0.4s ease, visibility 0.4s ease; padding: 15px; 
+}
+.overlay.show { visibility: visible; opacity: 1; }
+.overlay-content { background-color: white; padding: 30px 40px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); width: 90%; max-width: 450px; }
+.logo-menu { max-width: 150px; margin-bottom: 15px; }
+.overlay-title {
+    font-size: 2.2em;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+.overlay-subtitle { font-size: 1.3em; color: var(--dark-color); margin-bottom: 25px; }
+.overlay-instruction { font-size: 1.1em; color: #555; margin-bottom: 25px; }
+.level-buttons { display: flex; flex-direction: column; gap: 15px; }
+
+/* ESTILOS DE BOTÕES GERAIS */
+.level-btn, #restart-button, #close-instructions-btn, .instructions-button {
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    font-weight: 600; 
+    border-radius: 30px; 
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; 
+    width: 100%;
+}
+.level-btn, #restart-button { /* Botão "Iniciar Jogo" e "Voltar ao Menu" */
+    background-color: var(--secondary-color);
+    color: var(--dark-color);
+    border: none;
+}
+.level-btn:hover, #restart-button:hover {
+    background-color: #E6C25C; 
+}
+.level-btn:active, #restart-button:active {
+    background-color: var(--secondary-color); 
+}
+
+#close-instructions-btn { /* Botão "Entendi!" no overlay de instruções */
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+#close-instructions-btn:hover {
+    background-color: #E04B4B; 
+}
+#close-instructions-btn:active {
+    background-color: var(--primary-color); 
+}
+
+/* ESTILO "COMO JOGAR?" */
+.instructions-button { 
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    margin-top: 15px;
+}
+.instructions-button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+.instructions-button:active {
+    background-color: transparent;
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.star-rating { margin: 10px 0; display: flex; justify-content: center; gap: 10px; }
+.star-rating i { font-size: 2.5em; color: #dcdcdc; transition: color 0.3s ease-in-out; }
+.star-rating i.filled { color: var(--secondary-color); }
+#win-performance-text { margin-top: 0; font-weight: 600; }
+.instructions-list { list-style: none; text-align: left; margin: 25px 0; padding: 0; font-size: 1.1em; color: #333; line-height: 1.5; }
+.instructions-list li { margin-bottom: 20px; display: flex; align-items: flex-start; gap: 15px; }
+.instructions-list li span { font-weight: 700; color: var(--primary-color); font-size: 1.4em; }
+.instructions-list li div { flex: 1; }
+.instructions-list li.example { justify-content: center; gap: 15px; margin: 25px 0; }
+.example-card { width: 60px; height: 60px; border-radius: 8px; display: flex; justify-content: center; align-items: center; font-weight: 700; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.example-card.image { background-color: #fff; padding: 2px;}
+.example-card.image img { width: 100%; height: 100%; object-fit: contain; }
+.example-card.name { background-color: #f0f0f0; font-size: 1.5em; }
+.example-card.color.do { background-color: var(--cor-do); }
+.example-card.color.fa-color { background-color: var(--cor-fa); }
+
+/* 2. RODAPÉ CORRIGIDO */
+.site-footer { 
+    text-align: center; 
+    padding: 15px; 
+    color: #777; 
+    font-size: 0.9em; 
+    border-top: 1px solid #e0e0e0; 
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.site-footer p { margin: 0; } .site-footer a { color: var(--primary-color); text-decoration: none; transition: color 0.3s ease; }
+.site-footer a:hover { color: var(--dark-color); } .site-footer strong a { color: #555; font-weight: 600; }
+
+/* 3. MEDIA QUERY CORRIGIDA */
+@media (max-width: 600px) { 
+    header { 
+        flex-direction: column; /* Empilha */
+        align-items: center; /* Centraliza os blocos */
+    } 
+    header .title-container {
+        text-align: center; 
+        min-width: 0; /* Reseta min-width */
+    }
+    .game-info {
+        text-align: center;
+    }
+    header .header-controls { 
+        justify-content: center;
+    } 
+}
+@media (max-width: 480px) {
+    .back-face.note-name { font-size: 1.6em; }
+    .front-face { font-size: 2.5em; } 
+}

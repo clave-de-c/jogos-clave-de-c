@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória - Especial de Natal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="background-music" src="musica-natal.mp3" loop></audio>
+    <div class="page-wrapper">
+        <div id="start-overlay" class="overlay show">
+            <div class="overlay-content">
+                <img src="logo-rainbow.png" alt="Logo Clave Colorida Rainbow" class="logo-menu">
+                <h2 class="overlay-title">Especial de Natal</h2>
+                <p class="overlay-subtitle">Notas Musicais e as Cores dos Sinos</p>
+                <p class="overlay-instruction">Clique para começar a jogar:</p>
+                <div class="level-buttons">
+                    <button id="start-game-btn" class="level-btn">Iniciar Jogo</button>
+                </div>
+                <button id="instructions-btn" class="instructions-button">Como Jogar?</button>
+            </div>
+        </div>
+        <div id="win-overlay" class="overlay">
+            <div class="overlay-content">
+                <h2 class="overlay-title">Feliz Natal!</h2>
+                <div id="star-rating" class="star-rating"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                <p id="win-performance-text" class="overlay-subtitle"></p>
+                <p id="win-message-text" class="overlay-instruction">Você encontrou todos os pares!</p>
+                <button id="restart-button">Voltar ao Menu</button>
+            </div>
+        </div>
+        <div id="instructions-overlay" class="overlay">
+            <div class="overlay-content">
+                <h2 class="overlay-title">Como Jogar?</h2>
+                <ul class="instructions-list">
+                    <li><span>1.</span><div>Clique em uma carta para revelá-la.</div></li>
+                    <li><span>2.</span><div>Encontre o par: a <strong>cor</strong> e o <strong>nome da nota</strong> correspondente.</div></li>
+                    <li class="example"><div class="example-card color do"></div><div class="example-card name">DÓ</div></li>
+                    <li><span>3.</span><div>Encontre todos os pares para vencer o jogo!</div></li>
+                </ul>
+                <button id="close-instructions-btn">Entendi!</button>
+            </div>
+        </div>
+        <main class="game-container">
+            <header>
+                <div class="title-container">
+                    <h1>Jogo da Memória</h1>
+                    <h2>Especial de Natal (Notas Musicais e as Cores dos Sinos)</h2>
+                    <div class="game-info"><span class="moves">Movimentos: 0</span></div>
+                </div>
+                <div class="header-controls">
+                    <button id="mute-btn" title="Desligar Música"><i class="fa-solid fa-volume-high"></i></button>
+                    <button id="exit-game-btn" title="Sair do Jogo"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</button>
+                </div>
+            </header>
+            <div class="memory-game"></div>
+        </main>
+        <footer class="site-footer"><p>Desenvolvido por <strong><a href="https://www.clavedec.com.br" target="_blank">Clave de C</a></strong> | <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> | <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a></p></footer>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
