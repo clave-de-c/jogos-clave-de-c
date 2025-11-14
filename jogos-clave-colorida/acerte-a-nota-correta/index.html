@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerte a Nota! - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <img src="logo-clave-colorida.png" alt="Logo Clave Colorida" class="game-logo">
+
+    <main class="game-container">
+
+        <section id="splash-screen" class="screen" style="display: flex;">
+            <h2>Acerte a Nota!</h2>
+            <p class="subtitle">Seja bem-vindo(a)!</p>
+            <button id="start-audio-btn" class="btn">Clique para Começar</button>
+        </section>
+
+        <section id="menu-screen" class="screen">
+            <h2>Acerte a Nota!</h2>
+            <p class="subtitle">Selecione um nível para começar:</p>
+            
+            <div class="difficulty-select">
+                <button class="btn" data-speed="1600">Fácil</button>
+                <button class="btn" data-speed="1200">Médio</button>
+                <button class="btn" data-speed="800">Difícil</button>
+            </div>
+            
+            <button id="instructions-btn" class="btn btn-secondary">Instruções</button>
+        </section>
+
+        <section id="instructions-screen" class="screen">
+            <h2>Instruções</h2>
+            <p>
+                Círculos com os nomes das notas corretas (Dó, Ré, Mi, Fá, Sol, Lá, Si) e suas cores vão aparecer nos buracos.
+            </p>
+            <p>
+                Clique o mais rápido que puder nas <strong>notas corretas</strong>!
+            </p>
+            <p>
+                <strong>Cuidado:</strong> Não clique nos círculos com cores e nomes "falsos" (como cinza, marrom, etc.). Clicar nelas fará você perder pontos!
+            </p>
+            <button id="back-to-menu-btn-instr" class="btn">Voltar</button>
+        </section>
+
+        <section id="game-screen" class="screen">
+            <div class="game-header">
+                <div>Pontos: <span id="score-display">0</span></div>
+                <div>Tempo: <span id="time-display">60</span>s</div>
+                <button id="back-to-menu-btn-game" class="btn-small">Sair</button>
+            </div>
+            
+            <div class="game-grid">
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+                <div class="hole"><div class="mole"></div></div>
+            </div>
+        </section>
+
+        <section id="end-screen" class="screen">
+            <div class="trophy-icon">🏆</div>
+            <h2>Parabéns!</h2>
+            <p>Sua pontuação final foi:</p>
+            <h3 id="final-score">0</h3>
+            <button id="restart-btn" class="btn">Jogar Novamente</button>
+            <button id="back-to-menu-btn-end" class="btn">Voltar ao Menu</button>
+        </section>
+
+    </main>
+    
+    <footer>
+        <p>
+            Desenvolvido por Clave de C - 
+            <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+            <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+        </p>
+    </footer>
+
+    <audio id="menu-music" src="musica-fundo.mp3" loop></audio>
+    <audio id="som-do" src="do.mp3"></audio>
+    <audio id="som-re" src="re.mp3"></audio>
+    <audio id="som-mi" src="mi.mp3"></audio>
+    <audio id="som-fa" src="fa.mp3"></audio>
+    <audio id="som-sol" src="sol.mp3"></audio>
+    <audio id="som-la" src="la.mp3"></audio>
+    <audio id="som-si" src="si.mp3"></audio>
+    
+    <audio id="success-sound" src="sucesso-fim-de-jogo.mp3"></audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>
