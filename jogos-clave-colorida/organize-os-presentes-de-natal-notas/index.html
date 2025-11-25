@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organize os Presentes de Natal</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+</head>
+<body>
+
+    <div id="game-container">
+        <div class="game-header">
+            <img src="logo-clave-colorida.png" alt="Logo Rainbow" class="game-logo">
+            
+            <div class="header-controls">
+                <button id="mute-btn" class="btn-icon">🔊</button>
+                <button id="back-to-menu-btn" class="btn btn-secondary" style="display: none;">Menu</button>
+            </div>
+        </div>
+
+        <section id="menu-screen" class="screen active">
+            <h1>Organize o Natal! 🎄</h1>
+            <p>O Papai Noel misturou as notas musicais.<br>Coloque os presentes na ordem certa!</p>
+            
+            <button id="play-btn" class="btn btn-play">Jogar</button>
+            <button id="instructions-btn" class="btn btn-secondary">Instruções</button>
+        </section>
+
+        <section id="game-screen" class="screen">
+            <div class="game-info">
+                <h2 id="level-title">Escala Ascendente</h2>
+                <p id="feedback-msg">Arraste os presentes para os espaços.</p>
+            </div>
+
+            <div class="game-board">
+                <div class="notes-pool" id="notes-pool"></div>
+                <div class="slots-container">
+                    <div class="slot-row"><span class="number">1º</span> <div class="drop-zone" data-target="Do"></div></div>
+                    <div class="slot-row"><span class="number">2º</span> <div class="drop-zone" data-target="Re"></div></div>
+                    <div class="slot-row"><span class="number">3º</span> <div class="drop-zone" data-target="Mi"></div></div>
+                    <div class="slot-row"><span class="number">4º</span> <div class="drop-zone" data-target="Fa"></div></div>
+                    <div class="slot-row"><span class="number">5º</span> <div class="drop-zone" data-target="Sol"></div></div>
+                    <div class="slot-row"><span class="number">6º</span> <div class="drop-zone" data-target="La"></div></div>
+                    <div class="slot-row"><span class="number">7º</span> <div class="drop-zone" data-target="Si"></div></div>
+                </div>
+            </div>
+
+            <button id="check-btn" class="btn btn-play" onclick="checkOrder()" style="margin-top: 20px;">Conferir</button>
+        </section>
+
+        <section id="win-screen" class="screen">
+            <h1>Ho Ho Ho! 🎅</h1>
+            <h3>Você salvou o Natal Musical!</h3>
+            <div style="font-size: 3rem; margin: 20px;">⭐⭐⭐</div>
+            <button id="restart-btn" class="btn btn-play">Jogar Novamente</button>
+            <button onclick="location.reload()" class="btn btn-secondary" style="margin-top: 10px;">Voltar ao Menu</button>
+        </section>
+
+        <div id="instructions-modal" class="modal-overlay">
+            <div class="modal-content">
+                <h2>Como Jogar</h2>
+                <p>1. Clique e segure nos presentes coloridos. 🎁</p>
+                <p>2. Arraste cada presente para o número correto (1º ao 7º).</p>
+                <p>3. A ordem correta é: <strong>Dó, Ré, Mi, Fá, Sol, Lá, Si.</strong></p>
+                <button id="close-modal-btn" class="btn btn-play">Entendi!</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        Desenvolvido por Clave de C - 
+        <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+
+    <audio id="bg-music" src="feliz-natal.mp3" loop></audio>
+    <audio id="snd-pickup" src="pickup.mp3"></audio>
+    <audio id="snd-win" src="winning-fim.mp3"></audio>
+    <audio id="snd-error" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg"></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

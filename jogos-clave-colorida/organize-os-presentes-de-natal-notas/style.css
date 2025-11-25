@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('backgroud-fundo.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: #333;
+    
+    /* CENTRALIZAÇÃO VERTICAL E HORIZONTAL */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;     /* Centraliza horizontalmente */
+    min-height: 100vh;
+    padding: 10px; /* Padding pequeno para não colar nas bordas do celular */
+    overflow-x: hidden;
+}
+
+#game-container {
+    background-color: #ffffff;
+    color: #333;
+    padding: 30px; /* Padding interno equilibrado */
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    width: 100%;
+    max-width: 900px;
+    
+    /* CORREÇÃO 1: REMOVI A ALTURA MÍNIMA FIXA GRANDE */
+    /* Agora a caixa cresce conforme o conteúdo, sem criar buracos vazios */
+    height: auto; 
+    min-height: auto; 
+    
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    /* Margem pequena embaixo para separar do rodapé */
+    margin-bottom: 10px; 
+}
+
+/* --- HEADER --- */
+.game-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Reduzi margem */
+    height: 40px;
+}
+
+.game-logo {
+    width: 70px; /* Logo um pouco menor */
+    height: auto;
+}
+
+.header-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.btn-icon {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 50%;
+    width: 35px; /* Ícone menor */
+    height: 35px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* --- TELAS --- */
+/* --- CORREÇÃO DO BUG DE TELAS SOBREPOSTAS --- */
+.screen {
+    /* O !important obriga a esconder se não tiver a classe active */
+    display: none !important; 
+    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.screen.active {
+    /* O !important obriga a mostrar quando tiver a classe active */
+    display: flex !important; 
+}
+
+/* CORREÇÃO 2: TEXTO CENTRALIZADO NO MOBILE */
+#menu-screen {
+    width: 100%;
+    display: flex; /* Força flexbox */
+    flex-direction: column;
+    align-items: center; /* Centraliza itens */
+}
+
+#menu-screen h1 {
+    font-size: 2.2rem;
+    margin-bottom: 5px;
+    color: #333;
+    text-align: center;
+    line-height: 1.2;
+}
+
+#menu-screen p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 25px; 
+    margin-top: 5px;
+    line-height: 1.4;
+    text-align: center; /* Força centralização */
+    max-width: 90%; /* Evita que o texto bata nas bordas */
+}
+
+/* --- BOTÕES --- */
+.btn {
+    padding: 10px 0;
+    border: none;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    margin: 5px;
+    width: 220px; 
+    max-width: 100%;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn-play {
+    background-color: #10ad54;
+    color: white;
+    box-shadow: 0 4px 0 #0e8c44; /* Sombra sólida flat */
+}
+.btn-play:active { transform: translateY(4px); box-shadow: none; }
+
+.btn-secondary {
+    background-color: transparent;
+    color: #777;
+    border: 1px solid #ddd;
+}
+#back-to-menu-btn {
+    width: auto;
+    padding: 5px 15px;
+    margin: 0;
+    font-size: 0.8em;
+}
+
+/* --- JOGO --- */
+.game-board {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.notes-pool {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    border: 1px dashed #ccc;
+    min-width: 140px;
+    /* Reduzi a altura mínima para não ocupar espaço demais */
+    min-height: 350px; 
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.note-gift {
+    width: 120px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: white;
+    cursor: grab;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    flex-shrink: 0;
+}
+.note-gift::before { content: '🎁'; margin-right: 5px; font-size: 1.1rem;}
+
+.bg-Do { background-color: #d41e1e; }
+.bg-Re { background-color: #f18c4d; }
+.bg-Mi { background-color: #ffda43; color: #333 !important; }
+.bg-Fa { background-color: #10ad54; }
+.bg-Sol { background-color: #38b6ff; }
+.bg-La { background-color: #004aad; }
+.bg-Si { background-color: #7c45e8; }
+
+.slots-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.slot-row { display: flex; align-items: center; gap: 8px; }
+
+.number {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #FFD700;
+    width: 25px;
+    text-align: right;
+    -webkit-text-stroke: 0.5px #b8860b;
+}
+
+.drop-zone {
+    width: 130px;
+    height: 45px;
+    background-color: #eee;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.drop-zone.drag-over { background-color: #e0ffe0; border-color: #10ad54; }
+
+h1 { color: #333; margin-bottom: 5px; text-align: center; }
+h2 { color: #10ad54; margin-bottom: 5px; }
+p { color: #666; font-size: 1rem; text-align: center; }
+
+/* Modal */
+.modal-overlay { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background-color: rgba(0, 0, 0, 0.6); 
+    display: none; align-items: center; justify-content: center; z-index: 1000; 
+}
+.modal-overlay.active { display: flex; }
+
+.modal-content { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 15px; 
+    max-width: 400px; 
+    width: 90%; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- RODAPÉ (Corrigido para ficar colado no card) --- */
+footer {
+    position: relative; /* Não é absoluto, nem fixo */
+    margin-top: 0; /* Remove empurrão para baixo */
+    font-size: 0.85em;
+    color: #333; 
+    font-weight: 600;
+    text-shadow: 2px 2px 0px #ffffff; 
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+}
+footer a { color: #d41e1e; text-decoration: none; }
+
+/* --- RESPONSIVIDADE (Celular) --- */
+@media (max-width: 768px) {
+    /* Padding menor no celular */
+    #game-container { padding: 20px 15px; }
+    
+    .game-board { flex-direction: column; align-items: center; gap: 15px;}
+    
+    /* Pool de notas na horizontal no celular */
+    .notes-pool { 
+        flex-direction: row; 
+        flex-wrap: wrap; 
+        width: 100%; 
+        justify-content: center; 
+        min-height: auto; 
+        padding: 5px;
+    }
+    
+    .note-gift { width: 100px; font-size: 0.9rem; }
+    .drop-zone { width: 110px; }
+    
+    h1 { font-size: 1.8rem; }
+    
+    /* Garante que o texto não quebre feio */
+    #menu-screen p { 
+        font-size: 1rem; 
+        padding: 0 10px; 
+    }
+    
+    .btn { width: 100%; max-width: 260px; }
+}
