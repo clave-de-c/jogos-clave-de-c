@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soma Musical de Natal - Clave de C</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="natal.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="sfx-correct">
+        <source src="correto.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-wrong">
+        <source src="errado.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="sfx-win">
+        <source src="ho-ho-ho.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" class="music-btn" onclick="toggleMusic()">🔊</button>
+
+    <div id="snow-container"></div>
+
+    <div id="game-container">
+        
+        <div id="menu-screen" class="screen">
+            <h1><span class="highlight-green">Soma</span> de Natal 🎄</h1>
+            <p>Desafios com Figuras, Pausas e Somas Triplas!</p>
+            <p class="dica">Chegue a 30 pontos para vencer!</p>
+            
+            <button class="btn" onclick="startGame()">JOGAR</button>
+            <button class="btn btn-secondary" onclick="showInstructions()">INSTRUÇÕES</button>
+        </div>
+
+        <div id="instructions-screen" class="screen hidden">
+            <h2>Valores das Figuras</h2>
+            <ul class="instrucoes-lista">
+                <li>🎵 <b>Semibreve</b> (ou Pausa) = <b>4</b> tempos</li>
+                <li>🎵 <b>Mínima</b> (ou Pausa) = <b>2</b> tempos</li>
+                <li>🎵 <b>Semínima</b> (ou Pausa) = <b>1</b> tempo</li>
+                <li>🎵 <b>Colcheia</b> (ou Pausa) = <b>0,5</b> tempo</li>
+            </ul>
+            
+            <button class="btn btn-secondary" onclick="backToMenu()">VOLTAR</button>
+        </div>
+
+        <div id="game-screen" class="screen hidden">
+            <div class="hud">
+                <span>Pontos: <span id="score">0</span></span>
+                <span id="level-indicator" style="color:var(--natal-red)">Nível 1</span>
+                <button onclick="backToMenu()" class="btn-sair">✖ Sair</button>
+            </div>
+
+            <h2 class="titulo-jogo">Quanto vale a soma?</h2>
+
+            <div class="equation-box" id="equation-container">
+                </div>
+
+            <div class="options-grid" id="options-container">
+                </div>
+
+            <div id="feedback-msg" class="feedback"></div>
+        </div>
+
+        <div id="gameover-screen" class="screen hidden">
+            <h1>Ho Ho Ho! 🎅</h1>
+            <p>Você é um mestre da matemática musical!</p>
+            <h2 style="font-size: 2rem;">Pontuação Final: <span id="final-score">0</span></h2>
+            <button class="btn" onclick="startGame()">JOGAR DE NOVO</button>
+            <button class="btn btn-secondary" onclick="backToMenu()">MENU</button>
+        </div>
+
+    </div>
+
+    <footer>
+        Desenvolvido por <b>Clave de C</b> - <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - <a href="https://instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+
+    <script src="script.js" defer></script>
+</body>
+</html>
