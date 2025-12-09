@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caçador de Notas - Rainbow</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+</head>
+<body>
+
+    <div id="game-container">
+        <div class="game-header">
+            <img src="logo-clave-colorida.png" alt="Logo Rainbow" class="game-logo">
+            <div class="header-controls">
+                <button id="mute-btn" class="btn-icon">🔊</button>
+                <button id="back-to-menu-btn" class="btn-mini" style="display: none;">Sair</button>
+            </div>
+        </div>
+
+        <section id="menu-screen" class="screen active">
+            <h1>Caçador de Notas 🎯</h1>
+            <p>Seja rápido! Veja o nome da nota e clique na <strong>COR</strong> certa!</p>
+            <p style="font-size: 0.9rem; margin-top: -10px;">Meta: 100 Pontos</p>
+            <button id="play-btn" class="btn-main pulse">Começar Desafio</button>
+        </section>
+
+        <section id="game-screen" class="screen">
+            
+            <div id="level-up-overlay" class="overlay-hidden">
+                <h2>🚀 NÍVEL 2 🚀</h2>
+                <p>MUITO MAIS RÁPIDO!</p>
+            </div>
+
+            <div class="hud">
+                <div class="score-box">Pontos: <span id="score">0</span></div>
+                <div class="lives-box" id="lives-display">❤️❤️❤️</div>
+            </div>
+
+            <div class="target-display">
+                <h2 id="target-note">PREPARAR...</h2>
+            </div>
+
+            <div class="timer-container">
+                <div id="time-bar"></div>
+            </div>
+
+            <div class="controls-grid" id="buttons-container">
+                <button class="note-btn btn-do" data-note="Dó"></button>
+                <button class="note-btn btn-re" data-note="Ré"></button>
+                <button class="note-btn btn-mi" data-note="Mi"></button>
+                <button class="note-btn btn-fa" data-note="Fá"></button>
+                <button class="note-btn btn-sol" data-note="Sol"></button>
+                <button class="note-btn btn-la" data-note="Lá"></button>
+                <button class="note-btn btn-si" data-note="Si"></button>
+            </div>
+        </section>
+
+        <section id="game-over-screen" class="screen">
+            <h1>Fim de Jogo!</h1>
+            <p>Sua pontuação final:</p>
+            <div class="final-score" id="final-score">0</div>
+            <button id="restart-btn" class="btn-main">Tentar Novamente</button>
+            <button id="menu-btn" class="btn-secondary">Voltar ao Menu</button>
+        </section>
+    </div>
+
+    <footer>
+        Desenvolvido por Clave de C - 
+        <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+
+    <audio id="snd-click" src="click.mp3"></audio> 
+    <audio id="snd-win" src="sucesso-fim.mp3"></audio> 
+    <audio id="bg-music" src="musica-fundo.mp3" loop autoplay></audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

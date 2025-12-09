@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* CORES RAINBOW */
+:root {
+    --c-do: #d41e1e;
+    --c-re: #f18c4d;
+    --c-mi: #ffda43;
+    --c-fa: #10ad54;
+    --c-sol: #38b6ff;
+    --c-la: #004aad;
+    --c-si: #7c45e8;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-image: url('fundo_colorido.png'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 10px;
+    overflow: hidden;
+}
+
+#game-container {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 600px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    /* Para o overlay funcionar dentro da caixa */
+    overflow: hidden; 
+}
+
+/* --- OVERLAY DE NÍVEL (NOVO) --- */
+.overlay-hidden { display: none; }
+.overlay-active {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    color: #FFD700;
+    animation: zoomIn 0.5s ease-out;
+}
+.overlay-active h2 { font-size: 3rem; margin: 0; text-shadow: 0 0 10px red; }
+.overlay-active p { color: white; font-size: 1.5rem; font-weight: bold; }
+
+@keyframes zoomIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- HEADER --- */
+.game-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.game-logo { width: 60px; height: auto; }
+.btn-icon, .btn-mini { cursor: pointer; border: none; background: #eee; padding: 5px 10px; border-radius: 15px; font-weight: bold; font-size: 1.2rem;}
+
+/* --- TELAS --- */
+.screen { display: none !important; width: 100%; flex-direction: column; align-items: center; }
+.screen.active { display: flex !important; }
+
+/* --- MENU --- */
+h1 { font-size: 2rem; color: #333; margin-bottom: 10px; }
+p { font-size: 1.1rem; color: #666; margin-bottom: 30px; }
+
+.btn-main {
+    background: #333;
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: transform 0.1s;
+    box-shadow: 0 5px 0 #000;
+}
+.btn-main:active { transform: translateY(5px); box-shadow: none; }
+.btn-secondary { background: transparent; color: #555; border: 2px solid #ccc; padding: 10px 20px; border-radius: 50px; margin-top: 10px; cursor: pointer; font-weight: 600;}
+
+.pulse { animation: pulse-anim 1.5s infinite; }
+@keyframes pulse-anim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* --- HUD --- */
+.hud {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    background: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 15px;
+}
+.score-box { color: #333; }
+.lives-box { letter-spacing: 5px; }
+
+/* --- ALVO --- */
+.target-display {
+    margin: 10px 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#target-note {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: #333;
+    text-transform: uppercase;
+}
+
+/* --- BARRA DE TEMPO --- */
+.timer-container {
+    width: 100%;
+    height: 10px;
+    background: #ddd;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+#time-bar {
+    width: 100%;
+    height: 100%;
+    background: #10ad54;
+    transition: width 0.1s linear;
+}
+
+/* --- GRID DE BOTÕES --- */
+.controls-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 100%;
+    justify-content: center;
+}
+
+.note-btn {
+    border: none;
+    width: 30%; 
+    height: 80px; 
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+    transition: transform 0.1s;
+}
+.note-btn:active { transform: translateY(4px); box-shadow: none; }
+
+.btn-do { background: var(--c-do); }
+.btn-re { background: var(--c-re); }
+.btn-mi { background: var(--c-mi); }
+.btn-fa { background: var(--c-fa); }
+.btn-sol { background: var(--c-sol); }
+.btn-la { background: var(--c-la); }
+.btn-si { background: var(--c-si); }
+
+/* --- GAME OVER --- */
+.final-score { font-size: 4rem; font-weight: 900; color: var(--c-re); margin: 20px 0; }
+
+/* --- RODAPÉ --- */
+footer {
+    position: relative;
+    font-size: 0.8rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    margin-top: 5px;
+    text-align: center;
+}
+footer a { color: #fff; text-decoration: underline; }
+
+@media (max-width: 480px) {
+    .note-btn { height: 60px; }
+    h1 { font-size: 1.5rem; }
+}
