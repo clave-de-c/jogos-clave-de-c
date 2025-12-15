@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Nunito:wght@400;700&display=swap');
+
+:root {
+    --natal-red: #D42426;
+    --natal-green: #165B33;
+    --natal-gold: #F8B229;
+    --natal-cream: #F0F2F5;
+    --rainbow-bg: linear-gradient(90deg, #d41e1e, #f18c4d, #ffda43, #10ad54, #38b6ff, #004aad, #7c45e8);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--natal-red);
+    background-image: radial-gradient(circle, #D42426 0%, #8a1315 100%);
+    color: #333;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+@keyframes fall { to { transform: translateY(105vh); } }
+
+#game-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+}
+
+.screen {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    border: 4px solid var(--natal-green);
+    position: relative;
+}
+
+.hidden { display: none !important; }
+
+h1 {
+    font-family: 'Mountains of Christmas', cursive;
+    color: var(--natal-red);
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 0px var(--natal-gold);
+}
+
+h2 { color: var(--natal-green); margin-bottom: 1rem; }
+p { margin-bottom: 1.5rem; font-size: 1.1rem; }
+
+.highlight-green { color: var(--natal-green); }
+.dica { font-size: 0.9rem; color: #666; }
+.titulo-jogo { font-family:'Mountains of Christmas'; }
+
+.btn {
+    background-color: var(--natal-green);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Mountains of Christmas', cursive;
+    transition: transform 0.2s, background 0.2s;
+    margin: 5px;
+    box-shadow: 0 4px 0 #0f3d22;
+}
+.btn:hover { transform: scale(1.05); background-color: #1b6e3e; }
+.btn:active { transform: scale(0.95); box-shadow: 0 1px 0 #0f3d22; transform: translateY(3px); }
+
+.btn-secondary { background-color: var(--natal-red); box-shadow: 0 4px 0 #8a1315; }
+.btn-secondary:hover { background-color: #f53b3d; }
+
+.btn-sair { border: none; background: none; color: #666; cursor: pointer; }
+
+.hud { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; color: var(--natal-green); }
+
+.equation-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px dashed var(--natal-gold);
+    min-height: 100px;
+    flex-wrap: wrap; 
+}
+
+.math-symbol {
+    font-size: 2.5rem; /* Um pouco maior para o sinal de menos */
+    color: var(--natal-red);
+    font-family: 'Mountains of Christmas', cursive;
+    font-weight: bold;
+}
+
+.note-img {
+    height: 70px;
+    filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2));
+    transition: transform 0.2s;
+}
+
+.options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+
+.option-card {
+    background: white;
+    border: 2px solid var(--natal-green);
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.option-card:hover { background-color: #e8f5e9; transform: translateY(-5px); border-color: var(--natal-gold); }
+
+.feedback { margin-top: 15px; font-weight: bold; height: 20px; }
+
+footer {
+    background: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.8rem;
+    border-top: 5px solid;
+    border-image: var(--rainbow-bg) 1;
+    z-index: 20;
+}
+footer a { color: var(--natal-red); text-decoration: none; font-weight: bold; }
+
+.shake { animation: shake 0.5s; border-color: red !important; }
+.pulse { animation: pulse 0.5s; border-color: gold !important; background-color: #fffde7 !important; }
+@keyframes shake { 0% { transform: translate(1px, 1px); } 50% { transform: translate(-1px, -1px); } 100% { transform: translate(0, 0); } }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+
+.music-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid var(--natal-green);
+    border-radius: 50%;
+    width: 50px; height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 100;
+    display: flex; align-items: center; justify-content: center;
+}
+.music-btn:hover { transform: scale(1.1); background: white; }
+
+@media (max-width: 600px) {
+    .music-btn { width: 40px; height: 40px; font-size: 1.2rem; top: 10px; right: 10px; }
+    h1 { font-size: 2rem; }
+}
