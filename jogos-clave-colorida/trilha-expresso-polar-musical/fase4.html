@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 4: Piano Mágico</title>
+    <link rel="stylesheet" href="style-fase4.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+</head>
+<body>
+
+    <div id="game-container">
+        <header>
+            <button onclick="window.location.href='mapa.html'" class="btn-menu">⬅ Mapa</button>
+            <div class="logo-area">
+                <img src="logo-clave-colorida.png" alt="Logo" style="height: 40px;">
+            </div>
+        </header>
+
+        <section id="game-screen">
+            <h2>Toque a Música! 🎹</h2>
+            <p>Clique nas notas que brilharem para tocar "Bate o Sino".</p>
+            
+            <div class="sheet-music">
+                <div id="progress-bar"><div id="progress-fill"></div></div>
+                <div id="current-note-display">Prepare-se...</div>
+            </div>
+
+            <div class="piano-container">
+                <button class="key btn-do" data-note="Do" data-freq="261.63">Dó</button>
+                <button class="key btn-re" data-note="Re" data-freq="293.66">Ré</button>
+                <button class="key btn-mi" data-note="Mi" data-freq="329.63">Mi</button>
+                <button class="key btn-fa" data-note="Fa" data-freq="349.23">Fá</button>
+                <button class="key btn-sol" data-note="Sol" data-freq="392.00">Sol</button>
+                <button class="key btn-la" data-note="La" data-freq="440.00">Lá</button>
+                <button class="key btn-si" data-note="Si" data-freq="493.88">Si</button>
+            </div>
+        </section>
+
+        <div id="win-screen" class="hidden">
+            <h1>Melodia Completa! 🎶</h1>
+            <p>O trenó do Papai Noel decolou!</p>
+            <div class="stars">⭐⭐⭐</div>
+            <button onclick="irParaCertificado()" class="btn-win">Pegar Certificado 🏆</button>
+        </div>
+    </div>
+
+    <audio id="bg-music" src="musica-fundo.mp3" loop autoplay></audio>
+    <audio id="snd-win" src="sucesso-fim.mp3"></audio>
+
+    <script src="script-fase4.js"></script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trilha Expresso Polar 🚂</title>
+    <link rel="stylesheet" href="style-mapa.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="snow-bg"></div>
+
+    <header>
+        <img src="logo-clave-colorida.png" alt="Logo" class="logo">
+        <button onclick="resetProgress()" class="btn-reset">🔄 Reiniciar</button>
+    </header>
+
+    <main class="map-container">
+        <div class="map-header">
+            <h1>🚂 Expresso Polar</h1>
+            <p>Complete os desafios para salvar o Natal!</p>
+        </div>
+
+        <div class="trail-path">
+            <div class="path-line"></div>
+
+            <div class="level-node" id="level-1">
+                <div class="node-icon bg-do">1</div>
+                <div class="node-content">
+                    <h3>Memória Congelada</h3>
+                    <p>Encontre os pares</p>
+                    <button class="btn-start" onclick="goToLevel(1)">JOGAR</button>
+                </div>
+                <div class="status-icon">🔒</div>
+            </div>
+
+            <div class="level-node" id="level-2">
+                <div class="node-icon bg-mi">2</div>
+                <div class="node-content">
+                    <h3>O Trenó Bagunçado</h3>
+                    <p>Organize a Escala</p>
+                    <button class="btn-start" onclick="goToLevel(2)">JOGAR</button>
+                </div>
+                <div class="status-icon">🔒</div>
+            </div>
+
+            <div class="level-node" id="level-3">
+                <div class="node-icon bg-sol">3</div>
+                <div class="node-content">
+                    <h3>Nevasca das Cores</h3>
+                    <p>Caçador de Notas</p>
+                    <button class="btn-start" onclick="goToLevel(3)">JOGAR</button>
+                </div>
+                <div class="status-icon">🔒</div>
+            </div>
+
+            <div class="level-node" id="level-4">
+                <div class="node-icon bg-si">4</div>
+                <div class="node-content">
+                    <h3>A Noite Feliz</h3>
+                    <p>Piano Mágico</p>
+                    <button class="btn-start" onclick="goToLevel(4)">JOGAR</button>
+                </div>
+                <div class="status-icon">🔒</div>
+            </div>
+
+            <div class="level-node" id="level-5">
+                <div class="node-icon bg-gold">🏆</div>
+                <div class="node-content">
+                    <h3>Grande Prêmio</h3>
+                    <p>Certificado Oficial</p>
+                    <button class="btn-start" onclick="goToLevel(5)">PEGAR</button>
+                </div>
+                <div class="status-icon">🔒</div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        Desenvolvido por Clave de  - www.clavedec.com.br - @clavedec.oficial
+    </footer>
+
+    <script src="script-mapa.js"></script>
+</body>
+</html>

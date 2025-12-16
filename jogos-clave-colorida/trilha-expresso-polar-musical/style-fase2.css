@@ -1,0 +1,142 @@
+/* --- RESET E VARIÁVEIS --- */
+:root {
+    --cor-do: #d41e1e; --cor-re: #f18c4d; --cor-mi: #ffda43;
+    --cor-fa: #10ad54; --cor-sol: #38b6ff; --cor-la: #004aad; --cor-si: #7c45e8;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; user-select: none; }
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Gradiente "Noite Fria" */
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    height: 100vh;
+    color: white;
+    display: flex; flex-direction: column; align-items: center;
+    overflow: hidden;
+}
+
+/* --- NEVE --- */
+.snow-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.snowflake {
+    position: absolute; top: -10px; background: white; border-radius: 50%; opacity: 0.8;
+    animation: fall linear infinite;
+}
+@keyframes fall { to { transform: translateY(100vh); } }
+
+/* --- LAYOUT PRINCIPAL --- */
+#game-container {
+    position: relative; z-index: 10;
+    width: 100%; max-width: 900px; height: 100%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between;
+    padding: 20px;
+}
+
+header {
+    width: 100%; display: flex; justify-content: space-between; align-items: center;
+    background: rgba(0,0,0,0.5); padding: 10px 20px; border-radius: 15px;
+    backdrop-filter: blur(5px);
+}
+
+h2 { font-size: 1.2rem; text-shadow: 0 0 10px #fff; text-align: center; }
+
+.btn-nav {
+    background: rgba(255,255,255,0.2); border: 1px solid white; color: white;
+    padding: 8px 15px; border-radius: 20px; cursor: pointer;
+    font-weight: bold; font-size: 0.9rem; transition: 0.3s;
+}
+.btn-nav:hover { background: white; color: #333; }
+
+/* --- ÁREA DO TRILHO --- */
+.railway-section {
+    width: 100%; display: flex; align-items: center; justify-content: center;
+    flex-grow: 1; position: relative;
+    padding: 20px 0;
+}
+
+.track-bg {
+    /* Efeito de dormentes de madeira no chão */
+    background: repeating-linear-gradient(90deg, transparent, transparent 50px, #5d4037 50px, #5d4037 60px);
+    width: 95%; height: 140px;
+    position: absolute; border-radius: 10px; opacity: 0.8;
+    /* As bordas simulam os trilhos de metal */
+    border-top: 6px solid #bdc3c7; 
+    border-bottom: 6px solid #bdc3c7;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.track-slots {
+    display: flex; gap: 8px; z-index: 2; position: relative;
+    width: 100%; justify-content: center; padding: 0 10px;
+}
+
+.slot {
+    width: 65px; height: 100px;
+    border: 2px dashed rgba(255,255,255,0.3);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0.2);
+    position: relative;
+}
+.number { font-size: 2rem; color: rgba(255,255,255,0.1); font-weight: 900; position: absolute; }
+
+/* --- PEÇAS (MADEIRAS) --- */
+.plank-pool {
+    background: rgba(0,0,0,0.4); padding: 20px; border-radius: 20px 20px 0 0;
+    width: 100%; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    min-height: 150px; border-top: 2px solid rgba(255,255,255,0.2);
+}
+
+.plank {
+    width: 65px; height: 100px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 900; color: white; text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    cursor: grab;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    /* Textura diagonal */
+    background-image: linear-gradient(45deg, rgba(255,255,255,0.1) 25%, transparent 25%, transparent 50%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.1) 75%, transparent 75%, transparent);
+    background-size: 10px 10px;
+}
+
+/* Cores das Notas */
+.c-Do { background-color: var(--cor-do); }
+.c-Re { background-color: var(--cor-re); }
+.c-Mi { background-color: var(--cor-mi); color: #333; text-shadow: none; }
+.c-Fa { background-color: var(--cor-fa); }
+.c-Sol { background-color: var(--cor-sol); }
+.c-La { background-color: var(--cor-la); }
+.c-Si { background-color: var(--cor-si); }
+
+/* --- BOTÃO AÇÃO --- */
+.btn-check {
+    background: #27ae60; color: white; border: none; padding: 15px 40px;
+    font-size: 1.2rem; border-radius: 50px; font-weight: bold;
+    box-shadow: 0 5px 0 #1e8449; cursor: pointer; margin-bottom: 20px;
+    transition: transform 0.1s;
+}
+.btn-check:active { transform: translateY(4px); box-shadow: 0 1px 0 #1e8449; }
+
+/* --- TELA DE VITÓRIA --- */
+#win-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9); z-index: 100;
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+}
+.win-box {
+    background: white; color: #333; padding: 40px; border-radius: 20px;
+    box-shadow: 0 0 50px rgba(255,215,0,0.5); animation: popIn 0.5s;
+}
+@keyframes popIn { from {transform: scale(0);} to {transform: scale(1);} }
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 600px) {
+    .track-slots { overflow-x: auto; justify-content: flex-start; padding-bottom: 10px; }
+    .track-bg { width: 600px; } /* Garante que o fundo não corte */
+    .railway-section { overflow-x: auto; justify-content: flex-start; }
+    h2 { font-size: 1rem; }
+    .plank { width: 55px; height: 80px; font-size: 0.9rem; }
+    .slot { width: 55px; height: 80px; }
+}

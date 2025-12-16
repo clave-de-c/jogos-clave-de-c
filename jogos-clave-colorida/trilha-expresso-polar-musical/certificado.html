@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado Expresso Polar</title>
+    <link rel="stylesheet" href="style-certificado.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Great+Vibes&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="input-container">
+        <div class="card-input">
+            <img src="logo-clave-colorida.png" alt="Logo" class="logo-small">
+            <h1>Missão Cumprida! 🎅</h1>
+            <p>Você salvou o Natal e recuperou todas as notas musicais!</p>
+            <p>Digite seu nome para receber sua recompensa:</p>
+            
+            <input type="text" id="player-name" placeholder="Digite seu nome completo aqui..." autocomplete="off">
+            <br>
+            <button onclick="gerarCertificado()" class="btn-gerar">Gerar Certificado ✨</button>
+            <br>
+            <button onclick="window.location.href='mapa.html'" class="btn-voltar">Voltar ao Mapa</button>
+        </div>
+    </div>
+
+    <div id="certificado-container" class="hidden">
+        <div class="borda-externa">
+            <div class="moldura-natal">
+                <div class="borda-interna">
+                    
+                    <div class="cert-header">
+                        <img src="logo-clave-colorida.png" alt="Logo Clave">
+                        <h2>CERTIFICADO DE MÉRITO MUSICAL</h2>
+                    </div>
+
+                    <div class="cert-body">
+                        <p class="intro-text">Certificamos que</p>
+                        <h1 id="nome-final">NOME DO ALUNO</h1>
+                        <p class="mid-text">Demonstrou dedicação e aprendizado na trilha das notas musicais temática de natal</p>
+                        <h3 class="trail-name">"O Expresso Polar das Notas Coloridas"</h3>
+                        <p class="desc-text">Demonstrando agilidade, memória e talento musical!</p>
+                    </div>
+
+                    <div class="cert-footer">
+                        <div class="assinatura">
+                            <span class="sign-font"></span>
+                            <div class="line"></div>
+                            <p>a. do(a) professor(a)</p>
+                        </div>
+                        
+                        <div class="selo-container">
+                            <div class="selo">
+                                <span>Aprovado</span>
+                                <span style="font-size: 2rem;">🎅</span>
+                            </div>
+                        </div>
+
+                        <div class="assinatura">
+                            <span class="sign-font"></span>
+                            <div class="line"></div>
+                            <p>assinatura do aluno</p>
+                        </div>
+                    </div>
+                    
+                    <div class="data-hoje" id="data-atual">Data: 25/12/2025</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="print-controls no-print">
+            <button onclick="window.print()" class="btn-print">🖨️ Imprimir / Salvar PDF</button>
+            <button onclick="window.location.href='mapa.html'" class="btn-voltar">Voltar ao Mapa 🗺️</button>
+        </div>
+    </div>
+
+    <script src="script-certificado.js"></script>
+</body>
+</html>

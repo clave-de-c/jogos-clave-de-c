@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    /* Fundo degradê de inverno */
+    background: linear-gradient(to bottom, #83a4d4, #b6fbff); 
+    min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; 
+    overflow: hidden; /* Importante para a neve não criar rolagem */
+    position: relative;
+}
+
+/* --- ANIMAÇÃO DE NEVE --- */
+body::before, body::after {
+    content: "❄️ ❅ ❆ ❄️ ❅ ❆";
+    position: absolute;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    color: white;
+    font-size: 2rem;
+    opacity: 0.8;
+    text-align: center;
+    word-spacing: 50px;
+    animation: snow-fall 10s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+body::after {
+    animation-delay: 5s;
+    top: -100px;
+    font-size: 1.5rem;
+    opacity: 0.5;
+}
+
+@keyframes snow-fall {
+    0% { transform: translateY(-100px); }
+    100% { transform: translateY(110vh); }
+}
+
+.game-container { 
+    background: rgba(255,255,255,0.9); padding: 20px; border-radius: 20px; 
+    text-align: center; width: 100%; max-width: 600px; 
+    z-index: 10; /* Fica acima da neve */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.btn-voltar { background: none; border: 2px solid #ccc; padding: 5px 15px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+.memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; perspective: 1000px; }
+.card { height: 100px; cursor: pointer; position: relative; transform-style: preserve-3d; transition: transform 0.5s; }
+.card.flip { transform: rotateY(180deg); }
+.front, .back { width: 100%; height: 100%; position: absolute; border-radius: 10px; display: flex; align-items: center; justify-content: center; backface-visibility: hidden; font-weight: bold; border: 2px solid white; box-shadow: 0 4px 5px rgba(0,0,0,0.1); }
+.front { background: #dcedf7; color: #004aad; font-size: 2rem; }
+.back { transform: rotateY(180deg); color: white; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); }
+.card-do .back { background: #d41e1e; } .card-re .back { background: #f18c4d; } .card-mi .back { background: #ffda43; color: #333; }
+.card-fa .back { background: #10ad54; } .card-sol .back { background: #38b6ff; } .card-la .back { background: #004aad; } .card-si .back { background: #7c45e8; }
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 100; }
+.hidden { display: none; }
+.modal { background: white; padding: 30px; border-radius: 20px; text-align: center; }
+.btn-next { background: #10ad54; color: white; border: none; padding: 10px 20px; border-radius: 50px; font-size: 1.2rem; cursor: pointer; margin-top: 20px; }
+@media(max-width:500px){ .memory-grid { grid-template-columns: repeat(3, 1fr); } }

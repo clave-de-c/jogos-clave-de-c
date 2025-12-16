@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap');
+
+body { 
+    font-family: 'Poppins', sans-serif; 
+    /* Fundo Noite de Natal */
+    background: radial-gradient(circle at bottom, #1a2980 0%, #26d0ce 100%);
+    min-height: 100vh; display: flex; justify-content: center; align-items: center; margin: 0; padding: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Estrelas no fundo */
+body::before {
+    content: "✨ . * . ✨ * . ✨";
+    position: absolute; top: 10%; width: 100%; text-align: center; color: yellow; font-size: 2rem; opacity: 0.5;
+}
+
+#game-container { 
+    background: rgba(255,255,255,0.90); padding: 30px; border-radius: 20px; 
+    text-align: center; max-width: 800px; width: 100%; position: relative;
+    box-shadow: 0 0 50px rgba(255,255,255,0.3);
+}
+
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.btn-menu { background: #eee; border: none; padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; color: #555; }
+
+h2 { color: #1a2980; margin-bottom: 5px; }
+p { color: #666; margin-bottom: 20px; }
+
+.sheet-music { background: #000; color: white; padding: 15px; border-radius: 15px; margin-bottom: 30px; position: relative; }
+#current-note-display { font-size: 2.5rem; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
+#progress-bar { width: 100%; height: 5px; background: #333; margin-bottom: 10px; border-radius: 5px; }
+#progress-fill { width: 0%; height: 100%; background: #f1c40f; transition: width 0.3s; }
+
+.piano-container { display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
+.key {
+    border: none; width: 60px; height: 180px; border-radius: 0 0 10px 10px; cursor: pointer;
+    color: white; font-weight: bold; font-size: 1.2rem; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 20px;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.2); transition: transform 0.1s, filter 0.2s; position: relative;
+}
+.key:active { transform: translateY(5px); box-shadow: none; }
+
+.btn-do { background: #d41e1e; } .btn-re { background: #f18c4d; } .btn-mi { background: #ffda43; color: #333; }
+.btn-fa { background: #10ad54; } .btn-sol { background: #38b6ff; } .btn-la { background: #004aad; } .btn-si { background: #7c45e8; }
+
+.active-target { animation: pulse-glow 0.8s infinite alternate; z-index: 10; transform: scale(1.1); box-shadow: 0 0 20px var(--glow-color); }
+@keyframes pulse-glow { from { filter: brightness(1); } to { filter: brightness(1.5); } }
+
+.hidden { display: none !important; }
+#win-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.98); display: none; flex-direction: column; justify-content: center; align-items: center; border-radius: 20px; z-index: 100; }
+.btn-win { background: #f1c40f; color: #c41e3a; border: none; padding: 15px 30px; border-radius: 50px; font-size: 1.2rem; cursor: pointer; font-weight: bold; }
+@media(max-width: 600px) { .key { width: 13%; height: 120px; font-size: 0.9rem; padding-bottom: 10px; } }

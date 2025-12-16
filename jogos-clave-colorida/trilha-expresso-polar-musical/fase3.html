@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 3: A Nevasca | Expresso Polar</title>
+    <link rel="stylesheet" href="style-fase3.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="snow-container"></div>
+
+    <div id="game-container">
+        <header>
+            <button onclick="window.location.href='mapa.html'" class="btn-menu">⬅ Mapa</button>
+            <div class="hud">Bilhetes: <span id="score">0</span> / 100</div>
+        </header>
+        
+        <div id="game-ui">
+            <div class="blizzard-display">
+                <p>Encontre o bilhete:</p>
+                <h2 id="target-note">PREPARAR...</h2>
+            </div>
+            
+            <div class="timer-bar"><div id="time-fill"></div></div>
+            
+            <p class="hint-text">Clique rápido na cor certa!</p>
+            
+            <div class="controls" id="controls">
+                <button class="ticket-btn btn-do" onclick="checkAnswer('Do')"></button>
+                <button class="ticket-btn btn-re" onclick="checkAnswer('Re')"></button>
+                <button class="ticket-btn btn-mi" onclick="checkAnswer('Mi')"></button>
+                <button class="ticket-btn btn-fa" onclick="checkAnswer('Fa')"></button>
+                <button class="ticket-btn btn-sol" onclick="checkAnswer('Sol')"></button>
+                <button class="ticket-btn btn-la" onclick="checkAnswer('La')"></button>
+                <button class="ticket-btn btn-si" onclick="checkAnswer('Si')"></button>
+            </div>
+        </div>
+
+        <div id="start-overlay">
+            <h1>❄️ Tempestade de Neve!</h1>
+            <p>O vento misturou os bilhetes! Organize 20 passageiros antes que o trem parta.</p>
+            <button class="btn-start" onclick="startGame()">COMEÇAR</button>
+        </div>
+
+        <div id="win-screen" class="hidden">
+            <h1>Embarque Autorizado! 🎫</h1>
+            <p>Todos os passageiros a bordo!</p>
+            <div class="stars">⭐⭐⭐</div>
+            <button onclick="window.location.href='fase4.html'" class="btn-win">Ir para Fase 4 ➡</button>
+        </div>
+    </div>
+
+    <audio id="bg-music" src="musica-fundo.mp3" loop></audio>
+    <audio id="snd-click" src="click.mp3"></audio>
+    <audio id="snd-win" src="sucesso-fim.mp3"></audio>
+    <audio id="snd-erro" src="erro.mp3"></audio> <script src="script-fase3.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fase 2: Trilhos Musicais | Expresso Polar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-fase2.css">
+    <link rel="icon" type="image/png" href="logo-clave-colorida.png">
+</head>
+<body>
+
+    <div id="snow-container" class="snow-container"></div>
+
+    <div id="game-container">
+        <header>
+            <button onclick="window.location.href='mapa.html'" class="btn-nav">⬅ Mapa</button>
+            <h2>🚂 Fase 2: Conserte o Trilho</h2>
+            <button onclick="toggleSound()" class="btn-nav" id="btn-sound">🔊</button>
+        </header>
+
+        <div class="railway-section">
+            <div class="track-bg"></div>
+            
+            <div class="track-slots">
+                <div class="slot" data-target="Do"><span class="number">1</span></div>
+                <div class="slot" data-target="Re"><span class="number">2</span></div>
+                <div class="slot" data-target="Mi"><span class="number">3</span></div>
+                <div class="slot" data-target="Fa"><span class="number">4</span></div>
+                <div class="slot" data-target="Sol"><span class="number">5</span></div>
+                <div class="slot" data-target="La"><span class="number">6</span></div>
+                <div class="slot" data-target="Si"><span class="number">7</span></div>
+            </div>
+        </div>
+
+        <button class="btn-check" onclick="checkOrder()">🔨 CONSERTAR TRILHO</button>
+
+        <div class="plank-pool" id="pool">
+            </div>
+    </div>
+
+    <div id="win-modal">
+        <div class="win-box">
+            <h1>🎉 Caminho Liberado!</h1>
+            <p>O Expresso Polar pode seguir viagem!</p>
+            <br>
+            <button onclick="window.location.href='fase3.html'" class="btn-check">Próxima Fase ➡</button>
+        </div>
+    </div>
+
+    <audio id="bg-music" src="musica-fundo.mp3" loop></audio>
+    <audio id="snd-click" src="click.mp3"></audio>
+    <audio id="snd-win" src="sucesso-fim.mp3"></audio>
+
+    <script src="script-fase2.js"></script>
+</body>
+</html>
