@@ -69,3 +69,62 @@ body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
 .game-screen.active { display: flex; }
 .hidden { visibility: hidden; }
 .game-footer { position: absolute; bottom: 15px; font-size: 0.8rem; color: #aaa; }
+/* =========================================
+   RESPONSIVIDADE (ADICIONAR NO FIM DO CSS)
+   ========================================= */
+
+/* --- Para Tablets e Celulares Grandes (até 900px) --- */
+@media (max-width: 900px) {
+    /* Ajusta o tamanho do card para não ficar muito alto */
+    #game-card {
+        width: 95%;
+        height: auto; /* Altura automática para se ajustar ao conteúdo */
+        min-height: 500px;
+        padding: 25px 15px; /* Menos preenchimento lateral */
+    }
+
+    /* Reduz um pouco os títulos gigantes */
+    .titulo-padrao, .titulo-vitoria { font-size: 2.2rem; }
+    .titulo-instrucao-zao { font-size: 2.5rem; }
+    .subtitulo-padrao { font-size: 1.1rem; margin-bottom: 20px; }
+
+    /* Ajusta os botões do topo para não encavalarem */
+    .card-top-controls {
+        top: 20px; left: 20px; right: 20px;
+        flex-direction: column; /* Coloca o placar em cima dos botões */
+        gap: 10px;
+    }
+    .right-buttons { align-self: flex-end; } /* Alinha os botões à direita */
+
+    /* SINOS: Reduz o tamanho para caberem na tela */
+    .bell-grid { gap: 15px; flex-wrap: wrap; } /* Permite quebra de linha se necessário */
+    .sino-btn { width: 100px; } /* Reduz de 150px para 100px */
+}
+
+
+/* --- Para Celulares Pequenos (até 600px) --- */
+@media (max-width: 600px) {
+    /* Esconde a logo do canto em telas muito pequenas para ganhar espaço */
+    .logo-tela-canto { display: none; }
+
+    /* Ajuste drástico de fontes para mobile */
+    .titulo-padrao, .titulo-vitoria { font-size: 1.8rem; }
+    .titulo-instrucao-zao { font-size: 2rem; }
+    .box-texto-instrucao p { font-size: 1rem; }
+    #feedback-txt { font-size: 1.3rem; min-height: 30px; }
+
+    /* Botões principais menores */
+    .btn-main { padding: 12px 30px; font-size: 1rem; width: 80%; margin: 5px 0; }
+    .btn-main.gray { margin-left: 0; } /* Remove margem lateral em botões empilhados */
+    .btn-group { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+    /* Botão "Ouvir Novamente" menor */
+    .btn-ouvir { padding: 8px 20px; font-size: 0.9rem; }
+
+    /* SINOS: Versão mini para celular */
+    .bell-grid { gap: 10px; margin-top: 10px; }
+    .sino-btn { width: 75px; padding: 2px; } /* Bem menores */
+
+    /* Rodapé menor */
+    .game-footer { font-size: 0.7rem; bottom: 10px; }
+}
