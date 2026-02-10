@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qual é a Nota? - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="logo-clave-colorida.png" class="logo-tela-canto">
+
+    <audio id="musica-fundo" loop autoplay>
+        <source src="musica-fundo.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="som-click" src="click.mp3"></audio>
+    <audio id="som-sucesso" src="sucesso-fim.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div id="placar-container" class="hidden">
+                    Acertos: <span id="pontos">0</span>/10
+                </div>
+                <div class="right-buttons">
+                    <button id="btn-voltar" class="btn-mini hidden" onclick="voltarMenu()">Voltar ao Menu</button>
+                    <button id="audio-toggle" class="btn-audio" onclick="toggleMusica()">🔊</button>
+                </div>
+            </div>
+
+            <div id="menu-inicial" class="game-screen active">
+                <h1 class="titulo-padrao">Qual é a Nota?</h1>
+                <p class="subtitulo-padrao">Ouça o som e toque no sino correto!</p>
+                <div class="btn-group">
+                    <button class="btn-main green" onclick="iniciarJogo()">Jogar</button>
+                    <button class="btn-main gray" onclick="abrirInstrucoes()">Instruções</button>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
+                <div class="box-texto-instrucao">
+                    <p>Ouça a nota musical e clique no sino da cor correspondente.</p>
+                    <p><strong>Dica:</strong> O jogador pode tocar os próprios sinos para conferir a nota que está sendo pedida no jogo (caso tenha dúvidas).</p>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">Entendido</button>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div class="center-content">
+                    <h3 id="feedback-txt" class="msg-neutra">Qual é o som?</h3>
+                    <button class="btn-ouvir" onclick="repetirSom()">OUVIR NOVAMENTE 🔊</button>
+                    <div class="bell-grid"></div>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
+                <p class="subtitulo-padrao">Você completou o desafio das 10 notas!</p>
+                <button class="btn-main green" onclick="voltarMenu()">Jogar Novamente</button>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por Clave de C - <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
