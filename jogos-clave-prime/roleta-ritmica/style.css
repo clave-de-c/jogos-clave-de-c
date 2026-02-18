@@ -1,0 +1,150 @@
+/* =========================================
+   ESTILO GERAL E VARIÁVEIS
+   ========================================= */
+:root {
+    --green: #27ae60; --blue: #2d9cdb; --purple: #9b51e0; --gold: #f1c40f; --red-error: #e74c3c;
+}
+
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+
+#main-canvas {
+    background: url('fundo-imagem.png') no-repeat center center fixed;
+    background-size: cover; width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.logo-tela-canto { position: absolute; top: 25px; left: 25px; width: 120px; z-index: 100; }
+
+#game-card {
+    background: rgba(255, 255, 255, 0.96);
+    width: 90%; max-width: 800px; height: 620px;
+    border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    transition: background-color 0.2s; padding-bottom: 40px; 
+}
+
+.game-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; }
+.game-screen.active { display: flex; }
+.hidden { display: none !important; }
+.card-top-controls { position: absolute; top: 20px; right: 30px; z-index: 10; }
+
+/* TIPOGRAFIA E BOTÕES */
+.titulo-padrao { font-size: 2.5rem; margin: 0; color: #333; }
+.subtitulo-padrao { font-size: 1.2rem; color: #666; margin-bottom: 20px; }
+.msg-sucesso { font-size: 1.8rem; color: var(--green); font-weight: bold; margin: 0; }
+.msg-instrucao { font-size: 1.2rem; color: #555; margin: 5px 0 0 0; }
+
+.btn-main { border: none; padding: 12px 40px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+.btn-main.green { background: var(--green); color: white; }
+.btn-main.green:hover { background: #219150; transform: scale(1.05); }
+.btn-main.blue { background: var(--blue); color: white; }
+.btn-main.blue:hover { background: #1a88c9; transform: scale(1.05); }
+.btn-main.gray { background: #eee; color: #555; }
+.btn-mini { background: var(--purple); color: white; border: none; padding: 5px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.8rem; }
+
+/* SELETORES */
+.nivel-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 10px; }
+.label-nivel { font-weight: bold; color: #555; margin-bottom: 5px; }
+.select-estiloso {
+    padding: 10px 20px; font-size: 1rem; border-radius: 20px;
+    border: 2px solid var(--blue); background: white; color: #333; cursor: pointer; font-weight: bold; outline: none; text-align: center;
+}
+.select-estiloso:hover { background: #f0f8ff; }
+
+.compasso-selector { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
+.btn-compasso {
+    background: #fff; border: 3px solid #333; border-radius: 15px; width: 70px; height: 90px;
+    cursor: pointer; transition: 0.2s; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Times New Roman', serif; font-weight: bold; font-size: 2rem; line-height: 0.8;
+}
+.btn-compasso:hover { background: var(--gold); transform: translateY(-5px); }
+.num-sup { border-bottom: 2px solid #000; padding-bottom: 2px; width: 80%; text-align: center; }
+.num-inf { padding-top: 2px; }
+
+/* INSTRUÇÕES E TABELAS */
+.texto-instrucao {
+    text-align: left; background: #f9f9f9; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #eee; width: 80%;
+}
+.texto-instrucao p { margin: 10px 0; color: #555; font-size: 1.1rem; }
+.btn-instrucao-mini {
+    background: none; border: none; color: var(--blue); font-weight: bold; cursor: pointer; text-decoration: underline; margin-top: 10px; font-size: 0.9rem;
+}
+.container-lista-niveis {
+    display: flex; flex-direction: column; gap: 10px; width: 90%; max-height: 380px; overflow-y: auto; margin-bottom: 20px;
+}
+.box-nivel { background: #f0f8ff; border-left: 5px solid var(--blue); padding: 15px; border-radius: 8px; text-align: left; }
+.box-nivel h3 { margin: 0 0 5px 0; color: var(--blue); }
+.box-nivel p { margin: 0; font-size: 0.9rem; color: #666; }
+
+/* ROLETA E PAUTA */
+.roleta-wrapper { position: relative; width: 220px; height: 220px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+#roleta-css {
+    width: 100%; height: 100%; border-radius: 50%; border: 5px solid #fff; box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    background: conic-gradient(#FF6B6B 0deg 30deg, #4ECDC4 30deg 60deg, #45B7D1 60deg 90deg, #96CEB4 90deg 120deg, #FFEEAD 120deg 150deg, #D4A5A5 150deg 180deg, #FF6B6B 180deg 210deg, #4ECDC4 210deg 240deg, #45B7D1 240deg 270deg, #96CEB4 270deg 300deg, #FFEEAD 300deg 330deg, #D4A5A5 330deg 360deg);
+    transition: transform 3s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+#centro-roleta { position: absolute; width: 100px; height: 100px; background: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 10px rgba(0,0,0,0.1); z-index: 5; }
+#img-resultado { width: 70%; transition: transform 0.3s; }
+.seta-roleta { position: absolute; right: -15px; top: 50%; transform: translateY(-50%); width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 25px solid #333; z-index: 10; }
+
+.pauta-container {
+    width: 95%; background: #fff; border-top: 1px solid #999; border-bottom: 1px solid #999; border-left: 4px solid #333; border-right: 4px solid #333;
+    height: 120px; margin-top: 15px; display: flex; align-items: center; padding-left: 10px; position: relative; box-sizing: border-box;
+}
+.pauta-container::before { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: #999; z-index: 0; }
+.formula-pauta { display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Times New Roman', serif; font-weight: bold; font-size: 3.5rem; line-height: 0.8; margin-right: 15px; z-index: 2; color: #000; }
+#linha-ritmica { display: flex; width: 100%; height: 100%; align-items: center; z-index: 1; }
+.nota-na-pauta { height: 85px; object-fit: contain; box-sizing: border-box; border-right: 1px dashed rgba(0,0,0,0.1); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.nota-tocando { background-color: rgba(45, 156, 219, 0.2); border-radius: 10px; transform: scale(1.05); transition: 0.1s; }
+
+#acoes-finais { display: flex; flex-direction: column; align-items: center; width: 100%; margin-top: 15px; text-align: center; }
+.mensagem-final-container { margin-bottom: 15px; }
+.botoes-finais { display: flex; gap: 15px; justify-content: center; }
+
+@keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+@keyframes shake-hard { 0% { transform: translate(1px, 1px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
+@keyframes flash-red { 0%, 100% { background-color: rgba(255, 255, 255, 0.96); } 50% { background-color: #ffcccc; } }
+.kaboom { animation: shake-hard 0.5s ease-in-out, flash-red 0.5s ease-in-out; }
+
+.game-footer { position: absolute; bottom: 10px; left: 0; width: 100%; text-align: center; background: transparent; padding: 5px 0; font-size: 0.8rem; color: #aaa; }
+.game-footer a { color: #aaa; text-decoration: none; font-weight: bold; }
+
+/* --- RESPONSIVIDADE (CELULAR) --- */
+@media (max-width: 768px) {
+    .logo-tela-canto { display: none; }
+    
+    #game-card {
+        width: 95%; height: auto; min-height: 600px;
+        justify-content: center; padding-top: 20px; padding-bottom: 50px;
+    }
+    
+    .card-top-controls { top: 15px; right: 15px; }
+    .titulo-padrao { font-size: 1.8rem; text-align: center; }
+    .subtitulo-padrao { font-size: 1rem; text-align: center; }
+    
+    .roleta-wrapper { width: 160px; height: 160px; }
+    .pauta-container { height: 100px; overflow-x: auto; }
+    .formula-pauta { font-size: 2.5rem; margin-right: 10px; }
+    .nota-na-pauta { height: 60px; }
+    
+    .botoes-finais { flex-direction: column; width: 100%; align-items: center; }
+    .btn-main { width: 90%; font-size: 1rem; padding: 12px; }
+    .compasso-selector { gap: 10px; }
+    .btn-compasso { width: 60px; height: 80px; font-size: 1.8rem; }
+
+    /* CORREÇÃO DAS INSTRUÇÕES NO MOBILE */
+    .texto-instrucao {
+        width: 90%; /* Mais largo */
+        padding: 15px;
+        font-size: 0.95rem; 
+        max-height: 40vh; /* Permite rolagem se a tela for pequena */
+        overflow-y: auto;
+    }
+    .botoes-instrucao {
+        width: 100%; display: flex; flex-direction: column; align-items: center;
+    }
+    .botoes-instrucao button {
+        width: 100%; margin: 5px 0; font-size: 0.9rem;
+    }
+    .container-lista-niveis { max-height: 350px; }
+}

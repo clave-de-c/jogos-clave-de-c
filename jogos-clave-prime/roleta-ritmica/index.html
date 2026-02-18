@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roleta Rítmica - Clave Prime</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="claveprime-logo.png" class="logo-tela-canto" alt="Clave Prime">
+    
+    <audio id="som-click" src="click.mp3"></audio>
+    <audio id="som-explosao" src="explosao.mp3"></audio>
+    <audio id="som-roleta" src="roleta.mp3"></audio> <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div class="right-buttons">
+                    <button class="btn-mini hidden" id="btn-voltar" onclick="voltarMenu()">Trocar Compasso</button>
+                </div>
+            </div>
+
+            <div id="menu-selecao" class="game-screen active">
+                <h1 class="titulo-padrao">Roleta Rítmica</h1>
+                
+                <div class="nivel-wrapper">
+                    <p class="label-nivel">Dificuldade:</p>
+                    <select id="select-nivel" class="select-estiloso">
+                        <option value="1">Nível 1 (Básico)</option>
+                        <option value="2">Nível 2 (Intermediário)</option>
+                        <option value="3">Nível 3 (Avançado)</option>
+                    </select>
+                </div>
+
+                <button class="btn-instrucao-mini" onclick="abrirInstrucoes()">❓ Ver Instruções</button>
+
+                <p class="subtitulo-padrao" style="margin-top: 20px;">Escolha a fórmula de compasso:</p>
+                
+                <div class="compasso-selector">
+                    <button class="btn-compasso" onclick="iniciarJogo(3)">
+                        <span class="num-sup">3</span><span class="num-inf">4</span>
+                    </button>
+                    <button class="btn-compasso" onclick="iniciarJogo(4)">
+                        <span class="num-sup">4</span><span class="num-inf">4</span>
+                    </button>
+                    <button class="btn-compasso" onclick="iniciarJogo(6)">
+                        <span class="num-sup">6</span><span class="num-inf">4</span>
+                    </button>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-padrao">Como Jogar</h2>
+                <div class="texto-instrucao">
+                    <p>1. Escolha o nível de dificuldade e o compasso.</p>
+                    <p>2. Gire a roleta para sortear figuras rítmicas.</p>
+                    <p>3. Preencha o compasso sem estourar o tempo!</p>
+                    <p>4. Cuidado com a <strong>BOMBA</strong>! Ela explode seu progresso.</p>
+                </div>
+                
+                <div class="botoes-instrucao">
+                    <button class="btn-main blue" onclick="abrirTabelaNiveis()">Ver Figuras por Nível 📋</button>
+                    <button class="btn-main green" onclick="voltarMenu()">Voltar ao Jogo</button>
+                </div>
+            </div>
+
+            <div id="tela-niveis" class="game-screen">
+                <h2 class="titulo-padrao" style="font-size: 1.8rem;">Figuras por Nível</h2>
+                
+                <div class="container-lista-niveis">
+                    <div class="box-nivel">
+                        <h3>Nível 1 (Básico)</h3>
+                        <p>Semibreve, Mínima, Semínima + Bomba (Rara)</p>
+                    </div>
+                    <div class="box-nivel">
+                        <h3>Nível 2 (Intermediário)</h3>
+                        <p>Tudo do Nível 1 + Mínima Pontuada, Colcheias, Semicolcheia Pontuada</p>
+                    </div>
+                    <div class="box-nivel">
+                        <h3>Nível 3 (Avançado)</h3>
+                        <p>Tudo do Nível 2 + Semicolcheias, Tercinas, Síncopas e Galopas</p>
+                    </div>
+                </div>
+
+                <button class="btn-main gray" onclick="abrirInstrucoes()">Voltar</button>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div class="roleta-wrapper">
+                    <div class="seta-roleta"></div>
+                    <div id="roleta-css"></div>
+                    <div id="centro-roleta">
+                        <img src="claveprime-logo.png" id="img-resultado">
+                    </div>
+                </div>
+                
+                <button id="btn-girar" class="btn-main green" onclick="girarRoleta()">GIRAR 🔄</button>
+
+                <div class="pauta-container">
+                    <div id="formula-na-pauta" class="formula-pauta"></div>
+                    <div id="linha-ritmica"></div>
+                </div>
+
+                <div id="acoes-finais" class="hidden">
+                    <div class="mensagem-final-container">
+                        <p class="msg-sucesso">Compasso Completo!</p>
+                        <p class="msg-instrucao">Execute o ritmo!</p>
+                    </div>
+                    
+                    <div class="botoes-finais">
+                        <button class="btn-main blue" onclick="tocarRitmoDigital()">🔊 Ouvir Ritmo</button>
+                        <button class="btn-main gray" onclick="resetarCompasso()">Próximo ➡</button>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por <a href="https://clavedec.com.br/" target="_blank">Clave Prime</a> - 
+                <a href="https://instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
