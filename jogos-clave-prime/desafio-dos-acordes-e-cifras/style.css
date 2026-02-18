@@ -1,0 +1,77 @@
+:root {
+    --prime-blue: #2D9CDB;
+    --prime-gold: #FEC601;
+    --prime-purple: #9B51E0;
+    --text-dark: #1E293B;
+}
+
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: 'Segoe UI', sans-serif; overflow: hidden; background: #f0f4f8; }
+
+#main-canvas {
+    background: url('fundo-imagem.png') no-repeat center center fixed;
+    background-size: cover;
+    width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+}
+
+#game-card {
+    background: rgba(255, 255, 255, 0.98);
+    width: 95%; max-width: 850px; height: 90vh; max-height: 550px;
+    border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    position: relative; border-top: 10px solid var(--prime-blue);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 15px; box-sizing: border-box;
+}
+
+/* --- RESOLUÇÃO DO TOPO (PLACAR E BOTÕES) --- */
+.header-jogo { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 5px; }
+.status-prime { font-size: 1rem; font-weight: 800; padding: 8px 20px; background: #f1f5f9; border-radius: 20px; }
+.top-right-btns { position: absolute; top: 10px; right: 15px; display: flex; gap: 8px; z-index: 10; }
+
+/* --- RESPONSIVIDADE DOS TÍTULOS --- */
+.titulo-prime { font-size: 2.5rem; color: var(--text-dark); margin: 10px 0; }
+.titulo-instrucao { font-size: 3rem; color: var(--text-dark); margin-bottom: 10px; }
+.subtitulo { font-size: 1.1rem; color: #64748B; margin-bottom: 20px; }
+
+/* --- CONTEÚDO --- */
+.game-screen { display: none; flex-grow: 1; width: 100%; flex-direction: column; align-items: center; justify-content: center; }
+.game-screen.active { display: flex; }
+.bloco-conteudo { margin-top: -20px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+/* --- GRIDS DE NOTAS E CIFRAS --- */
+.notas-grid { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+.nota-box { padding: 12px 20px; background: white; border: 3px solid #E2E8F0; border-radius: 12px; font-weight: 800; font-size: 1.5rem; }
+
+.cifras-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; max-width: 450px; }
+.btn-cifra { background: white; border: 2px solid var(--prime-blue); padding: 12px; border-radius: 10px; font-size: 1.3rem; font-weight: bold; color: var(--prime-blue); cursor: pointer; }
+
+/* --- BOTÕES --- */
+.btn-main { border: none; padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; width: 300px; font-size: 1rem; }
+.btn-main.blue { background: var(--prime-blue); color: white; }
+.btn-main.purple { background: var(--prime-purple); color: white; }
+.btn-main.gold { background: var(--prime-gold); color: #000; }
+.btn-main.green { background: #27ae60; color: white; }
+.btn-main.gray { background: #E2E8F0; color: #475569; }
+.btn-group-vertical { display: flex; flex-direction: column; gap: 10px; }
+
+/* --- AJUSTES PARA CELULAR (MEDIA QUERIES) --- */
+@media (max-width: 600px) {
+    #game-card { height: 95vh; padding: 10px; }
+    .titulo-prime { font-size: 1.8rem; }
+    .titulo-instrucao { font-size: 2.2rem; }
+    .subtitulo { font-size: 0.9rem; }
+    .btn-main { width: 260px; padding: 12px; }
+    .nota-box { font-size: 1.2rem; padding: 10px 15px; }
+    .btn-cifra { font-size: 1.1rem; padding: 10px; }
+    .top-right-btns { position: static; margin-top: 5px; } /* Tira o botão sair de cima do placar */
+    .status-prime { font-size: 0.9rem; }
+    .logo-tela-canto { width: 80px; top: 10px; left: 10px; }
+    .game-footer { font-size: 0.7rem; bottom: 10px; }
+}
+
+.game-footer { position: absolute; bottom: 15px; width: 100%; text-align: center; font-size: 0.8rem; color: #94A3B8; }
+.game-footer a { color: var(--prime-blue); text-decoration: none; font-weight: bold; }
+.logo-tela-canto { position: absolute; top: 15px; left: 15px; width: 100px; }
+.btn-mini-prime { background: var(--prime-purple); color: white; border: none; padding: 6px 15px; border-radius: 20px; font-weight: bold; }
+.btn-audio-prime { background: #f1f5f9; border: none; padding: 6px; border-radius: 50%; }
+.hidden { visibility: hidden; }

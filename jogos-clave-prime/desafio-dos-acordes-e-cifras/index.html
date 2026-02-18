@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio dos Acordes - Clave Prime</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onclick="iniciarAudioAutomatico()">
+    <img src="claveprime-logo.png" class="logo-tela-canto">
+
+    <audio id="musica-fundo" loop><source src="fundo-musical.mp3" type="audio/mpeg"></audio>
+    <audio id="som-click" src="click.mp3"></audio>
+    <audio id="som-sucesso" src="confetti-parabens.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="header-jogo">
+                <div id="placar-container" class="hidden status-prime">
+                    ACERTOS: <span id="pontos">0</span> / 10
+                </div>
+                <div class="top-right-btns">
+                    <button id="btn-voltar" class="btn-mini-prime hidden" onclick="voltarMenu()">Sair</button>
+                    <button id="audio-toggle" class="btn-audio-prime" onclick="toggleMusica()">🔊</button>
+                </div>
+            </div>
+
+            <div id="menu-inicial" class="game-screen active">
+                <div class="bloco-conteudo">
+                    <h1 class="titulo-prime">Desafio dos Acordes</h1>
+                    <p class="subtitulo">Selecione o modo de treino:</p>
+                    <div class="btn-group-vertical">
+                        <button class="btn-main blue" onclick="iniciarJogo('maior')">Acordes MAIORES</button>
+                        <button class="btn-main purple" onclick="iniciarJogo('menor')">Acordes MENORES</button>
+                        <button class="btn-main gold" onclick="iniciarJogo('misto')">🔥 MODO MISTURADO</button>
+                        <button class="btn-main gray" onclick="abrirInstrucoes()">Como Jogar?</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <div class="bloco-conteudo">
+                    <h1 class="titulo-instrucao">Instruções</h1>
+                    <div class="box-texto">
+                        <p>Observe as notas e identifique a Cifra correta.</p>
+                        <p><strong>Dica:</strong> Toque no seu instrumento!</p>
+                    </div>
+                    <button class="btn-main green" onclick="voltarMenu()">Entendido!</button>
+                </div>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div class="bloco-conteudo">
+                    <h3 id="feedback-txt">Qual é este acorde?</h3>
+                    <div id="container-notas" class="notas-grid"></div>
+                    <div id="opcoes-cifras" class="cifras-grid"></div>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <div class="bloco-conteudo">
+                    <h1 class="titulo-prime">Parabéns! 🎉</h1>
+                    <button class="btn-main green" onclick="voltarMenu()">Jogar Novamente</button>
+                </div>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por Clave de C - <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> | <a href="https://instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
