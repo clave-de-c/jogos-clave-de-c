@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Montar Acordes - Clave Prime</title>
+    <link rel="icon" href="claveprime-favicon.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<audio id="bg-music" src="musica-fundo.mp3" loop autoplay></audio>
+
+<img src="claveprime-logo.png" class="logo-top-left" alt="Clave Prime">
+<button id="btn-mute" class="btn-mute" title="Mutar Música">🔊</button>
+
+<div class="content-wrapper">
+    <div id="start-screen" class="screen active glass-panel">
+        <h1>Vamos Montar<br>os Acordes!</h1>
+        <p>Treine a construção de tríades na pauta.</p>
+        
+        <div class="mode-selection">
+            <p class="mode-label">Escolha o Modo de Jogo:</p>
+            <select id="game-mode" class="select-mode">
+                <option value="maiores">Acordes MAIORES</option>
+                <option value="menores">Acordes MENORES</option>
+                <option value="misturado" selected>Modo MISTURADO</option>
+            </select>
+        </div>
+
+        <div class="start-buttons">
+            <button id="btn-start" class="btn-primary">Jogar Agora ▶</button>
+            <button id="btn-instructions" class="btn-primary" style="background-color: #9b59b6; box-shadow: 0 4px 10px rgba(155,89,182,0.3);">Como Jogar ❓</button>
+        </div>
+    </div>
+
+    <div id="instructions-screen" class="screen hidden glass-panel">
+        <h2 style="font-family: 'Fredoka One', cursive; color: var(--primary); font-size: 2em; margin-top: 0;">Como Jogar</h2>
+        
+        <div class="instructions-text">
+            <p><strong>1.</strong> Escolha o modo de jogo (Maiores, Menores ou Misturado) e clique em Jogar.</p>
+            <p><strong>2.</strong> Observe o acorde solicitado na carta central (Ex: <strong>C</strong>, <strong>Am</strong>).</p>
+            <p><strong>3.</strong> Toque nas fichas redondas com as notas correspondentes para enviá-las para os espaços vazios.</p>
+            <p><strong>4. Inversões são aceitas!</strong> A ordem das notas não importa, desde que você selecione as 3 corretas.</p>
+            <p><strong>5.</strong> Você tem 1 minuto para montar o máximo de acordes que conseguir. Boa sorte!</p>
+        </div>
+
+        <button id="btn-close-instructions" class="btn-primary">Voltar ao Menu</button>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+        <header class="game-header glass-panel-header">
+            <button id="btn-menu" class="btn-icon">🏠 Menu</button>
+            <div class="stats">
+                <span id="score-display">Acertos: 0</span>
+                <span id="timer-display">⏱️ 01:00</span>
+            </div>
+        </header>
+
+        <div class="game-area">
+            <div class="card-area">
+                <p>MONTE O ACORDE</p>
+                <h2 id="current-chord">Am</h2>
+            </div>
+
+            <div class="slots-area" id="slots-container">
+                <div class="slot empty" data-index="0"></div>
+                <div class="slot empty" data-index="1"></div>
+                <div class="slot empty" data-index="2"></div>
+            </div>
+
+            <div class="tokens-area glass-panel" id="tokens-container">
+                </div>
+        </div>
+    </div>
+    
+    <div id="result-screen" class="screen hidden glass-panel">
+        <h2 id="result-title">Tempo Esgotado!</h2>
+        <p>Você montou <strong id="final-score" style="font-size: 2.5em; color: var(--primary);">0</strong> acordes.</p>
+        
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-top: 20px;">
+            <button id="btn-result-menu" class="btn-primary" style="background-color: #95a5a6; box-shadow: 0 4px 10px rgba(149,165,166,0.3);">🏠 Menu</button>
+            <button id="btn-restart" class="btn-primary">Jogar Novamente ↺</button>
+        </div>
+    </div>
+</div>
+
+<footer class="main-footer">
+    <p>Desenvolvido por <strong>Clave Prime</strong></p>
+    <div class="footer-links">
+        <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a>
+        <span>|</span>
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
