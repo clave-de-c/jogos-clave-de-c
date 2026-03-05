@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esconde-Esconde Melódico - Clave Colorida</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="logo-clave-colorida.png" class="logo-tela-canto" alt="Logo Clave Colorida">
+
+    <audio id="musica-fundo" loop src="musica-de-fundo.mp3"></audio>
+    <audio id="som-vitoria" src="parabens.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div id="placar-container" style="display: none;">
+                    Acertos: <span id="pontos">0</span>/10
+                </div>
+                <div class="right-buttons">
+                    <button id="btn-audio" class="btn-audio" onclick="toggleMusica()">🔈</button>
+                    <button id="btn-voltar" class="btn-mini" style="display: none;" onclick="voltarMenu()">Sair</button>
+                </div>
+            </div>
+
+            <div id="menu-inicial" class="game-screen" style="display: flex;">
+                <h1 class="titulo-padrao">Esconde-Esconde Melódico 🐰</h1>
+                <p class="subtitulo-padrao">Treine seu ouvido no jardim musical!</p>
+                <div class="btn-group">
+                    <button class="btn-main green" onclick="iniciarJogo()">Jogar</button>
+                    <button class="btn-main gray" onclick="abrirInstrucoes()">Instruções</button>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen" style="display: none;">
+                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
+                <div class="box-texto-instrucao">
+                    <p>O coelhinho vai pedir uma nota e <strong>o som dela vai tocar</strong>!</p>
+                    <p>Encontre a moita com o ovo que faz exatamente o mesmo som.</p>
+                    <p><strong>Dica:</strong> Clique no nome da nota que está piscando para ouvir o som dela de novo!</p>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">Entendido</button>
+            </div>
+
+            <div id="area-jogo" class="game-screen" style="display: none;">
+                <div class="center-content">
+                    <h3 id="feedback-txt" class="msg-neutra">Onde está a nota <span id="nota-alvo-nome">...</span>?</h3>
+                    <div id="jardim-container"></div>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen" style="display: none;">
+                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
+                <img src="cesta-ovos.png" alt="Cesta de Ovos" class="img-vitoria">
+                <p class="subtitulo-padrao">Você completou a cesta de ovos musicais de Páscoa!</p>
+                <button class="btn-main green" onclick="iniciarJogo()">Jogar Novamente</button>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por Clave de C - <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> | 
+                <a href="https://www.instagram.com/clavedec.oficial/" target="_blank">@clavedec.oficial</a>
+            </footer>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

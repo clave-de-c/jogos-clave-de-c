@@ -1,0 +1,97 @@
+:root {
+    --green: #27ae60; --blue: #2d9cdb; --purple: #9b51e0; 
+    --red-error: #e74c3c; --gold: #f1c40f; --gray-bg: #e0e0e0;    
+}
+
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+
+#main-canvas {
+    background: url('fundo-animado.gif') no-repeat center center fixed;
+    background-size: cover;
+    width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.logo-tela-canto { position: absolute; top: 25px; left: 25px; width: 130px; z-index: 100; }
+
+#game-card {
+    background: rgba(255, 255, 255, 0.95);
+    width: 90%; max-width: 850px; height: 500px;
+    border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+/* Tipografia e Textos */
+.titulo-padrao { font-size: 2.8rem; margin: 0; color: #333; text-align: center; }
+.subtitulo-padrao { font-size: 1.2rem; color: #666; margin-bottom: 20px; text-align: center; padding: 0 10px; }
+.titulo-instrucao-zao { font-size: 3rem; margin: 0 0 15px 0; color: #333; }
+.box-texto-instrucao { text-align: center; max-width: 600px; margin-bottom: 20px; padding: 0 20px; }
+.box-texto-instrucao p { font-size: 1.1rem; color: #555; line-height: 1.5; margin: 10px 0; }
+#feedback-txt { font-size: 1.6rem; margin-bottom: 10px; font-weight: bold; min-height: 40px; text-align: center; padding: 0 10px; }
+
+.msg-neutra { color: #333; }
+.msg-sucesso { color: var(--green); }
+
+/* Animação Pulsar para a Nota Alvo */
+.pulsar { display: inline-block; animation: pulsarAnim 1.5s infinite; cursor: pointer; padding: 0 5px; }
+@keyframes pulsarAnim { 
+    0% { transform: scale(1); opacity: 1; } 
+    50% { transform: scale(1.15); opacity: 0.8; text-shadow: 0px 0px 10px currentColor; } 
+    100% { transform: scale(1); opacity: 1; } 
+}
+
+/* Botões */
+.btn-main { border: none; padding: 15px 45px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; margin: 5px; }
+.btn-main.green { background: var(--green); color: white; }
+.btn-main.gray { background: var(--gray-bg); color: #555; }
+.btn-main:hover { transform: scale(1.05); }
+
+.card-top-controls { position: absolute; top: 30px; left: 40px; right: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 10; width: calc(100% - 80px); }
+.right-buttons { display: flex; gap: 10px; align-items: center; }
+.btn-mini { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+.btn-audio { background: #eee; border: none; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1.2rem; }
+#placar-container { font-size: 1.2rem; font-weight: bold; color: #333; }
+
+/* Grid e Imagens do Jogo */
+#jardim-container {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+    margin-top: 10px; width: 100%; max-width: 550px; 
+}
+
+.esconderijo { width: 85px; height: 85px; background: transparent; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+.esconderijo:hover { transform: scale(1.1); }
+.img-moita { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.img-vitoria { width: 140px; margin: 15px 0; animation: jump 2s infinite ease-in-out; }
+.img-decoy { width: 60px; height: 60px; object-fit: contain; animation: jump 0.4s ease-out; }
+
+.ovo { width: 45px; height: 60px; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; box-shadow: inset -5px -5px 10px rgba(0,0,0,0.2); animation: jump 0.4s ease-out; }
+
+.game-screen { flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.game-footer { position: absolute; bottom: 15px; font-size: 0.8rem; color: #aaa; text-align: center; width: 100%; left: 0;}
+.game-footer a { color: #888; text-decoration: none; }
+.center-content { text-align: center; margin-top: 10px; display: flex; flex-direction: column; align-items: center; width: 100%;}
+
+@keyframes jump { 0% { transform: translateY(0); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.erro-anim { animation: shake 0.4s ease-in-out; }
+
+/* =========================================
+   RESPONSIVIDADE (CELULAR E TABLET)
+========================================= */
+@media (max-width: 768px) {
+    #game-card { width: 95%; height: 92vh; max-height: 650px; border-radius: 25px; padding: 10px; }
+    .titulo-padrao { font-size: 2rem; } 
+    .titulo-instrucao-zao { font-size: 1.8rem; }
+    #feedback-txt { font-size: 1.25rem; min-height: 50px; }
+    
+    /* MOITAS MAIORES NO CELULAR: Aumentei o tamanho base e reduzi a margem (gap) */
+    #jardim-container { gap: 6px; max-width: 380px; }
+    .esconderijo { width: 68px; height: 68px; } /* Aumentou de 60 para 68 */
+    .img-decoy { width: 50px; height: 50px; } /* Aumentou de 45 para 50 */
+    .ovo { width: 38px; height: 52px; } /* Aumentou de 35 para 38 */
+    
+    .card-top-controls { top: 15px; left: 10px; right: 10px; width: calc(100% - 20px); }
+    .logo-tela-canto { width: 80px; top: 10px; left: 10px; }
+    .btn-main { padding: 12px 25px; font-size: 1rem; }
+    .game-footer { font-size: 0.75rem; }
+}
