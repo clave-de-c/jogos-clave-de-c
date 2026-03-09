@@ -1,0 +1,122 @@
+/* --- PALETA DE CORES --- */
+:root {
+    --green: #10ad54; --blue: #38b6ff; --purple: #9b51e0; --red-error: #d41e1e;
+}
+
+/* Reset total: tira todas as margens para ocupar a tela toda */
+body, html { 
+    margin: 0; padding: 0; 
+    width: 100vw; height: 100vh; 
+    overflow: hidden; 
+    font-family: 'Segoe UI', sans-serif; 
+}
+
+/* Classe base para TODAS as telas do jogo */
+.tela-jogo {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========================================================= */
+/* MENU INICIAL - TELA CHEIA                                 */
+/* ========================================================= */
+#menu-inicial {
+    /* NOME CORRIGIDO DE ACORDO COM A SUA PASTA! */
+    background-image: url('fundo-menu.png'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* BOTÕES INVISÍVEIS PARA MAPEAMENTO DA IMAGEM */
+.btn-invisivel {
+    position: absolute;
+    /* DICA: Coloquei os botões VERMELHOS E TRANSPARENTES de novo para você ajustar.
+       Quando acabar, troque a linha abaixo para: background: transparent; */
+    background: rgba(255, 0, 0, 0.4); 
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Posições exatas baseadas no seu print */
+.btn-info { top: 9%; right: 4%; width: 5%; height: 9%; border-radius: 50%; }
+.btn-instrucoes { bottom: 22%; right: 23%; width: 14%; height: 9%; transform: rotate(-3deg); }
+.btn-iniciar { bottom: 32%; right: 5.5%; width: 15%; height: 9%; }
+
+/* ========================================================= */
+/* DEMAIS TELAS (Jogo, Instruções, etc)                      */
+/* ========================================================= */
+#tela-info, #tela-instrucoes, #area-jogo, #tela-vitoria {
+    /* Fundo para as outras telas (Nome da sua pasta) */
+    background-image: url('fundo-demais-telas.png'); 
+    background-size: cover;
+    background-position: center;
+}
+
+/* Caixa branca para facilitar a leitura dos textos */
+.caixa-conteudo {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    max-width: 600px;
+}
+
+/* --- TIPOGRAFIA E BOTÕES --- */
+.titulo-padrao { font-size: 3rem; margin: 0; color: #333; }
+.titulo-instrucao-zao { font-size: 2.5rem; margin: 0 0 20px 0; color: #333; }
+p { font-size: 1.2rem; color: #555; line-height: 1.6; }
+#feedback-txt { font-size: 1.8rem; margin: 15px 0; font-weight: bold; min-height: 40px; }
+
+.btn-main { border: none; padding: 15px 45px; border-radius: 25px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 15px;}
+.btn-main.green { background: var(--green); color: white; }
+.btn-main.blue { background: var(--blue); color: white; }
+.btn-main.purple { background: var(--purple); color: white; }
+.btn-main:hover { transform: scale(1.05); }
+
+/* Topo do Jogo (Placar e Sair) */
+.topo-jogo {
+    position: absolute; top: 20px; left: 0; width: 100%;
+    display: flex; justify-content: space-between; padding: 0 40px; box-sizing: border-box;
+}
+#placar-container { font-size: 1.5rem; font-weight: bold; background: white; padding: 10px 20px; border-radius: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.btn-mini { background: var(--purple); color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 1.1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+
+/* --- ESTRADA E CAMINHÕES --- */
+.center-content { text-align: center; width: 100%; margin-top: 60px; }
+
+#estrada {
+    background: #4a4a4a; height: 220px; width: 100%; margin-top: 20px;
+    border-top: 8px solid #fff; border-bottom: 8px solid #fff;
+    position: relative; display: flex; align-items: center; justify-content: space-around;
+}
+#estrada::before {
+    content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 8px;
+    background: repeating-linear-gradient(90deg, transparent, transparent 30px, #fff 30px, #fff 80px);
+    transform: translateY(-50%);
+}
+
+.caminhao-container { position: relative; width: 350px; cursor: pointer; transition: transform 0.2s; z-index: 2; }
+.caminhao-container:hover { transform: scale(1.05); }
+.caminhao-img { width: 100%; display: block; }
+
+.partitura-carga {
+    position: absolute; top: 15%; left: 10%; width: 78%; height: 55%;
+    background: white; border: 2px solid #edc27e; border-radius: 5px;
+    display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.partitura-carga img { width: 95%; height: auto; }
+
+/* Animações */
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
+@keyframes driveAway { 0% { transform: translateX(0); } 100% { transform: translateX(1500px); } }
+.erro-anim { animation: shake 0.4s ease-in-out; }
+.acerto-anim { animation: driveAway 1s ease-in forwards; }
