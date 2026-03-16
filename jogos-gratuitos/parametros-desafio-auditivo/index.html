@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ouvido de Ouro - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <audio id="musica-fundo" src="musica-fundo.mp3" loop></audio>
+    <audio id="som-click" src="click.mp3"></audio>
+    <audio id="som-sucesso" src="sucesso-fim.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div id="placar-container" class="hidden">
+                    Acertos: <span id="pontos">0</span>/10
+                </div>
+                <button id="btn-voltar" class="btn-mini hidden" onclick="voltarMenu()">Sair</button>
+                
+            </div>
+
+            <div id="menu-inicial" class="game-screen active">
+                <h1 class="titulo-padrao">Ouvido de Ouro</h1>
+                <p class="subtitulo-padrao">Desafio dos Parâmetros do Som</p>
+                <div class="btn-group-horizontal">
+                    <button class="btn-main green" onclick="iniciarJogo()">Jogar</button>
+                    <button class="btn-main gray" onclick="abrirInstrucoes()">Instruções</button>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">Treinamento</h2>
+                <p class="instrucao-treino">Clique nos botões azuis para testar os sons:</p>
+                <div class="box-texto-instrucao">
+                    <div class="item-treino"><span><strong>Altura:</strong> Grave ou Agudo</span> <div><button class="btn-treino" onclick="treinar('altura', 0)">G</button><button class="btn-treino" onclick="treinar('altura', 1)">A</button></div></div>
+                    <div class="item-treino"><span><strong>Intensidade:</strong> Fraco ou Forte</span> <div><button class="btn-treino" onclick="treinar('intensidade', 0)">p</button><button class="btn-treino" onclick="treinar('intensidade', 1)">f</button></div></div>
+                    <div class="item-treino"><span><strong>Duração:</strong> Curto ou Longo</span> <div><button class="btn-treino" onclick="treinar('duracao', 0)">.</button><button class="btn-treino" onclick="treinar('duracao', 1)">_</button></div></div>
+                    <div class="item-treino"><span><strong>Timbre:</strong> Suave ou Brilhante</span> <div><button class="btn-treino" onclick="treinar('timbre', 0)">~</button><button class="btn-treino" onclick="treinar('timbre', 1)">#</button></div></div>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">Entendido</button>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <h3 id="feedback-txt" class="msg-neutra">O que foi isso?</h3>
+                <button class="btn-main blue" id="btn-ouvir" onclick="tocarDesafio()">Ouvir Som 🔊</button>
+                <div id="opcoes-respostas" class="hidden container-botoes-lado-a-lado"></div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
+                <button class="btn-main green" onclick="voltarMenu()">Jogar Novamente</button>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por <a href="http://www.clavedec.com.br" target="_blank">Clave de C</a>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
