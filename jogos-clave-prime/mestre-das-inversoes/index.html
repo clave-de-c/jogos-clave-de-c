@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mestre das Inversões - Clave Prime</title>
+    <link rel="icon" type="image/png" href="claveprime-favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body onclick="iniciarAudioPrime()">
+    <img src="claveprime-logo.png" class="logo-tela-canto" alt="Clave Prime">
+
+    <div id="main-canvas">
+        <div id="game-card">
+            <div class="top-nav">
+                <div class="nav-left">
+                    <span id="placar-display" class="badge">🏆 <span id="pontos">0</span></span>
+                    <span id="combo-display" class="badge hidden">🔥 <span id="combo">0</span></span>
+                    <span id="rodada-display" class="badge hidden">🚩 <span id="rodada">1</span>/20</span>
+                </div>
+                <div class="nav-right">
+                    <button id="bg-toggle" class="btn-icon" onclick="toggleFundo()">🔊</button>
+                    <button id="btn-voltar" class="btn-icon" onclick="tocarClick(); voltarMenu()">🏠</button>
+                </div>
+            </div>
+
+            <div id="menu-inicial" class="game-screen active">
+                <div class="bloco-comando-principal">
+                    <div class="header-content">
+                        <h1 class="titulo-padrao">🎹 Mestre das Inversões</h1>
+                        <p class="subtitulo-padrao">Escolha o seu nível de desafio:</p>
+                    </div>
+                    
+                    <div class="modo-selector">
+                        <button class="btn-modo active" onclick="selecionarModo('misto', this)">🌓 Misto</button>
+                        <button class="btn-modo" onclick="selecionarModo('maior', this)">☀️ Maiores</button>
+                        <button class="btn-modo" onclick="selecionarModo('menor', this)">🌙 Menores</button>
+                    </div>
+
+                    <div class="btn-group-vertical">
+                        <button class="btn-main green" onclick="tocarClick(); iniciarJogo()">INICIAR DESAFIO</button>
+                        <button class="btn-main gray" onclick="tocarClick(); abrirInstrucoes()">INSTRUÇÕES</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <div class="bloco-instrucao-prime">
+                    <h2 class="titulo-padrao">Instruções</h2>
+                    <div class="box-texto-instrucao">
+                        <p>🎹 <strong>Observe</strong> a ordem das notas coloridas.</p>
+                        <p>🧐 <strong>Identifique</strong> a inversão correta do acorde.</p>
+                        <p>🚀 Acerte <strong>5 vezes seguidas</strong> para o bônus <strong>TURBO</strong>!</p>
+                    </div>
+                    <button class="btn-main green" onclick="tocarClick(); fecharInstrucoes()">ENTENDIDO</button>
+                </div>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div class="timer-container">
+                    <div id="timer-bar"></div>
+                </div>
+                <div class="pergunta-container">
+                    <h3 id="pergunta-txt" class="subtitulo-padrao">Analise o acorde...</h3>
+                    <div id="display-notas" class="notas-container"></div>
+                    <div id="feedback-txt" class="msg-neutra">Selecione a posição:</div>
+                </div>
+                <div class="opcoes-grid">
+                    <button class="btn-option" onclick="tocarClick(); verificarResposta(0)">Fundamental</button>
+                    <button class="btn-option" onclick="tocarClick(); verificarResposta(1)">1ª Inversão</button>
+                    <button class="btn-option" onclick="tocarClick(); verificarResposta(2)">2ª Inversão</button>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <div class="header-content">
+                    <h1 class="titulo-padrao">🎓 Mestre Consagrado!</h1>
+                    <p class="subtitulo-padrao">Veja sua evolução neste desafio:</p>
+                </div>
+                <div class="stats-container">
+                    <div id="recorde-msg" class="new-record hidden">✨ NOVO RECORDE! ✨</div>
+                    <div class="stat-item current"><span>Sua Pontuação:</span> <strong id="final-pontos">0</strong></div>
+                    <div class="stat-item"><span>Partida Anterior:</span> <strong id="ponto-anterior">0</strong></div>
+                    <div class="stat-item"><span>Recorde Histórico:</span> <strong id="melhor-marca">0</strong></div>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">JOGAR NOVAMENTE</button>
+            </div>
+
+            <footer class="game-footer">
+                <span>Desenvolvido por <a href="http://www.clavedec.com.br" target="_blank">Clave de C</a></span>
+                <span>@clavedec.oficial</span>
+            </footer>
+        </div>
+    </div>
+
+    <audio id="fundo-animado" loop preload="auto">
+        <source src="fundo-animado.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="fim-jogo" preload="auto">
+        <source src="fim-jogo.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>

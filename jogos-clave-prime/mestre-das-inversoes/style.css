@@ -1,0 +1,83 @@
+:root {
+    --prime-dark: #1A242E; --prime-mid: #0F79AF; --prime-light: #1AA8F1;
+    --white: #FFFFFF; --green: #27ae60; --gray: #f4f4f4; --red: #e74c3c; --gold: #f1c40f;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; outline: none; }
+body { margin: 0; font-family: 'Poppins', sans-serif; overflow: hidden; background: var(--prime-dark); }
+
+#main-canvas {
+    background: linear-gradient(135deg, var(--prime-light) 0%, var(--prime-dark) 100%);
+    width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; padding: 10px;
+}
+
+#game-card {
+    background: var(--white); width: 100%; max-width: 900px; height: 95vh; max-height: 720px;
+    border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    position: relative; overflow: hidden; display: flex; flex-direction: column;
+}
+
+#game-card.turbo-ativo { border: 5px solid var(--gold); box-shadow: 0 0 40px var(--gold); }
+
+.logo-tela-canto { position: absolute; top: 25px; left: 30px; width: 110px; z-index: 20; }
+.top-nav { display: flex; justify-content: space-between; align-items: center; padding: 30px 40px 0 40px; min-height: 90px; }
+
+.badge { background: var(--gray); padding: 10px 15px; border-radius: 20px; font-weight: bold; border: 1px solid #ddd; margin-right: 8px; color: var(--prime-dark); }
+.btn-icon { background: #eee; border: none; font-size: 1.4rem; width: 50px; height: 50px; border-radius: 15px; cursor: pointer; margin-left: 5px; }
+
+/* TELAS CENTRALIZADAS */
+.game-screen { display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+.game-screen.active { display: flex; }
+
+/* AJUSTES DE ALTURA (MENSAGENS/BOTÕES) */
+.bloco-comando-principal { display: flex; flex-direction: column; align-items: center; gap: 22px; width: 100%; margin-top: -50px; }
+.bloco-instrucao-prime { display: flex; flex-direction: column; align-items: center; gap: 30px; width: 90%; max-width: 500px; margin-top: -80px; }
+
+.header-content { margin-bottom: 0; }
+.modo-selector { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+.btn-modo {
+    background: var(--gray); border: 2px solid #ddd; padding: 10px 20px; border-radius: 15px;
+    cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 0.9rem;
+}
+.btn-modo.active { background: var(--prime-mid); color: white; border-color: var(--prime-mid); box-shadow: 0 4px 10px rgba(15, 121, 175, 0.3); }
+
+/* BOTÕES GERAIS */
+.btn-group-vertical { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 320px; }
+.btn-main { padding: 18px 40px; border-radius: 50px; border: none; font-weight: 700; cursor: pointer; font-size: 1.1rem; box-shadow: 0 6px 0 rgba(0,0,0,0.1); transition: 0.2s; text-transform: uppercase; width: 100%; }
+.btn-main:active { transform: translateY(4px); box-shadow: 0 2px 0 rgba(0,0,0,0.1); }
+
+.green { background: var(--green); color: white; }
+.gray { background: #bbb; color: white; }
+
+/* BOX INSTRUÇÕES */
+.box-texto-instrucao { background: #fdfdfd; border: 2px solid #eee; padding: 30px; border-radius: 25px; width: 100%; text-align: left; box-shadow: 0 10px 20px rgba(0,0,0,0.03); }
+.box-texto-instrucao p { font-size: 1.05rem; color: var(--prime-dark); margin: 15px 0; line-height: 1.6; }
+.box-texto-instrucao strong { color: var(--prime-mid); }
+
+/* JOGO */
+.timer-container { width: 85%; height: 10px; background: #eee; border-radius: 10px; overflow: hidden; margin-bottom: 20px; }
+#timer-bar { width: 100%; height: 100%; background: var(--prime-mid); }
+.pergunta-container { flex: none; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 20px 0; }
+.notas-container { display: flex; gap: 15px; margin: 20px 0; }
+.nota-bloco { width: 85px; height: 115px; border-radius: 20px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 1.3rem; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+
+.opcoes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 90%; margin-top: 20px; }
+.btn-option { background: var(--gray); color: var(--prime-dark); padding: 20px; border-radius: 20px; border: 2px solid #ddd; font-weight: 700; cursor: pointer; font-size: 0.9rem; box-shadow: 0 4px 0 #ccc; }
+.btn-option:hover { background: var(--prime-mid); color: white; border-color: var(--prime-mid); }
+
+/* TELA FINAL */
+.stats-container { background: var(--gray); padding: 25px; border-radius: 30px; width: 100%; max-width: 420px; margin: 20px 0; border: 1px solid #ddd; }
+.stat-item { font-size: 1.1rem; margin-bottom: 8px; display: flex; justify-content: space-between; color: #555; }
+.stat-item.current { font-size: 1.3rem; color: var(--prime-mid); font-weight: bold; padding-bottom: 10px; border-bottom: 1px dashed #ccc; margin-bottom: 15px; }
+.new-record { color: var(--green); font-weight: bold; font-size: 1.4rem; margin-bottom: 10px; animation: pulse 1s infinite; }
+
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+.game-footer { width: 100%; background: var(--gray); padding: 15px 40px; display: flex; justify-content: space-between; font-size: 0.85rem; border-top: 1px solid #eee; position: absolute; bottom: 0; }
+.game-footer a { color: var(--prime-mid); text-decoration: none; font-weight: bold; }
+
+@media (max-width: 768px) {
+    .opcoes-grid { grid-template-columns: 1fr; gap: 8px; width: 85%; }
+    .btn-option { padding: 12px; }
+    .bloco-comando-principal, .bloco-instrucao-prime { margin-top: -20px; }
+}
