@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio da Pauta Colorida - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="logo-clave-colorida.png" class="logo-tela-canto" alt="Clave Colorida">
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls hidden" id="top-controls">
+                <div id="placar-container">Acertos: <span id="pontos">0</span>/<span id="total-notas">8</span></div>
+                <button id="btn-voltar" class="btn-mini" onclick="voltarMenu()">Sair</button>
+            </div>
+
+            <div id="menu-inicial" class="game-screen active">
+                <h1 class="titulo-padrao">Desafio da Pauta Colorida</h1>
+                <p class="subtitulo-padrao">Escolha um nível para começar:</p>
+                <div class="btn-group-vertical">
+                    <button class="btn-main green" onclick="iniciarJogo(1)">Nível 1: Apenas Linhas</button>
+                    <button class="btn-main blue" onclick="iniciarJogo(2)">Nível 2: Apenas Espaços</button>
+                    <button class="btn-main purple" onclick="iniciarJogo(3)">Nível 3: Escala de Dó</button>
+                </div>
+                <button class="btn-instrucao" onclick="abrirInstrucoes()">Instruções</button>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
+                <div class="box-texto-instrucao">
+                    <p>Observe a nota colorida no <strong>topo</strong> e arraste-a para a pauta.</p>
+                    <p><strong>Dica:</strong> As notas agudas têm uma <strong>setinha ↑</strong> para você não confundir com as graves!</p>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">Entendido</button>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div id="pool-notas"></div>
+                <h3 id="feedback-txt" class="msg-neutra">Arraste a nota!</h3>
+                
+                <div id="pauta-geral">
+                    <div id="bordas-perfeitas"></div>
+                    <div class="linha-drop" data-nota="FA_ALTO"><div class="linha-visual"></div></div> 
+                    <div class="espaco" data-nota="MI_ALTO"></div>  
+                    <div class="linha-drop" data-nota="RE_ALTO"><div class="linha-visual"></div></div>  
+                    <div class="espaco" data-nota="DO_ALTO"></div>  
+                    <div class="linha-drop" data-nota="SI"><div class="linha-visual"></div></div>       
+                    <div class="espaco" data-nota="LA"></div>       
+                    <div class="linha-drop" data-nota="SOL"><div class="linha-visual"></div></div>      
+                    <div class="espaco" data-nota="FA"></div>       
+                    <div class="linha-drop" data-nota="MI"><div class="linha-visual"></div></div>       
+                </div>
+
+                <div id="pauta-extra">
+                    <div class="espaco" data-nota="RE"></div>       
+                    <div class="linha-drop" data-nota="DO" id="suplementar-container">
+                        <div class="linha-curta"></div> 
+                    </div>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao">Incrível! 🎉</h1>
+                <p class="subtitulo-padrao">Você dominou este nível!</p>
+                <button class="btn-main green" onclick="voltarMenu()">Jogar Novamente</button>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por Clave de C - <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a> - <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

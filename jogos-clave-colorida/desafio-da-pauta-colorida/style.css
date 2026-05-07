@@ -1,0 +1,93 @@
+:root {
+    --green: #27ae60; --blue: #2d9cdb; --purple: #9b51e0;
+    --red-error: #e74c3c; --gray-bg: #e0e0e0;
+    --do: #d41e1e; --re: #f18c4d; --mi: #ffda43;
+    --fa: #10ad54; --sol: #38b6ff; --la: #004aad; --si: #7c45e8;
+}
+
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; }
+
+#main-canvas {
+    background: url('fundo_colorido.png') no-repeat center center fixed;
+    background-size: cover;
+    width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;
+}
+
+#game-card {
+    background: white; width: 95%; max-width: 900px; height: 620px;
+    border-radius: 40px; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15); box-sizing: border-box; padding-top: 15px;
+}
+
+.card-top-controls {
+    position: absolute; top: 25px; left: 0; width: 100%;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0 40px; box-sizing: border-box; z-index: 50;
+    font-size: 1.2rem; font-weight: bold; color: #333;
+}
+
+#pauta-geral { width: 85%; position: relative; margin-top: 5px; }
+
+#bordas-perfeitas {
+    position: absolute; top: 17px; bottom: 17px; left: 0; right: 0;
+    border-left: 4px solid #333; border-right: 4px solid #333;
+    pointer-events: none; z-index: 1;
+}
+
+#pauta-extra { width: 85%; position: relative; }
+
+.linha-drop { height: 35px; width: 100%; position: relative; display: flex; align-items: center; justify-content: center;}
+.linha-visual { height: 4px; background: #333; width: 100%; position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.espaco { height: 35px; width: 100%; position: relative; display: flex; align-items: center; justify-content: center;}
+
+#suplementar-container { height: 35px; width: 100%; position: relative; }
+.linha-curta { width: 65px; height: 4px; background: #333; position: absolute; top: 50%; left: 10%; transform: translate(-50%, -50%); pointer-events: none; }
+
+.nota-circular {
+    width: 52px; height: 52px; border-radius: 50%; 
+    cursor: grab; display: flex; justify-content: center; align-items: center;
+    color: white; font-weight: bold; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 10; transition: transform 0.2s; position: relative;
+}
+
+.seta-agudo::after {
+    content: '↑'; font-size: 0.9rem; margin-left: 2px; font-weight: 900;
+}
+
+@keyframes pulo {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -100%) scale(1.1); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+.anim-pulo { animation: pulo 0.4s ease-in-out; }
+
+#pool-notas { height: 70px; display: flex; align-items: center; margin-bottom: 5px; }
+
+/* UI DESIGN */
+.game-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; }
+.game-screen.active { display: flex; }
+.titulo-padrao { font-size: 2.5rem; margin: 0 0 10px 0; color: #333; text-align: center;}
+.subtitulo-padrao { font-size: 1.1rem; color: #666; margin-bottom: 20px; text-align: center;}
+
+.titulo-instrucao-zao { font-size: 2.8rem; margin: 0 0 15px 0; color: #333; }
+.box-texto-instrucao { text-align: center; max-width: 650px; margin-bottom: 30px; }
+.box-texto-instrucao p { font-size: 1.4rem; color: #555; line-height: 1.6; margin: 15px 0; } 
+
+.btn-group-vertical { display: flex; flex-direction: column; gap: 12px; width: 100%; max-width: 320px; }
+.btn-main { border: none; padding: 14px; border-radius: 20px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 1rem;}
+.btn-instrucao { margin-top: 15px; background: none; border: none; color: #888; cursor: pointer; text-decoration: underline; font-size: 1.1rem; }
+
+.green { background: var(--green); color: white; }
+.blue { background: var(--blue); color: white; }
+.purple { background: var(--purple); color: white; }
+.gray { background: var(--gray-bg); color: #555; }
+.btn-mini { background: var(--purple); color: white; border: none; padding: 8px 18px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+.logo-tela-canto { position: absolute; top: 25px; left: 25px; width: 110px; z-index: 100; }
+
+.game-footer { position: absolute; bottom: 15px; font-size: 0.8rem; color: #aaa; text-align: center; width: 100%; }
+.game-footer a { color: var(--blue); text-decoration: none; font-weight: bold; transition: color 0.2s; }
+.game-footer a:hover { color: var(--purple); }
+
+.hidden { visibility: hidden; }
+.msg-sucesso { color: var(--green); font-weight: bold; font-size: 1.2rem; }
+.msg-erro { color: var(--red-error); font-weight: bold; font-size: 1.2rem; }
