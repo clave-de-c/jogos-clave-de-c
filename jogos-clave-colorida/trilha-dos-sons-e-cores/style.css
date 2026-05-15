@@ -137,7 +137,6 @@ h1 {
     opacity: 0.8;
 }
 
-
 /* --- TELA DE FASE --- */
 .game-panel {
     width: 90%;
@@ -234,7 +233,6 @@ h1 {
     right: 15px;
     width: 90px;
 }
-
 
 /* --- MODAIS E BOTÕES DO MAPA --- */
 .modal-container {
@@ -356,7 +354,6 @@ h1 {
     z-index: 1500;
 }
 
-
 /* --- CERTIFICADO --- */
 .certificate-container {
     background-color: #ecf0f1;
@@ -377,7 +374,6 @@ h1 {
     align-items: center;
 }
 
-
 /* --- RODAPÉ --- */
 .footer {
     position: fixed;
@@ -397,7 +393,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Permite que o conteúdo quebre a linha se necessário */
+    flex-wrap: wrap; 
 }
 
 .footer .separator {
@@ -410,24 +406,19 @@ h1 {
     font-weight: bold;
 }
 
-/* --- ESTILOS PARA IMPRESSÃO --- */
-@media print {
-    /* ... */
-}
 
 /* ==============================================
    REGRAS DE RESPONSIVIDADE PARA CELULARES
 ============================================== */
 @media (max-width: 768px) {
-    /* NOVO: Permite a rolagem em telas pequenas */
     body {
         overflow: auto;
     }
     .screen {
-        height: auto; /* A altura se ajusta ao conteúdo */
-        min-height: 100vh; /* Garante que ocupe pelo menos a tela inteira */
-        padding-bottom: 80px; /* Aumenta o espaço para o rodapé não sobrepor */
-        justify-content: flex-start; /* Alinha o conteúdo ao topo */
+        height: auto; 
+        min-height: 100vh; 
+        padding-bottom: 80px; 
+        justify-content: flex-start; 
         padding-top: 20px;
     }
 
@@ -461,16 +452,66 @@ h1 {
         max-height: none;
     }
 
-    /* NOVO: Regras para o rodapé em duas linhas */
     .footer {
-        position: relative; /* Deixa de ser fixo para rolar com a página */
+        position: relative; 
         margin-top: 20px;
     }
     .footer p {
-        flex-direction: column; /* Empilha o conteúdo */
-        gap: 5px; /* Adiciona espaço entre as linhas */
+        flex-direction: column; 
+        gap: 5px; 
     }
     .footer .separator {
-        display: none; /* Esconde os separadores "|" */
+        display: none; 
+    }
+}
+
+/* ==============================================
+   MODO IMPRESSÃO OTIMIZADO PARA A4 (CORRIGIDO)
+============================================== */
+@page {
+    size: A4 landscape; /* Força folha deitada */
+    margin: 0; 
+}
+
+@media print {
+    body, html {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Oculta TODAS as telas, modais e elementos globais */
+    .screen, .footer, .btn-mute, .modal-container {
+        display: none !important;
+    }
+
+    /* Mostra APENAS a tela do certificado, removendo flexbox que corta a folha */
+    #certificate-screen {
+        display: block !important;
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: white !important;
+    }
+
+    /* Tamanho exato da folha A4 Deitada para o SVG */
+    #certificate {
+        width: 297mm !important;
+        height: 210mm !important;
+        max-width: none !important;
+        max-height: none !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+    }
+
+    /* Esconde os botões de imprimir e voltar */
+    .certificate-buttons {
+        display: none !important;
     }
 }
