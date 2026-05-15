@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Trilha Básica das Notas Coloridas - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img src="logo-clave-colorida.png" class="logo-tela-canto" alt="Logo Clave Colorida">
+
+    <audio id="som-clique" src="som_clique.mp3"></audio>
+    <audio id="som-acerto" src="som_acerto.mp3"></audio>
+    <audio id="som-vitoria" src="som_vitoria.mp3"></audio>
+    <audio id="som-do" src="nota_do.mp3"></audio>
+    <audio id="som-do" src="nota_do.mp3"></audio>
+    <audio id="som-re" src="nota_re.mp3"></audio>
+    <audio id="som-mi" src="nota_mi.mp3"></audio>
+    <audio id="som-fa" src="nota_fa.mp3"></audio>
+    <audio id="som-sol" src="nota_sol.mp3"></audio>
+    <audio id="som-la" src="nota_la.mp3"></audio>
+    <audio id="som-si" src="nota_si.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div id="placar-container" class="hidden">
+                    Estação: <span id="pontos">1</span>/5
+                </div>
+                <div class="right-buttons">
+                    <button id="btn-voltar" class="btn-mini hidden" onclick="voltarMapa()">Voltar ao Mapa</button>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
+                <div class="box-texto-instrucao" style="text-align: left; max-width: 600px; margin: 0 auto 30px auto;">
+                    <p style="text-align: center; font-size: 1.2rem; margin-bottom: 25px; color: #333;">
+                        Prepare-se para dar seus primeiros passos no mundo da música conectando sons, cores e notas!
+                    </p>
+                    
+                    <ul style="list-style-type: none; padding: 0; margin-bottom: 25px;">
+                        <li style="margin-bottom: 15px;">
+                            🚩 <strong>A Jornada:</strong> São 5 estações musicais. Vença um desafio para desbloquear o cadeado da próxima fase.
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            🎨 <strong>Os Desafios:</strong> Você vai encaixar as cores, treinar a memória, usar o "ouvido colorido" e até tocar uma pequena sequência na última fase!
+                        </li>
+                        <li style="margin-bottom: 15px;">
+                            🏆 <strong>A Grande Recompensa:</strong> Chegue até o final da trilha para conquistar o seu <strong>Certificado de Conclusão</strong> exclusivo.
+                        </li>
+                    </ul>
+
+                    <div style="background: #f0f8ff; border-left: 5px solid var(--blue); padding: 15px; border-radius: 0 10px 10px 0;">
+                        <p style="margin: 0; font-weight: bold; color: var(--blue);">🎧 Dica de Ouro:</p>
+                        <p style="margin: 5px 0 0 0; font-size: 1rem; color: #555;">
+                            Use fones de ouvido para perceber cada detalhe dos sons e jogue sem pressa. Se errar, tente de novo. A música é sobre se divertir aprendendo!
+                        </p>
+                    </div>
+                </div>
+                <button class="btn-main green" onclick="voltarMapa()">Entendido! Vamos lá</button>
+            </div>
+
+            <div id="mapa-trilha" class="game-screen active">
+                <h1 class="titulo-padrao">Trilha Básica dos Sons e Cores</h1>
+                <p class="subtitulo-padrao" style="margin-bottom: 10px;">Clique na fase para começar!</p>
+
+                <div class="trilha-caminho">
+                    <button class="circulo-fase ativa" data-fase="1" onclick="iniciarEstacao(1)">1</button>
+                    <div class="linha-pontilhada"></div>
+                    <button class="circulo-fase trancada" data-fase="2" onclick="iniciarEstacao(2)">🔒</button>
+                    <div class="linha-pontilhada"></div>
+                    <button class="circulo-fase trancada" data-fase="3" onclick="iniciarEstacao(3)">🔒</button>
+                    <div class="linha-pontilhada"></div>
+                    <button class="circulo-fase trancada" data-fase="4" onclick="iniciarEstacao(4)">🔒</button>
+                    <div class="linha-pontilhada"></div>
+                    <button class="circulo-fase trancada" data-fase="5" onclick="iniciarEstacao(5)">🔒</button>
+                    
+                    <div class="linha-pontilhada"></div>
+                    <button class="circulo-fase trancada btn-trofeu" data-fase="6" onclick="abrirModalNome()">🔒</button>
+                </div>
+
+                <img src="ovelha-camisa.png" class="mascote-mapa mascote-esq" alt="Mascote Ovelha">
+                <img src="ovelha-xilo.png" class="mascote-mapa mascote-dir" alt="Mascote Ovelha com Xilofone">
+
+                <div class="botoes-rodape-mapa">
+                    <button class="btn-main gray btn-instrucoes-mapa" onclick="abrirInstrucoes()">Instruções</button>
+                    <a class="link-reset" onclick="resetarProgresso()">Resetar Progresso</a>
+                </div>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div class="center-content">
+                    <h3 id="feedback-txt" class="msg-neutra">Arraste e solte a cor para a sua nota!</h3>
+                    <button id="btn-ouvir-radar" class="btn-main blue hidden" style="margin-bottom: 20px; font-size: 2rem;" onclick="tocarNotaAlvoFase2()">👂 Ouvir Som</button>
+                    <div id="container-alvos" class="container-dnd alvo-area"></div>
+                    <div id="container-pecas" class="container-dnd pecas-area mt-20"></div>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
+                <p class="subtitulo-padrao">Você completou esta estação!</p>
+                <button class="btn-main green" onclick="voltarMapa()">Continuar Trilha</button>
+            </div>
+
+            <div id="tela-nome-certificado" class="game-screen">
+                <h1 class="titulo-instrucao-zao">🏆 Você conseguiu!</h1>
+                <p class="subtitulo-padrao">Digite seu nome para gerar o certificado:</p>
+                <input type="text" id="input-nome-aluno" placeholder="Seu nome e sobrenome" style="font-size: 1.5rem; padding: 15px; border-radius: 15px; border: 2px solid #ccc; width: 80%; max-width: 400px; text-align: center; margin-bottom: 30px;">
+                <button class="btn-main green" onclick="gerarCertificado()">Ver Certificado</button>
+            </div>
+
+            <div id="tela-certificado" class="game-screen" style="justify-content: flex-start; padding-top: 40px;">
+                <svg id="svg-certificado" viewBox="0 0 800 565" xmlns="http://www.w3.org/2000/svg" style="width: 100%; max-width: 700px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); background: white;">
+                    <defs>
+                        <linearGradient id="rainbow-border" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#d41e1e"/> <stop offset="16.6%" stop-color="#f18c4d"/> <stop offset="33.3%" stop-color="#ffda43"/>
+                            <stop offset="50%" stop-color="#10ad54"/> <stop offset="66.6%" stop-color="#38b6ff"/> <stop offset="83.3%" stop-color="#004aad"/>
+                            <stop offset="100%" stop-color="#7c45e8"/>
+                        </linearGradient>
+                    </defs>
+                    <rect x="0" y="0" width="800" height="565" fill="url(#rainbow-border)"/>
+                    <rect x="10" y="10" width="780" height="545" fill="white"/>
+                    <text x="400" y="70" font-family="'Baloo 2', cursive" font-size="32" fill="#38b6ff" text-anchor="middle">Certificado Musical de Conclusão 🏆</text>
+                    <text x="400" y="120" font-family="'Poppins', sans-serif" font-size="18" fill="#333" text-anchor="middle">Este certificado é concedido com muita alegria para:</text>
+                    
+                    <text id="cert-svg-nome" x="400" y="190" font-family="'Baloo 2', cursive" font-size="55" fill="#f18c4d" text-anchor="middle">[Nome da Criança]</text>
+                    <line x1="100" y1="210" x2="700" y2="210" stroke="#ddd" stroke-width="2"/>
+                    
+                    <text x="400" y="250" font-family="'Poppins', sans-serif" font-size="18" fill="#333" text-anchor="middle">Por ter completado com sucesso a jornada:</text>
+                    <text x="400" y="285" font-family="'Baloo 2', cursive" font-size="28" fill="#10ad54" text-anchor="middle">Trilha Básica das Notas Coloridas!</text>
+                    
+                    <text x="400" y="330" font-family="'Poppins', sans-serif" font-size="16" fill="#555" text-anchor="middle">Você associou as cores aos sons, aprendeu o nome de cada nota</text>
+                    <text x="400" y="355" font-family="'Poppins', sans-serif" font-size="16" fill="#555" text-anchor="middle">e superou todos os desafios musicais desta etapa.</text>
+                    <text x="400" y="420" font-family="'Poppins', sans-serif" font-size="18" fill="#333" text-anchor="middle" font-weight="bold">Continue sua jornada e nunca pare de tocar!</text>
+                    
+                    <text id="cert-svg-data" x="400" y="480" font-family="'Poppins', sans-serif" font-size="16" fill="#777" text-anchor="middle">[Data]</text>
+                    <text x="400" y="520" font-family="'Baloo 2', cursive" font-size="20" fill="#004aad" text-anchor="middle">Método Notas Coloridas</text>
+                </svg>
+
+                <div class="botoes-rodape-mapa certificado-botoes" style="margin-top: 20px; flex-direction: row; gap: 15px;">
+                    <button class="btn-main blue" onclick="imprimirCertificado()">🖨️ Imprimir</button>
+                    <button class="btn-main purple" onclick="salvarCertificadoPNG()">🖼️ Salvar PNG</button>
+                </div>
+
+            <footer class="game-footer">
+                Desenvolvido por Clave de C - <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
