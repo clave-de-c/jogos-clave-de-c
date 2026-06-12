@@ -1,0 +1,149 @@
+:root {
+    --green: #27ae60; --blue: #2d9cdb; --purple: #9b51e0;
+    --red-error: #e74c3c; --gold: #f1c40f; --gray-bg: #e0e0e0;
+    --nota-c: #d41e1e; --nota-d: #f18c4d; --nota-e: #ffda43;
+    --nota-f: #10ad54; --nota-g: #38b6ff; --nota-a: #004aad;
+    --nota-b: #7c45e8; --challenge-color: #555555; --combo-color: #f39c12;
+}
+
+body, html {
+    margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
+    font-family: 'Poppins', sans-serif; background-color: #2D9CDB;
+    -webkit-user-select: none; user-select: none;
+}
+
+#main-canvas {
+    background: linear-gradient(135deg, #2D9CDB 0%, #9B51E0 100%);
+    width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+}
+
+/* LOGO NO CANTO DA TELA COMO ESTAVA ANTES */
+.logo-tela-canto { position: absolute; top: 20px; left: 20px; width: 120px; z-index: 100; }
+
+#game-card {
+    background: rgba(255, 255, 255, 0.98);
+    width: 95%; max-width: 850px; height: 580px;
+    border-radius: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    position: relative; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; overflow: hidden;
+}
+
+.card-top-controls { position: absolute; top: 20px; left: 30px; right: 30px; display: flex; justify-content: space-between; align-items: center; z-index: 10; }
+#placar-container { font-size: 1.1rem; font-weight: bold; color: #333; font-family: 'Fredoka One', cursive; }
+#lives-hud { font-family: 'Poppins', sans-serif; color: var(--red-error); font-size: 1.2rem; margin-top: 2px; }
+.right-buttons { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end;}
+
+.btn-audio { background: #eee; border: none; padding: 6px 12px; border-radius: 10px; cursor: pointer; font-size: 1.1rem; }
+.btn-mini { background: var(--purple); color: white; border: none; padding: 6px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.85rem; }
+.midi-badge { padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; display: flex; align-items: center; justify-content: center; }
+.midi-badge.connected { background-color: var(--green); color: white; }
+.midi-badge.disconnected { background-color: #ddd; color: #888; }
+
+.game-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; }
+.game-screen.active { display: flex; }
+
+.titulo-padrao { font-family: 'Fredoka One', cursive; font-size: 2.8rem; margin: 0; color: #333; text-align: center; padding: 0 10px;}
+.subtitulo-padrao { font-size: 1.1rem; color: #666; margin-bottom: 20px; text-align: center; padding: 0 10px;}
+.box-texto-instrucao { text-align: left; max-width: 600px; margin-bottom: 20px; background: #f9f9f9; padding: 15px; border-radius: 15px; }
+
+.btn-main { border: none; padding: 12px 35px; border-radius: 25px; font-size: 1rem; font-weight: bold; cursor: pointer; margin: 5px; font-family: 'Poppins', sans-serif;}
+.btn-main.green { background: var(--green); color: white; }
+.btn-main.gray { background: var(--gray-bg); color: #555; }
+.btn-group { display: flex; flex-wrap: wrap; justify-content: center; }
+
+/* === PENTAGRAMA (ESTEIRA) ALTURA FIXA 220px === */
+#note-track {
+    width: 85%; height: 220px; margin: 10px 0;
+    border-radius: 15px; position: relative; overflow: hidden;
+    background-color: #fafafa;
+    background-image: 
+        linear-gradient(transparent 39px, #666 39px, #666 41px, transparent 41px), /* L5 */
+        linear-gradient(transparent 69px, #666 69px, #666 71px, transparent 71px), /* L4 */
+        linear-gradient(transparent 99px, #666 99px, #666 101px, transparent 101px), /* L3 */
+        linear-gradient(transparent 129px, #666 129px, #666 131px, transparent 131px), /* L2 */
+        linear-gradient(transparent 159px, #666 159px, #666 161px, transparent 161px); /* L1 */
+    background-size: 100% 220px;
+    box-shadow: inset 0 0 15px rgba(0,0,0,0.05); border: 2px solid #eee;
+}
+
+.clave-de-sol { position: absolute; left: 10px; top: 18px; font-size: 9.5rem; line-height: 1; color: #444; opacity: 0.4; pointer-events: none; z-index: 1; }
+
+.note-block {
+    position: absolute; right: -50px;
+    width: 32px; height: 32px; border-radius: 50%;
+    color: white; font-family: 'Fredoka One', cursive; font-size: 0.9rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3); border: 2px solid rgba(255,255,255,0.4);
+    animation-name: slide-in; animation-timing-function: linear; z-index: 2;
+}
+
+.note-c::after {
+    content: ''; position: absolute; top: 15px; left: -10px; width: 52px; height: 3px; background-color: #333; z-index: -1; border-radius: 2px;
+}
+
+@keyframes slide-in { from { right: -50px; } to { right: 100%; } }
+
+.note-c { background-color: var(--nota-c); } .note-d { background-color: var(--nota-d); }
+.note-e { background-color: var(--nota-e); color: #333; } .note-f { background-color: var(--nota-f); }
+.note-g { background-color: var(--nota-g); } .note-a { background-color: var(--nota-a); }
+.note-b { background-color: var(--nota-b); }
+
+.special-bar-container { width: 85%; height: 10px; background-color: #e9ecef; border-radius: 5px; overflow: hidden; margin-bottom: 5px; }
+#special-bar { width: 0%; height: 100%; background-color: var(--combo-color); transition: width 0.2s; }
+
+/* TECLADO */
+#piano-keyboard { width: 85%; height: 130px; display: flex; position: relative; margin-top: 5px; }
+.key { cursor: pointer; border: 1px solid #aaa; box-sizing: border-box; }
+.key.white { flex: 1; height: 100%; background-color: white; border-radius: 0 0 8px 8px; position: relative; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; font-weight: bold; font-size: 0.8rem; color: #888; }
+.key.white:active, .key.white.correct-flash { background-color: #a8e6a2 !important; }
+.key.wrong-flash { background-color: #f8c2c2 !important; }
+
+#level-up-alert { position: absolute; top: 35%; left: 50%; transform: translate(-50%, -50%); font-family: 'Fredoka One', cursive; font-size: 2.5rem; color: var(--gold); text-shadow: 2px 2px 4px rgba(0,0,0,0.3); z-index: 20; pointer-events: none; }
+
+.modal-screen { position: fixed; z-index: 200; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; }
+.modal-screen.show { display: flex; }
+.modal-content { background-color: white; padding: 30px; border-radius: 20px; text-align: center; position: relative; width: 90%; max-width: 400px; }
+#player-name { display: block; width: 80%; margin: 15px auto; padding: 10px; border: 2px solid #ddd; border-radius: 8px; text-align: center; }
+.final-score-text { font-family: 'Fredoka One', cursive; color: var(--blue); font-size: 2rem; }
+.close-btn { position: absolute; top: 10px; right: 20px; color: #aaa; font-size: 28px; cursor: pointer; }
+#leaderboard-list { list-style: none; padding: 0; max-height: 200px; overflow-y: auto; text-align: left; }
+#leaderboard-list li { display: flex; justify-content: space-between; padding: 8px; border-bottom: 1px solid #eee; }
+.hidden { display: none !important; }
+.game-footer { position: absolute; bottom: 10px; font-size: 0.75rem; color: #aaa; text-align: center; width: 100%; }
+.game-footer a { color: var(--blue); text-decoration: none; font-weight: bold; }
+
+/* ==========================================================================
+   📱 MODO CELULAR (VERTICAL) - PERFEITAMENTE EMPILHADO
+   ========================================================================== */
+@media (max-width: 768px) {
+    #main-canvas { align-items: flex-start; padding: 10px 0; overflow-y: auto; }
+    
+    #game-card {
+        width: 95%; max-width: 100%; height: auto; min-height: 95vh;
+        justify-content: flex-start; padding-top: 15px; padding-bottom: 45px;
+        margin-top: 50px; /* Empurra o card para baixo para a Logo caber perfeitamente! */
+    }
+    
+    /* Logo menorzinha, mas no canto! */
+    .logo-tela-canto { width: 90px; top: 10px; left: 10px; }
+
+    /* Controles empilhados */
+    .card-top-controls {
+        position: relative; top: 0; left: 0; right: 0;
+        flex-direction: column; gap: 15px; padding: 0 15px; margin-bottom: 20px;
+    }
+
+    #placar-container { text-align: center; }
+    .right-buttons { justify-content: center; }
+    
+    /* A ESTEIRA MANTÉM OS 220px PARA AS NOTAS ENCAIXAREM PERFEITAMENTE */
+    #note-track { width: 95%; height: 220px; margin: 10px auto; }
+    .special-bar-container { width: 95%; margin: 0 auto 5px auto; }
+    
+    /* Teclado maior para tocar com os polegares */
+    #piano-keyboard { width: 95%; margin: 10px auto; height: 160px; }
+
+    .titulo-padrao { font-size: 2.2rem; }
+    .modal-content { padding: 20px; }
+}
