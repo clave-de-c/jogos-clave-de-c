@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roleta de Escalas - Clave Colorida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Logo do Canto -->
+    <img src="claveprime-logo.png" alt="Clave Colorida" class="logo-tela-canto" onerror="this.style.display='none'">
+
+    <!-- Áudios de Fundo e Efeitos -->
+    <audio id="musica-fundo" loop autoplay>
+        <source src="fundo-piano.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="som-click" src="click.mp3"></audio>
+    <audio id="som-sucesso" src="sucesso-fim.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <!-- Controles de Topo -->
+            <div class="card-top-controls">
+                <div id="placar-container" class="hidden">
+                    Escala: <span id="pontos">1</span>/12
+                </div>
+                <div class="right-buttons">
+                    <button id="btn-voltar" class="btn-mini hidden" onclick="voltarMenu()">Voltar ao Menu</button>
+                    <button id="audio-toggle" class="btn-audio" onclick="toggleMusica()">🔊</button>
+                </div>
+            </div>
+
+            <!-- TELA 1: Menu Inicial -->
+            <div id="menu-inicial" class="game-screen active">
+                <h1 class="titulo-padrao">Roleta de Escalas</h1>
+                <p class="subtitulo-padrao">Sorteie e toque as 12 tonalidades do Ciclo de Quintas!</p>
+                <div class="btn-group">
+                    <button class="btn-main green" onclick="iniciarJogo()">Jogar</button>
+                    <button class="btn-main gray" onclick="abrirInstrucoes()">Instruções</button>
+                </div>
+            </div>
+
+            <!-- TELA 2: Instruções -->
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
+                <div class="box-texto-instrucao">
+                    <p>1. Clique em <strong>GIRAR</strong> para escolher uma escala aleatória.</p>
+                    <p>2. Preste atenção na sequência de notas que vai aparecer.</p>
+                    <p>3. Toque as notas no seu instrumento e clique em <strong>JÁ TOQUEI!</strong> para continuar.</p>
+                    <p><strong>Dica:</strong> A roleta não repete notas até que as 12 escalas sejam tocadas!</p>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">Entendido</button>
+            </div>
+
+            <!-- TELA 3: Área de Jogo -->
+            <div id="area-jogo" class="game-screen">
+                <div class="center-content">
+                    <h3 id="feedback-txt" class="msg-neutra">Prepare o seu instrumento...</h3>
+                    
+                    <!-- Display da Escala -->
+                    <div id="escala-display" class="hidden"></div>
+
+                    <div class="roleta-wrapper" id="container-roleta">
+                        <div id="marcador-prime"></div>
+                        <canvas id="canvas-roleta" width="400" height="400"></canvas>
+                    </div>
+                    
+                    <button id="btn-acao" class="btn-main-prime" onclick="girarRoleta()">GIRAR ROLETA</button>
+                </div>
+            </div>
+
+            <!-- TELA 4: Tela de Vitória -->
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
+                <p class="subtitulo-padrao">Você dominou o Ciclo de Quintas e Quartas!</p>
+                <button class="btn-main green" onclick="reiniciarJogo()">Jogar Novamente</button>
+            </div>
+
+            <!-- Rodapé Padrão -->
+            <div class="footer-container">
+                <footer class="game-footer">
+                    Desenvolvido por Clave de C - 
+                    <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
+                    <a href="https://instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+                </footer>
+            </div>
+
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

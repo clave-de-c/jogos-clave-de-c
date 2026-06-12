@@ -1,0 +1,150 @@
+/* --- PALETA DE CORES CLAVE COLORIDA --- */
+:root {
+    --do: #d41e1e; --re: #f18c4d; --mi: #ffda43; --fa: #10ad54;
+    --sol: #38b6ff; --la: #004aad; --si: #7c45e8;
+    --green: #27ae60; --blue: #2d9cdb; --purple: #9b51e0;
+    --gold: #f1c40f; --gray-bg: #e0e0e0; --white-glass: rgba(255, 255, 255, 0.95);
+}
+
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; }
+
+#main-canvas {
+    background: url('fundo-imagem.png') no-repeat center center fixed;
+    background-color: #1e1b4b; background-size: cover;
+    width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;
+}
+
+.logo-tela-canto { position: absolute; top: 25px; left: 25px; width: 100px; z-index: 70; }
+
+#game-card {
+    background: var(--white-glass); width: 90%; max-width: 900px; min-height: 650px;
+    border-radius: 40px; box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 30px; box-sizing: border-box; overflow-y: auto; /* Permite rolar se a tela for minúscula */
+}
+
+/* --- TIPOGRAFIA --- */
+.titulo-padrao { font-size: 2.8rem; margin: 0; color: #0f172a; font-weight: 800; text-align: center; }
+.subtitulo-padrao { font-size: 1.2rem; color: #64748b; margin-top: 10px; margin-bottom: 30px; text-align: center; }
+.titulo-instrucao-zao { font-size: 3rem; margin: 0 0 20px 0; color: #0f172a; }
+.box-texto-instrucao { text-align: center; max-width: 600px; margin-bottom: 30px; }
+.box-texto-instrucao p { font-size: 1.1rem; color: #555; line-height: 1.6; margin: 10px 0; }
+#feedback-txt { font-size: 1.5rem; margin-bottom: 15px; font-weight: 600; min-height: 40px; }
+
+/* --- BOTÕES PADRÃO --- */
+.btn-main { border: none; padding: 15px 45px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: 'Poppins'; }
+.btn-main.green { background: var(--green); color: white; box-shadow: 0 8px 15px rgba(39, 174, 96, 0.3); }
+.btn-main.green:hover { transform: translateY(-2px); }
+.btn-main.gray { background: var(--gray-bg); color: #555; margin-left: 15px; }
+
+.btn-group { display: flex; justify-content: center; width: 100%; }
+
+.btn-main-prime {
+    background: linear-gradient(135deg, var(--blue), var(--purple));
+    color: white; border: none; padding: 18px 60px; border-radius: 50px; 
+    font-size: 1.3rem; font-weight: 800; cursor: pointer; font-family: 'Poppins';
+    box-shadow: 0 10px 20px rgba(45, 156, 219, 0.3); transition: 0.3s; margin-top: 20px;
+}
+.btn-main-prime:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(45, 156, 219, 0.5); }
+.btn-main-prime:disabled { filter: grayscale(1); cursor: not-allowed; transform: none; }
+.btn-main-prime.acao-concluida { background: var(--green); box-shadow: 0 10px 20px rgba(39, 174, 96, 0.3); animation: pulse 2s infinite; }
+
+/* Botões Pequenos (Topo) */
+.card-top-controls { position: absolute; top: 30px; left: 40px; right: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 10; width: calc(100% - 80px); }
+.right-buttons { display: flex; gap: 10px; align-items: center; }
+.btn-audio { background: #eee; border: none; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1.2rem; }
+.btn-mini { background: rgba(0,0,0,0.05); color: #555; border: 2px solid rgba(0,0,0,0.1); padding: 8px 15px; border-radius: 30px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+.btn-mini:hover { background: #eee; color: #111; }
+#placar-container { font-size: 1.2rem; font-weight: bold; color: #333; background: #f1f5f9; padding: 5px 15px; border-radius: 20px; }
+
+/* --- ROLETA (Com fluidez) --- */
+.roleta-wrapper { position: relative; margin: 10px 0; display: flex; justify-content: center; width: 100%; }
+#marcador-prime { 
+    position: absolute; top: -15px; left: 50%; transform: translateX(-50%); 
+    width: 0; height: 0; border-left: 20px solid transparent; border-right: 20px solid transparent;
+    border-top: 35px solid #222; z-index: 10; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+#canvas-roleta { 
+    transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1); 
+    border-radius: 50%; border: 8px solid #fff; box-shadow: 0 15px 35px rgba(0,0,0,0.15); 
+    max-width: 100%; height: auto; /* Truque Ninja de Responsividade! */
+}
+
+/* --- MOSTRADOR DE NOTAS --- */
+#escala-display { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; width: 100%; }
+.nota-bolinha {
+    width: 48px; height: 48px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+    color: white; font-weight: 800; font-size: 1.05rem; box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    animation: acerto-anim 0.5s ease-in-out;
+}
+
+/* --- UTILITÁRIOS --- */
+.game-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; }
+.game-screen.active { display: flex; }
+.center-content { text-align: center; margin-top: 20px; width: 100%; }
+.hidden { display: none !important; }
+
+/* Rodapé */
+.footer-container { position: absolute; bottom: 15px; width: 100%; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 10px; }
+.game-footer { font-size: 0.85rem; color: #94a3b8; }
+.game-footer a { color: var(--blue); text-decoration: none; font-weight: 600; }
+
+/* Animações */
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+@keyframes acerto-anim { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+
+/* ========================================================= */
+/* --- RESPONSIVIDADE (Telas Menores: Tablets e Celulares) --- */
+/* ========================================================= */
+
+@media (max-width: 480px) {
+    /* Libera a altura do card no celular para não cortar nada */
+    #game-card { 
+        padding: 20px 15px; border-radius: 25px; 
+        justify-content: flex-start; padding-bottom: 70px;
+    }
+    
+    /* Reorganiza os controles do topo */
+    .card-top-controls { 
+        position: relative; top: 0; left: 0; width: 100%; 
+        flex-direction: row; margin-bottom: 20px; 
+    }
+    
+    .logo-tela-canto { display: none; } 
+    
+    .titulo-padrao { font-size: 2rem; }
+    .titulo-instrucao-zao { font-size: 2rem; }
+    .subtitulo-padrao { font-size: 1rem; margin-bottom: 20px; }
+    #feedback-txt { font-size: 1.2rem; min-height: auto; margin-bottom: 10px; }
+    
+    /* --- AQUI ESTÁ A MÁGICA DOS BOTÕES --- */
+    .btn-group { 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 12px; 
+        width: 100%; 
+    }
+    .btn-main, .btn-main.gray { 
+        width: 100%; 
+        max-width: 280px; /* Mantém um tamanho bonito sem esticar até a borda */
+        margin-left: 0 !important; /* Força a remoção daquela margem torta */
+        padding: 14px; 
+        font-size: 1.1rem; 
+    }
+    .btn-main-prime { 
+        width: 100%; max-width: 280px; 
+        padding: 15px; font-size: 1.1rem; margin-top: 10px; 
+    }
+    
+    /* Ajusta a Roleta e o Marcador */
+    #canvas-roleta { max-width: 260px; border-width: 4px; }
+    #marcador-prime { top: -10px; border-width: 15px; border-top-width: 25px; }
+    
+    /* Diminui as bolinhas da escala */
+    .nota-bolinha { width: 35px; height: 35px; font-size: 0.85rem; }
+    #escala-display { gap: 5px; margin-bottom: 10px; }
+    
+    /* Ajusta o rodapé */
+    .footer-container { position: absolute; bottom: 10px; padding-top: 5px; }
+    .game-footer { font-size: 0.75rem; }
+}
