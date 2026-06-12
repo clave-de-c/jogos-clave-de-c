@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piano Rush - Clave de C Prime</title>
+    <link rel="icon" href="claveprime-favicon.png" type="image/png">
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <img src="claveprime-logo.png" class="logo-tela-canto" alt="Logo Clave Prime">
+
+    <audio id="musica-fundo" loop autoplay>
+        <source src="fundo-musical-paino.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="som-click" src="click.mp3"></audio>
+    <audio id="som-sucesso" src="sucesso-fim.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div id="placar-container" class="hidden">
+                    PONTOS: <span id="score">0</span> | NÍVEL: <span id="level">1</span>
+                    <div id="lives-hud">VIDAS: <span id="lives">♥♥♥</span></div>
+                </div>
+                <div class="right-buttons">
+                    <!-- Selo Indicador de Conexão MIDI -->
+                    <div id="midi-status" class="midi-badge disconnected" title="Conecte seu Piano via USB ou Bluetooth!">🎹 MIDI Off</div>
+                    
+                    <button id="quit-button" class="btn-mini hidden">Voltar ao Menu</button>
+                    <button id="show-leaderboard-btn" class="btn-audio" title="Ranking">🏆</button>
+                    <button id="audio-toggle" class="btn-audio">🔊</button>
+                </div>
+            </div>
+
+            <div id="menu-inicial" class="game-screen active">
+                <h1 class="titulo-padrao">Piano Rush</h1>
+                <p class="subtitulo-padrao">Toque na tecla correta antes que a nota suma!</p>
+                <div class="btn-group">
+                    <button id="btn-modo-normal" class="btn-main green">Modo Normal</button>
+                    <button id="btn-modo-desafio" class="btn-main gray" style="background-color: #9b59b6; color: white;">Modo Desafio ♯/♭</button>
+                    <button id="btn-instrucoes" class="btn-main gray">Instruções</button>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
+                <div class="box-texto-instrucao">
+                    <p>As notas musicais vão aparecer na esteira correndo em direção à esquerda.</p>
+                    <p>Pressione a tecla correspondente no teclado do piano antes que ela desapareça!</p>
+                    <hr style="border: 0; border-top: 1px solid #ddd; margin: 10px 0;">
+                    <p style="color: #27ae60; font-weight: bold;">🎹 NOVIDADE: Conecte seu próprio Teclado ou Piano MIDI via USB/Bluetooth para jogar usando as teclas reais!</p>
+                </div>
+                <button id="btn-entendido" class="btn-main green">Entendido</button>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div class="special-bar-container">
+                    <div id="special-bar"></div>
+                </div>
+                <div id="note-track"></div>
+                <div id="level-up-alert" class="hidden">Level Up!</div>
+                <div id="piano-keyboard"></div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao" id="modal-title">Parabéns! 🎉</h1>
+                <p class="subtitulo-padrao" id="modal-text">Você completou o desafio!</p>
+                
+                <div id="score-input-container">
+                    <span id="final-score" class="final-score-text">0</span> Pontos
+                    <input type="text" id="player-name" placeholder="Seu nome aqui" maxlength="15">
+                </div>
+
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button id="save-score-button" class="btn-main green">Salvar no Ranking</button>
+                    <button id="btn-reiniciar" class="btn-main gray">Jogar Novamente</button>
+                </div>
+            </div>
+
+            <div id="leaderboard-modal" class="modal-screen">
+                <div class="modal-content">
+                    <span class="close-btn" id="close-leaderboard">&times;</span>
+                    <h2>🏆 Ranking - Melhores Pontuações</h2>
+                    <ol id="leaderboard-list"></ol>
+                </div>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por Clave de C - 
+                <a href="https://clavedec.com.br/prime" target="_blank">clavedec.com.br/prime</a>
+            </footer>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
