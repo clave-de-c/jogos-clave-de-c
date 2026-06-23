@@ -1,0 +1,85 @@
+/* --- PALETA DE CORES CLAVE COLORIDA --- */
+:root {
+    --do: #d41e1e; --re: #f18c4d; --mi: #ffda43; --fa: #10ad54;
+    --sol: #38b6ff; --la: #004aad; --si: #7c45e8;
+    --green: #27ae60; --blue: #2d9cdb; --purple: #9b51e0;
+    --red-error: #e74c3c; --gold: #f1c40f; --gray-bg: #e0e0e0;
+    --white-glass: rgba(255, 255, 255, 0.95);
+}
+
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Poppins', sans-serif; }
+
+/* Fundo característico puxando a imagem do arco-íris da sua pasta */
+#main-canvas {
+    background: url('fundo_colorido.png') no-repeat center center fixed;
+    background-size: cover;
+    background-color: #2d9cdb; /* Cor de fallback caso a imagem demore a carregar */
+    width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center;
+}
+
+.logo-tela-canto { position: absolute; top: 25px; left: 25px; width: 130px; z-index: 100; }
+
+#game-card {
+    background: var(--white-glass); width: 90%; max-width: 900px; min-height: 600px;
+    border-radius: 40px; box-shadow: 0 40px 100px rgba(0,0,0,0.35);
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 40px; box-sizing: border-box;
+}
+
+/* --- TIPOGRAFIA E BOTÕES --- */
+.titulo-padrao { font-size: 2.8rem; margin: 0; color: #0f172a; font-weight: 800; text-align: center; }
+.subtitulo-padrao { font-size: 1.2rem; color: #64748b; margin-top: 10px; margin-bottom: 25px; text-align: center; }
+.titulo-instrucao-zao { font-size: 2.5rem; margin: 0 0 20px 0; color: #0f172a; text-align: center; font-weight: 800;}
+.box-texto-instrucao { text-align: left; max-width: 600px; margin-bottom: 30px; color: #334155; font-size: 1.05rem; }
+.box-texto-instrucao p { margin: 12px 0; }
+
+.btn-main { border: none; padding: 15px 45px; border-radius: 30px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; font-family: 'Poppins'; }
+.btn-main.green { background: var(--green); color: white; box-shadow: 0 8px 15px rgba(39, 174, 96, 0.3); }
+.btn-main.green:hover { transform: translateY(-2px); }
+.btn-main.gray { background: var(--gray-bg); color: #555; margin-left: 15px; }
+
+/* Controles de Topo */
+.card-top-controls { position: absolute; top: 30px; left: 40px; right: 40px; display: flex; justify-content: space-between; align-items: center; z-index: 10; width: calc(100% - 80px); }
+.right-buttons { display: flex; gap: 10px; align-items: center; }
+.btn-audio { background: #eee; border: none; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1.2rem; }
+.btn-mini { background: rgba(0,0,0,0.05); color: #555; border: 2px solid rgba(0,0,0,0.1); padding: 8px 15px; border-radius: 30px; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: 0.3s; }
+.btn-mini:hover { background: #eee; color: #111; }
+#placar-container { font-size: 1.2rem; font-weight: bold; color: #333; background: #f1f5f9; padding: 5px 15px; border-radius: 20px; }
+
+/* Customização do Seletor de Velocidade */
+.controle-velocidade { margin-bottom: 25px; display: flex; align-items: center; justify-content: center; gap: 12px; font-family: 'Poppins'; font-weight: 600; color: #1e293b; width: 100%; }
+.select-custom { padding: 8px 16px; border-radius: 20px; border: 2px solid #cbd5e1; background: white; font-family: 'Poppins'; font-weight: 600; color: #334155; cursor: pointer; outline: none; transition: 0.2s; }
+.select-custom:hover { border-color: #94a3b8; }
+
+/* --- A PISTA E A NOTA --- */
+#status-jogo { display: flex; justify-content: space-between; width: 100%; margin-bottom: 20px; font-size: 1.2rem; font-weight: bold; }
+#pista { 
+    width: 100%; height: 120px; background: rgba(0,0,0,0.03); 
+    border-radius: 20px; border: 3px dashed #cbd5e1; position: relative; overflow: hidden; margin-bottom: 30px; 
+}
+#nota-em-movimento { 
+    position: absolute; left: 0; top: 10px; width: 60px; height: 100px; 
+    border-radius: 15px; box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* --- BOTÕES DO TECLADO NEUTRO --- */
+#container-botoes { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; width: 100%; }
+.btn-nota {
+    width: 85px; height: 65px; border: 2px solid #cbd5e1; border-radius: 15px;
+    font-family: 'Poppins'; font-size: 1.2rem; font-weight: bold; color: #1e293b;
+    background-color: #ffffff;
+    cursor: pointer; box-shadow: 0 6px 0 #94a3b8; transition: 0.1s;
+}
+.btn-nota:hover { background-color: #f8fafc; border-color: #94a3b8; }
+.btn-nota:active { transform: translateY(6px); box-shadow: 0 0 0 rgba(0,0,0,0); }
+
+/* --- UTILITÁRIOS --- */
+.game-screen { display: none; width: 100%; flex-direction: column; align-items: center; justify-content: center; }
+.game-screen.active { display: flex; }
+.center-content { text-align: center; width: 100%; }
+.hidden { display: none !important; }
+
+/* Rodapé */
+.footer-container { position: absolute; bottom: 15px; width: 100%; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 10px; left: 0; }
+.game-footer { font-size: 0.85rem; color: #94a3b8; }
+.game-footer a { color: var(--blue); text-decoration: none; font-weight: 600; }

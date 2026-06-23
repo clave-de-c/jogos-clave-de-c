@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerte a Tecla - Clave Colorida</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="logo-clave-colorida.png" class="logo-tela-canto" onerror="this.style.display='none'">
+
+    <audio id="musica-fundo" loop>
+        <source src="musica-fundo.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="som-sucesso" src="sucesso-fim-de-jogo.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div id="placar-container" class="hidden">
+                    Acertos: <span id="pontos">0</span>/20
+                </div>
+                <div class="right-buttons">
+                    <button id="btn-voltar" class="btn-mini hidden" onclick="voltarMenu()">Voltar ao Menu</button>
+                    <button id="audio-toggle" class="btn-audio" onclick="toggleMusica()">🔊</button>
+                </div>
+            </div>
+
+            <div id="tela-splash" class="game-screen active">
+                <h1 class="titulo-padrao">Acerte a Tecla</h1>
+                <p class="subtitulo-padrao">Clave Colorida</p>
+                <button class="btn-main green" onclick="ativarPlataforma()">Toque para Começar ➔</button>
+            </div>
+
+            <div id="menu-inicial" class="game-screen">
+                <h1 class="titulo-padrao">Acerte a Tecla</h1>
+                <p class="subtitulo-padrao">Identifique o nome da nota colorida antes que ela fuja!</p>
+                
+                <div class="controle-velocidade">
+                    <label for="select-velocidade">Velocidade das Notas:</label>
+                    <select id="select-velocidade" class="select-custom">
+                        <option value="lento">Lento 🐢</option>
+                        <option value="medio" selected>Médio ⚡</option>
+                        <option value="rapido">Rápido 🚀</option>
+                    </select>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-main green" onclick="iniciarJogo()">Jogar</button>
+                    <button class="btn-main gray" onclick="abrirInstrucoes()">Instruções</button>
+                </div>
+            </div>
+
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
+                <div class="box-texto-instrucao">
+                    <p>1. Uma nota colorida vai deslizar na pista da esquerda para a direita.</p>
+                    <p>2. Os botões abaixo estão neutros! Leia com atenção e clique no nome correto da nota antes que ela suma.</p>
+                    <p>3. Cada acerto toca o som real da nota. **Chegue a 20 pontos para vencer!**</p>
+                    <p><strong>Dica Pedagógica:</strong> Associe a cor da nota em movimento com o seu respectivo nome musical abstrato.</p>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">Entendido</button>
+            </div>
+
+            <div id="area-jogo" class="game-screen">
+                <div class="center-content">
+                    <div id="status-jogo">
+                        <span id="vidas">Vidas: ❤️❤️❤️</span>
+                        <span class="msg-neutra" id="feedback-txt">Prepare-se...</span>
+                    </div>
+
+                    <div id="pista">
+                        <div id="nota-em-movimento" class="hidden"></div>
+                    </div>
+
+                    <div id="container-botoes"></div>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
+                <p class="subtitulo-padrao">Você completou os 20 acertos! Seus reflexos e leitura musical estão excelentes!</p>
+                <button class="btn-main green" onclick="iniciarJogo()">Jogar Novamente</button>
+            </div>
+
+            <div id="tela-gameover" class="game-screen">
+                <h1 class="titulo-padrao" style="color: var(--red-error);">Puxa vida!</h1>
+                <p class="subtitulo-padrao">As notas fugiram antes dos 20 acertos. Vamos treinar mais uma vez?</p>
+                <button class="btn-main green" onclick="iniciarJogo()">Tentar de novo</button>
+            </div>
+
+            <div class="footer-container">
+                <footer class="game-footer">
+                    Desenvolvido por <a href="http://www.clavedec.com.br" target="_blank">Clave de C</a> - 
+                    <a href="https://instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
