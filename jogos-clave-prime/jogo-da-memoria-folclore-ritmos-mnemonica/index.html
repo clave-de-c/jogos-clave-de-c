@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Memória Folclore - Ritmos e Mnemônica</title>
+    <!-- Fonte para os números do verso -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="claveprime-logo.png" class="logo-tela-canto" alt="Clave Prime">
+
+    <!-- Áudios em arquivo físico -->
+    <audio id="musica-fundo" loop autoplay>
+        <source src="musica-fundo.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="som-click" src="click.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <div class="card-top-controls">
+                <div id="placar-container" style="display: none;">
+                    Pares: <span id="pontos">0</span>/6
+                </div>
+                <div class="right-buttons">
+                    <button id="btn-voltar" class="btn-mini" style="display: none;" onclick="voltarMenu()">Voltar ao Menu</button>
+                    <button id="audio-toggle" class="btn-audio" onclick="toggleMusica()">🔊</button>
+                </div>
+            </div>
+
+            <!-- SUA CAPA INICIAL CLICÁVEL -->
+<div id="menu-inicial" class="game-screen active capa-jogo-container">
+    <picture style="width: 100%; height: 100%; display: block;">
+        <!-- Se a tela for menor que 768px (celular), puxa a capa vertical -->
+        <source media="(max-width: 768px)" srcset="pagina-inicial-cel.png">
+        <!-- Padrão para computadores e tablets -->
+        <img src="pagina-inicial.png" alt="Capa Jogo da Memória Folclore" class="capa-jogo-img">
+    </picture>
+    
+    <button id="btn-jogar-invisivel" class="btn-jogar-overlay" onclick="iniciarJogo()"></button>
+</div>
+
+            <!-- ÁREA DO JOGO (12 CARTAS) -->
+            <div id="area-jogo" class="game-screen" style="display: none;">
+                <div class="center-content">
+                    <h3 id="feedback-txt" class="msg-neutra">Encontre os Pares!</h3>
+                    <div id="tabuleiro-memoria" class="memory-grid">
+                        <!-- O JS vai injetar as cartas aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="tela-vitoria" class="game-screen" style="display: none;">
+                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
+                <p class="subtitulo-padrao">Você dominou os ritmos do folclore!</p>
+                <button class="btn-main green" onclick="voltarMenu()">Jogar Novamente</button>
+            </div>
+
+            <footer class="game-footer">
+                Desenvolvido por Clave de C - <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+            </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+/* --- PALETA DE CORES --- */
+:root {
+    --green: #10ad54;      
+    --blue: #38b6ff;       
+    --purple: #7c45e8;     
+    --red-error: #d41e1e;  
+    --yellow-card: #ffda43; 
+    --border-dark: #2d2d2d; 
+    --gray-bg: #e0e0e0;
+}
+
+* { box-sizing: border-box; }
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Fredoka', 'Segoe UI', sans-serif; }
+
+#main-canvas {
+    background: url('fundo-do-jogo.png') no-repeat center center fixed;
+    background-size: cover;
+    width: 100vw; height: 100vh;
+    display: flex; justify-content: center; align-items: center;
+}
+
+.logo-tela-canto { position: absolute; top: 15px; left: 15px; width: 120px; z-index: 100; }
+
+#game-card {
+    background: rgba(255, 255, 255, 0.95);
+    width: 95%; max-width: 960px; height: 550px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    position: relative;
+    display: flex; flex-direction: column; align-items: center;
+    overflow: hidden; 
+}
+
+.game-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 0; left: 0; }
+.game-screen.active { display: flex; }
+.center-content { text-align: center; margin-top: 25px; width: 90%; display: flex; flex-direction: column; align-items: center; }
+
+/* --- CAPA E BOTÃO INVISÍVEL --- */
+.capa-jogo-container { position: relative; width: 100%; height: 100%; padding: 0; margin: 0; }
+.capa-jogo-img { width: 100%; height: 100%; object-fit: cover; }
+.btn-jogar-overlay {
+    position: absolute;
+    top: 74%; left: 41%; width: 18%; height: 10%;
+    background: transparent;
+    border: none; cursor: pointer; border-radius: 50px; z-index: 10;
+}
+.btn-jogar-overlay:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* --- TOP CONTROLS --- */
+.card-top-controls { position: absolute; top: 15px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; z-index: 50; }
+.right-buttons { display: flex; gap: 8px; align-items: center; }
+.btn-audio { background: rgba(238, 238, 238, 0.8); border: none; padding: 6px 10px; border-radius: 8px; cursor: pointer; font-size: 1rem; }
+.btn-mini { background: var(--purple); color: white; border: none; padding: 6px 12px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+#placar-container { font-size: 1.1rem; font-weight: bold; color: #333; background: rgba(255,255,255,0.8); padding: 5px 10px; border-radius: 8px; }
+
+/* --- TEXTOS --- */
+.titulo-padrao { font-size: 2.5rem; margin: 0; color: #333; }
+.subtitulo-padrao { font-size: 1.2rem; color: #666; margin-bottom: 20px; }
+#feedback-txt { font-size: 1.3rem; margin: 0 0 15px 0; font-weight: bold; min-height: 25px; }
+.msg-neutra { color: #333; } .msg-sucesso { color: var(--green); } .msg-erro { color: var(--red-error); }
+.btn-main { border: none; padding: 12px 35px; border-radius: 25px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
+.btn-main.green { background: var(--green); color: white; }
+.game-footer { position: absolute; bottom: 8px; font-size: 0.8rem; color: #777; width: 100%; text-align: center; z-index: 5; }
+.game-footer a { color: var(--purple); text-decoration: none; font-weight: bold; }
+
+/* --- CARTAS (FRENTE E VERSO PERSONALIZADO) --- */
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 12px;
+    width: 100%;
+    max-width: 650px;
+    perspective: 1000px;
+}
+
+.carta {
+    width: 100%; height: 110px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+    cursor: pointer;
+}
+
+.carta.flip { transform: rotateY(180deg); }
+
+.face, .verso {
+    width: 100%; height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    border: 4px solid var(--border-dark);
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 5px 0px rgba(0,0,0,0.15);
+}
+
+.verso {
+    background-color: var(--yellow-card);
+    color: #d41e1e; 
+    font-size: 3rem;
+    font-weight: 700;
+    -webkit-text-stroke: 2px var(--border-dark); 
+    user-select: none;
+}
+
+.face {
+    background: #ffffff;
+    transform: rotateY(180deg);
+}
+
+.face img {
+    max-width: 85%; max-height: 85%; object-fit: contain;
+}
+/* ========================================================
+   RESPONSIVIDADE (CELULARES)
+   ======================================================== */
+@media (max-width: 768px) {
+    /* Deixa o card do jogo mais alto para acomodar a arte vertical */
+    #game-card {
+        height: 85vh; 
+        width: 95%;
+    }
+
+    /* Reposiciona o botão invisível para a capa do celular */
+    .btn-jogar-overlay {
+        /* Você pode ajustar essas porcentagens se precisar mover o botão invisível */
+        top: 60%;      /* Altura do botão JOGAR na arte vertical */
+        left: 25%;     /* Distância da esquerda */
+        width: 50%;    /* Largura do botão na arte vertical */
+        height: 8%;    /* Altura da área clicável */
+    }
+    
+    /* Ajusta as colunas do jogo da memória para o celular (3 colunas em vez de 4) */
+    .memory-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+    
+    /* Diminui um pouco as cartas para caberem bem na tela do celular */
+    .carta {
+        height: 90px;
+    }
+    .verso {
+        font-size: 2.2rem;
+    }
+}
