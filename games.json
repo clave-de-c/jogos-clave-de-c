@@ -1,0 +1,11 @@
+[
+    {
+        "id": "caca-notas",
+        "nome": "Caça Notas",
+        "descricao": "Encontre a nota solicitada e treine sua leitura!",
+        "categoria": "Notas Musicais",
+        "dificuldade": "Fácil",
+        "url": "jogos-gratuitos/caca-notas/index.html",
+        "imagem": "https://via.placeholder.com/300x200/2D9CDB/FFFFFF?text=Caca+Notas"
+    }
+]
