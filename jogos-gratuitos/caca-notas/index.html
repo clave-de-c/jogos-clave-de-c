@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caça Notas - Jogos Clave de C</title>
+    <!-- Aqui nós "puxamos" aquele visual bonito que você salvou antes! -->
+    <link rel="stylesheet" href="../../assets/css/engine-style.css">
+    <style>
+        .game-wrapper { text-align: center; max-width: 600px; padding: 20px; }
+        .grid-botoes { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
+        .btn-nota-game {
+            width: 85px; height: 85px; border-radius: 50%; border: 4px solid rgba(255,255,255,0.2);
+            font-size: 1.3rem; font-weight: bold; color: white; cursor: pointer; transition: 0.2s;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+        .btn-nota-game:hover { transform: scale(1.1); }
+        .target-box { font-size: 2rem; color: var(--yellow-prime); font-weight: bold; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="game-wrapper">
+        <h1 style="margin:0;">CAÇA NOTAS 🎵</h1>
+        <p>Encontre a nota correta abaixo!</p>
+        
+        <div class="target-box">Procure a nota: <span id="nota-alvo" style="color: #38b6ff;">---</span></div>
+        <p style="font-size: 1.2rem;">Pontuação: <strong id="engine-score">0</strong> / 10</p>
+
+        <div class="grid-botoes" id="grid-container"></div>
+    </div>
+
+    <!-- Aqui nós "puxamos" o motor de áudio e pontuação! -->
+    <script src="../../assets/js/ClaveEngine.js"></script>
+    <script>
+        // Avisamos ao motor que o jogo precisa de 10 pontos para vencer
+        const engine = new ClaveEngine({ title: "Caça Notas", targetScore: 10 });
+
+        // Cores oficiais
+        const notas = [
+            { nome: 'Dó', cor: '#d41e1e' },
+            { nome: 'Ré', cor: '#f18c4d' },
+            { nome: 'Mi', cor: '#ffda43' },
+            { nome: 'Fá', cor: '#10ad54' },
+            { nome: 'Sol', cor: '#38b6ff' },
+            { nome: 'Lá', cor: '#004aad' },
+            { nome: 'Si', cor: '#7c45e8' }
+        ];
+
+        let notaSorteada = {};
+
+        function sortearRodada() {
+            notaSorteada = notas[Math.floor(Math.random() * notas.length)];
+            const alvoEl = document.getElementById('nota-alvo');
+            alvoEl.innerText = notaSorteada.nome;
+            alvoEl.style.color = notaSorteada.cor;
+
+            const container = document.getElementById('grid-container');
+            container.innerHTML = '';
+
+            // Cria os botões coloridos na tela
+            notas.forEach(n => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-nota-game';
+                btn.style.backgroundColor = n.cor;
+                btn.innerText = n.nome;
+                btn.onclick = () => clicarNota(n.nome);
+                container.appendChild(btn);
+            });
+        }
+
+        function clicarNota(nomeClicado) {
+            engine.playNote(nomeClicado); // Motor toca o som da nota!
+            if (nomeClicado === notaSorteada.nome) {
+                engine.addPoint(); // Motor soma o ponto!
+                sortearRodada();
+            } else {
+                // Efeito visual se errar (dá uma tremidinha)
+                const alvoEl = document.getElementById('nota-alvo');
+                alvoEl.style.transform = 'scale(1.2)';
+                setTimeout(() => alvoEl.style.transform = 'scale(1)', 200);
+            }
+        }
+
+        // Inicia o jogo
+        sortearRodada();
+    </script>
+</body>
+</html>
