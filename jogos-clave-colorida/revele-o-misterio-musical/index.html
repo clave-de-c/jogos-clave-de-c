@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detetive Musical - Clave Colorida</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <img src="logo-clave-colorida.png" class="logo-tela-canto" alt="Logo">
+
+    <!-- Áudios Padrão do Template -->
+    <audio id="musica-fundo" loop autoplay>
+        <source src="musica-de-fundo.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="som-click" src="click.mp3"></audio>
+
+    <div id="main-canvas">
+        <div id="game-card">
+            
+            <!-- Barra de Controles (Fica no topo isolada) -->
+            <div class="card-top-controls">
+                <div id="placar-container" class="hidden" style="display: flex; gap: 15px; align-items: center;">
+                    <span>Fase <span id="fase-txt">1</span></span>
+                    <span>| ⏱️ <span id="cronometro-txt">00:00</span></span>
+                    <div id="bateria-container">
+                        🔋 <div id="bateria-barra"><div id="bateria-nivel"></div></div>
+                    </div>
+                </div>
+                <div class="right-buttons">
+                    <button id="btn-voltar" class="btn-mini hidden" onclick="voltarMenu()">Abandonar Caso</button>
+                    <button id="audio-toggle" class="btn-audio" onclick="toggleMusica()">🔊</button>
+                </div>
+            </div>
+
+            <!-- MENU INICIAL -->
+            <div id="menu-inicial" class="game-screen active">
+                <h1 class="titulo-padrao">Detetive Musical</h1>
+                <p class="subtitulo-padrao">O cofre da música foi espalhado no escuro!</p>
+                <div class="btn-group">
+                    <button class="btn-main green" onclick="iniciarJogo()">Investigar</button>
+                    <button class="btn-main gray" onclick="abrirInstrucoes()">Instruções</button>
+                </div>
+            </div>
+
+            <!-- INSTRUÇÕES -->
+            <div id="tela-instrucoes" class="game-screen">
+                <h2 class="titulo-instrucao-zao">O Mistério</h2>
+                <div class="box-texto-instrucao">
+                    <p>Sua lanterna está perdendo <strong>bateria rápido</strong>! Pegue as pilhas 🔋 no escuro para recarregar.</p>
+                    <p><strong>Missão:</strong> Encontre as notas na ordem correta exigida na tela.</p>
+                    <p>⚠️ <strong>Cuidado:</strong> O Ladrão espalhou notas falsas (Bó, Tá, Gol, Fé, Vi, Di) com as cores verdadeiras para te enganar! Clicar nelas gasta muita bateria!</p>
+                </div>
+                <button class="btn-main green" onclick="voltarMenu()">Entendido, Chefe!</button>
+            </div>
+
+            <!-- ÁREA DO JOGO -->
+            <div id="area-jogo" class="game-screen">
+                <div class="center-content">
+                    
+                    <!-- A CENA DO CRIME FICA EM CIMA -->
+                    <div id="cena-crime">
+                        <div id="lanterna-overlay"></div>
+                        <div id="container-pistas"></div>
+                    </div>
+
+                    <!-- A FRASE DE COMANDO FOI MOVIDA PARA CÁ (No meio, livre de cortes) -->
+                    <h3 id="feedback-txt" class="msg-neutra">Carregando missão...</h3>
+
+                    <!-- O PAINEL DE ESCALA FICA EMBAIXO -->
+                    <div id="painel-escala"></div>
+                </div>
+            </div>
+
+            <!-- TELA: GAME OVER -->
+            <div id="tela-gameover" class="game-screen">
+                <h1 class="titulo-padrao" style="color: var(--red-error);">Bateria Esgotada! 🌑</h1>
+                <p class="subtitulo-padrao">A lanterna apagou e o Ladrão escapou no escuro...</p>
+                <button class="btn-main green" onclick="iniciarJogo()">Tentar Novamente</button>
+            </div>
+
+            <!-- TELA: VITÓRIA -->
+            <div id="tela-vitoria" class="game-screen">
+                <h1 class="titulo-padrao">Caso Encerrado! 🕵️‍♀️🎉</h1>
+                <p class="subtitulo-padrao">Você reconstruiu todas as escalas e arpejos!</p>
+                <p class="subtitulo-padrao" style="color: var(--purple); font-weight: bold;">⏱️ Tempo total: <span id="tempo-final"></span></p>
+                <button class="btn-main green" onclick="voltarMenu()">Voltar ao Menu</button>
+            </div>
+
+            <footer class="game-footer">
+        Desenvolvido por Clave de C - 
+        <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> | 
+        <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

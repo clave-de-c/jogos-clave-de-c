@@ -1,0 +1,210 @@
+/* --- PALETA DE CORES CLAVE COLORIDA --- */
+:root {
+    --green: #27ae60; --blue: #2d9cdb; --purple: #9b51e0;     
+    --red-error: #e74c3c; --gold: #f1c40f; --gray-bg: #e0e0e0;    
+    
+    /* Cores Oficiais das Notas */
+    --nota-do: #d41e1e; --nota-re: #f18c4d; --nota-mi: #ffda43;
+    --nota-fa: #10ad54; --nota-sol: #38b6ff; --nota-la: #004aad; --nota-si: #7c45e8;
+}
+
+body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: 'Segoe UI', sans-serif; background: #222;}
+#main-canvas { width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; background: url('fundo_colorido.png') no-repeat center center fixed; background-size: cover; }
+.logo-tela-canto { position: absolute; top: 25px; left: 25px; width: 130px; z-index: 100; }
+
+#game-card { 
+    background: rgba(255, 255, 255, 0.95); 
+    width: 90%; 
+    max-width: 850px; 
+    height: 550px; 
+    border-radius: 40px; 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15); 
+    position: relative; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: hidden;
+}
+
+/* --- CORREÇÃO: TÍTULOS RESPONSIVOS --- */
+.titulo-padrao { 
+    font-size: clamp(1.8rem, 5vw, 2.8rem); /* Diminui suavemente no celular */
+    margin: 0; 
+    color: #333; 
+    text-align: center; 
+}
+.subtitulo-padrao { font-size: 1.2rem; color: #666; margin-bottom: 20px; text-align: center; }
+.titulo-instrucao-zao { 
+    font-size: clamp(2rem, 6vw, 3.5rem); /* Diminui suavemente no celular */
+    margin: 0 0 20px 0; 
+    color: #333; 
+    text-align: center; 
+}
+
+/* Textos de Instrução */
+.box-texto-instrucao { text-align: center; max-width: 600px; margin-bottom: 20px; max-height: 40vh; overflow-y: auto; padding: 0 15px;}
+.box-texto-instrucao p { font-size: 1.1rem; color: #555; line-height: 1.6; margin: 10px 0; }
+.box-texto-instrucao::-webkit-scrollbar { width: 6px; }
+.box-texto-instrucao::-webkit-scrollbar-thumb { background-color: var(--purple); border-radius: 10px; }
+
+/* FRASE DE COMANDO (Reposicionada e Responsiva) */
+#feedback-txt { 
+    font-size: clamp(1.1rem, 3vw, 1.4rem); 
+    margin: 5px 0 10px 0; 
+    font-weight: bold; 
+    min-height: 35px; 
+    z-index: 10; 
+    transition: 0.3s;
+    width: 90%; 
+    text-align: center;
+    white-space: normal; 
+    line-height: 1.3;
+}
+
+.msg-neutra { color: #333; } .msg-sucesso { color: var(--green); } .msg-erro { color: var(--red-error); }
+
+/* GRUPO DE BOTÕES DO MENU */
+.btn-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; 
+    flex-wrap: wrap; 
+    width: 100%;
+}
+
+.btn-main { border: none; padding: 15px 45px; border-radius: 25px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s; z-index: 10;}
+.btn-main.green { background: var(--green); color: white; }
+.btn-main.gray { background: var(--gray-bg); color: #555; margin-left: 0; }
+
+/* Controles de Topo e Bateria */
+.card-top-controls { position: absolute; top: 15px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: flex-start; z-index: 20; flex-wrap: wrap; gap: 10px; }
+.right-buttons { display: flex; gap: 10px; align-items: center; }
+.btn-mini { background: var(--purple); color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+.btn-audio { background: #eee; border: none; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: 1.2rem; }
+#placar-container { font-size: 1rem; font-weight: bold; color: #333; background: #fff; padding: 5px 10px; border-radius: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: center; }
+
+/* Barra de Bateria */
+#bateria-container { display: flex; align-items: center; gap: 5px; }
+#bateria-barra { width: 70px; height: 12px; background: #ccc; border-radius: 10px; overflow: hidden; border: 2px solid #999; }
+#bateria-nivel { width: 100%; height: 100%; background: var(--green); transition: width 0.2s, background-color 0.3s; }
+
+/* TELAS E AFASTAMENTO DO TOPO */
+.game-screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; }
+.game-screen.active { display: flex; }
+.hidden { display: none !important; }
+
+/* --- CORREÇÃO: RODAPÉ CENTRALIZADO --- */
+.game-footer { 
+    position: absolute; 
+    bottom: 15px; 
+    left: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem; 
+    color: #aaa; 
+    z-index: 10;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.center-content { 
+    width: 100%; height: 100%; 
+    display: flex; flex-direction: column; align-items: center; 
+    padding-top: 55px; 
+    box-sizing: border-box;
+}
+
+/* A CENA DO CRIME */
+#cena-crime {
+    width: 95%; max-width: 700px; height: 300px; background-color: #2c3e50; 
+    background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%2334495e" fill-opacity="0.4"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    border-radius: 20px; position: relative; overflow: hidden; cursor: crosshair;
+    border: 4px solid #333; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); 
+    margin-bottom: 5px; 
+}
+#lanterna-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+#container-pistas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+
+/* NOTAS E PILHAS */
+.nota-pista {
+    width: 55px; height: 55px; border-radius: 50%; position: absolute; display: flex; justify-content: center; align-items: center;
+    color: white; font-weight: bold; font-size: 1.3rem; cursor: pointer;
+    box-shadow: 0 0 15px rgba(255,255,255,0.4); border: 2px solid white;
+    transition: transform 0.4s ease-out, left 0.5s ease-out, top 0.5s ease-out; 
+    user-select: none; animation: pulsar 2s infinite; z-index: 10;
+}
+.pilha {
+    font-size: 2rem; position: absolute; cursor: pointer; z-index: 9;
+    animation: pulsar 1s infinite alternate; transition: left 0.3s, top 0.3s;
+}
+.nota-pista:hover, .pilha:hover { transform: scale(1.15); }
+
+/* FUGITIVA E OBSTÁCULOS */
+.fugitiva { transition: left 0.6s linear, top 0.6s linear; animation: none; border: 3px solid var(--gold); box-shadow: 0 0 20px var(--gold); }
+.obstaculo {
+    width: 65px; height: 65px; position: absolute; display: flex; justify-content: center; align-items: center;
+    font-size: 3rem; cursor: pointer; user-select: none; z-index: 20; transition: left 0.3s, top 0.3s;
+}
+
+/* PAINEL DA ESCALA */
+#painel-escala { display: flex; gap: 8px; justify-content: center; align-items: center; background: #f5f5f5; padding: 10px 15px; border-radius: 15px; border: 2px solid #ddd; flex-wrap: wrap;}
+.escala-slot { width: 40px; height: 40px; border-radius: 50%; border: 3px dashed #ccc; display: flex; justify-content: center; align-items: center; font-weight: bold; color: #999; font-size: 0.9rem; transition: 0.4s ease-out; }
+.escala-slot.preenchido { border: 2px solid white; color: white; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transform: scale(1.1); }
+
+/* ANIMAÇÕES */
+@keyframes pulsar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-8px); } 75% { transform: translateX(8px); } }
+.erro-anim { animation: shake 0.3s ease-in-out; }
+
+/* MEDIA QUERIES PARA RESPONSIVIDADE EXTREMA (CELULARES) */
+@media (max-width: 600px) {
+    /* 1. Ajusta a logo: centraliza no topo e diminui para liberar espaço */
+    .logo-tela-canto {
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+    }
+
+    /* 2. Desce os controles para ficarem organizados abaixo da logo */
+    .card-top-controls { 
+        top: 55px; 
+        flex-direction: column; 
+        align-items: center; 
+        gap: 8px; 
+    }
+    
+    /* 3. Centraliza os botões "Abandonar Caso" e "Som" */
+    .right-buttons {
+        justify-content: center;
+        width: 100%;
+    }
+
+    /* 4. Empurra a área do jogo (Cena do crime) mais para baixo para não ser esmagada */
+    .center-content { 
+        padding-top: 160px; 
+    } 
+    
+    /* 5. Ajusta a altura da cena do crime para caber na tela do celular perfeitamente */
+    #cena-crime { 
+        height: 200px; 
+    }
+
+    /* 6. Diminui um pouco a fonte do placar/bateria para não quebrar o layout */
+    #placar-container {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+    }
+
+    /* 7. Mantém as proporções de altura do card e o rodapé desgrudado */
+    #game-card {
+        height: 95vh; 
+        padding-bottom: 60px; 
+    }
+    
+    .game-footer {
+        bottom: 20px;
+    }
+}
