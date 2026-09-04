@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salto do Sapo - Clave de C Prime</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <!-- TELA INICIAL (MENU GRANDE) -->
+    <div id="start-screen" class="fade-layer" style="opacity: 1; display: flex;">
+        <div class="start-content">
+            
+            <button id="btn-play-big" class="sound-click" aria-label="Iniciar Jogo">
+                <svg viewBox="0 0 100 100" class="play-icon">
+                    <circle cx="50" cy="50" r="45" fill="#f1c40f"/>
+                    <polygon points="40,30 70,50 40,70" fill="#fff"/>
+                </svg>
+            </button>
+            
+            <div class="instructions-card">
+                <h1 class="game-title">Salto do Sapo</h1>
+                <p class="game-desc">
+                    <strong>Tom, Semitom e Contagem</strong><br><br>
+                    Ajude o sapinho a atravessar o lago! Leia o desafio e toque na tecla correta para saltar até a vitória-régia premiada.<br>
+                    <em>Dica: 1 Tom equivale a 2 Semitons.</em>
+                </p>
+                
+                <div class="controls-display" title="Controles suportados">
+                    <svg viewBox="0 0 24 24" width="32" height="32"><path fill="#fff" d="M13,22H11C7.14,22 4,18.86 4,15V9C4,5.14 7.14,2 11,2H13C16.86,2 20,5.14 20,9V15C20,18.86 16.86,22 13,22M11,4C8.24,4 6,6.24 6,9V15C6,17.76 8.24,20 11,20H13C15.76,20 18,17.76 18,15V9C18,6.24 15.76,4 13,4Z"/></svg>
+                    <svg viewBox="0 0 24 24" width="32" height="32"><path fill="#fff" d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5V10.5C14 10.5 15.11 10.08 16.29 10.53C17.37 10.94 18 11.97 18 13.09V15.5C18 19.09 15.09 22 11.5 22C8.61 22 6.16 20.12 5.29 17.5L3.6 12.44C3.39 11.83 3.65 11.16 4.22 10.91C4.79 10.65 5.46 10.88 5.72 11.43L7 14.5V11.24H9M11.5 3C13.56 3 15.34 4.3 15.86 6.18L14 6.7C13.67 5.71 12.67 5 11.5 5S9.33 5.71 9 6.7L7.14 6.18C7.66 4.3 9.44 3 11.5 3Z"/></svg>
+                    <svg viewBox="0 0 24 24" width="34" height="34"><path fill="#fff" d="M4 6H20A2 2 0 0 1 22 8V16A2 2 0 0 1 20 18H4A2 2 0 0 1 2 16V8A2 2 0 0 1 4 6M4 8V16H7V10H9V16H11V10H13V16H15V10H17V16H20V8H4Z"/></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ÁREA DO JOGO (FULLSCREEN INTEGRADO) -->
+    <div id="game-area" class="fade-layer" style="opacity: 0; display: none;">
+        
+        <!-- HUD Laterais -->
+        <button id="btn-back" class="hud-btn-side sound-click left-side" aria-label="Voltar">
+            <svg viewBox="0 0 24 24" width="30" height="30"><path fill="#fff" d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"/></svg>
+        </button>
+
+        <div class="hud-menu-right">
+            <button id="btn-settings" class="circle-btn sound-click" aria-label="Configurações">
+                <svg viewBox="0 0 24 24"><path fill="#fff" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/></svg>
+            </button>
+            <div id="settings-dropdown" class="settings-dropdown hidden">
+                <button id="toggle-sfx" class="circle-btn small-btn sound-click" title="Efeitos Sonoros">
+                    <svg viewBox="0 0 24 24"><path fill="#fff" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>
+                </button>
+                <button id="toggle-music" class="circle-btn small-btn sound-click" title="Música de Fundo">
+                    <svg viewBox="0 0 24 24"><path fill="#fff" d="M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V3L21,3Z"/></svg>
+                </button>
+                <button id="connectMidiBtn" class="circle-btn small-btn sound-click" title="Conectar Piano MIDI">
+                    <svg viewBox="0 0 24 24"><path fill="#fff" d="M4 6H20A2 2 0 0 1 22 8V16A2 2 0 0 1 20 18H4A2 2 0 0 1 2 16V8A2 2 0 0 1 4 6M4 8V16H7V10H9V16H11V10H13V16H15V10H17V16H20V8H4Z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Estrutura Fullscreen do Jogo -->
+        <div class="game-wrapper-prime">
+            
+            <!-- Placar no Topo -->
+            <div class="game-top-hud">
+                <div class="hud-pill"><span>FASE</span><strong id="level">1</strong></div>
+                <div class="hud-pill"><span>PONTOS</span><strong id="score">0</strong></div>
+                <div class="hud-pill"><span>SEQUÊNCIA</span><strong id="streak">0</strong></div>
+                <div class="hud-pill"><span>VIDAS</span><strong id="lives">❤️❤️❤️</strong></div>
+            </div>
+
+            <!-- Área da Pergunta -->
+            <div class="question-panel-prime">
+                <span id="questionTag" class="tag-prime">DESAFIO</span>
+                <h2 id="question">Carregando...</h2>
+                <p id="hint">Escolha a nota correta no teclado abaixo.</p>
+                <div id="midiStatus" class="midi-status-text">MIDI Desconectado</div>
+            </div>
+
+            <!-- Lagoa Ocupando Todo o Meio do Cenário -->
+            <div class="pond-prime">
+                <div class="reeds reeds-left">🌾</div>
+                <div class="reeds reeds-right">🌿</div>
+                
+                <!-- Vitória-Régia de Origem (Sapo sentado nela) -->
+                <div id="startLily" class="lily start-lily"></div>
+
+                <!-- Vitória-Régia de Destino (Alvo Brilhante) -->
+                <div id="targetLily" class="lily target-lily"></div>
+                
+                <!-- Sapo -->
+                <div id="frog" class="frog">
+                    <div class="frog-body"></div>
+                    <div class="eye eye-a"><span></span></div>
+                    <div class="eye eye-b"><span></span></div>
+                    <div class="mouth"></div>
+                    <div class="leg leg-l"></div>
+                    <div class="leg leg-r"></div>
+                </div>
+                
+                <div id="splash" class="splash"></div>
+            </div>
+
+            <!-- Teclado no Rodapé -->
+            <div class="controls-prime">
+                <div class="keyboard-header-prime">
+                    <div id="feedback" class="feedback-prime">
+                        <span id="feedbackIcon">🎵</span>
+                        <div class="feedback-text">
+                            <strong id="feedbackTitle">Vamos começar!</strong>
+                            <span id="feedbackText">Leia o desafio e escolha a tecla certa.</span>
+                        </div>
+                    </div>
+                    <div class="current-note-prime" id="currentNote">—</div>
+                </div>
+                <div id="keyboard" class="keyboard-prime"></div>
+            </div>
+
+        </div>
+
+        <!-- MODAL FIM DE JOGO -->
+        <div id="modal" class="modal" style="display: none;">
+            <div class="modal-box">
+                <div class="modal-badge">🏆</div>
+                <h2 id="modalTitle">Fim de jogo</h2>
+                <p id="modalText"></p>
+                <div class="result-grid">
+                    <div><span>Pontos</span><b id="finalScore">0</b></div>
+                    <div><span>Maior sequência</span><b id="finalStreak">0</b></div>
+                </div>
+                <button id="restartBtn" class="btn-main green sound-click" style="width: 100%; margin: 0;">Jogar novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Rodapé Padrão Clave de C -->
+    <footer class="game-footer-fixed">
+        Desenvolvido por Clave de C - <a href="https://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> | <a href="https://www.instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
