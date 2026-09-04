@@ -1,249 +1,1572 @@
-// --- CONFIGURAÇÃO DE ÁUDIO SINTETIZADO ---
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+document.addEventListener('DOMContentLoaded', () => {
 
-function playTick() {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(150, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start();
-    osc.stop(audioCtx.currentTime + 0.1);
-}
+  /* =====================================================
+     BANCO DE ESCALAS
+  ===================================================== */
 
-function playNotaSorteada(frequencia) {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'triangle';
-    osc.frequency.value = frequencia;
-    gain.gain.setValueAtTime(0, audioCtx.currentTime);
-    gain.gain.linearRampToValueAtTime(0.2, audioCtx.currentTime + 0.1);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2.0);
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.start();
-    osc.stop(audioCtx.currentTime + 2.0);
-}
+  const notas = [
 
-// --- BANCO DE DADOS MUSICAL: O CICLO COMPLETO (12 Tons, 8 Notas) ---
-const notas = [
-    { id: 'c', nome: 'DÓ', cor: 'var(--do)', freq: 261.63, 
-      escala: [{n:'Dó', c:'--do'}, {n:'Ré', c:'--re'}, {n:'Mi', c:'--mi'}, {n:'Fá', c:'--fa'}, {n:'Sol', c:'--sol'}, {n:'Lá', c:'--la'}, {n:'Si', c:'--si'}, {n:'Dó', c:'--do'}] },
-    { id: 'g', nome: 'SOL', cor: 'var(--sol)', freq: 392.00,
-      escala: [{n:'Sol', c:'--sol'}, {n:'Lá', c:'--la'}, {n:'Si', c:'--si'}, {n:'Dó', c:'--do'}, {n:'Ré', c:'--re'}, {n:'Mi', c:'--mi'}, {n:'Fá#', c:'--fa'}, {n:'Sol', c:'--sol'}] },
-    { id: 'd', nome: 'RÉ', cor: 'var(--re)', freq: 293.66,
-      escala: [{n:'Ré', c:'--re'}, {n:'Mi', c:'--mi'}, {n:'Fá#', c:'--fa'}, {n:'Sol', c:'--sol'}, {n:'Lá', c:'--la'}, {n:'Si', c:'--si'}, {n:'Dó#', c:'--do'}, {n:'Ré', c:'--re'}] },
-    { id: 'a', nome: 'LÁ', cor: 'var(--la)', freq: 440.00,
-      escala: [{n:'Lá', c:'--la'}, {n:'Si', c:'--si'}, {n:'Dó#', c:'--do'}, {n:'Ré', c:'--re'}, {n:'Mi', c:'--mi'}, {n:'Fá#', c:'--fa'}, {n:'Sol#', c:'--sol'}, {n:'Lá', c:'--la'}] },
-    { id: 'e', nome: 'MI', cor: 'var(--mi)', freq: 329.63,
-      escala: [{n:'Mi', c:'--mi'}, {n:'Fá#', c:'--fa'}, {n:'Sol#', c:'--sol'}, {n:'Lá', c:'--la'}, {n:'Si', c:'--si'}, {n:'Dó#', c:'--do'}, {n:'Ré#', c:'--re'}, {n:'Mi', c:'--mi'}] },
-    { id: 'b', nome: 'SI', cor: 'var(--si)', freq: 493.88,
-      escala: [{n:'Si', c:'--si'}, {n:'Dó#', c:'--do'}, {n:'Ré#', c:'--re'}, {n:'Mi', c:'--mi'}, {n:'Fá#', c:'--fa'}, {n:'Sol#', c:'--sol'}, {n:'Lá#', c:'--la'}, {n:'Si', c:'--si'}] },
-    { id: 'fs', nome: 'FÁ#', cor: 'var(--fa)', freq: 369.99,
-      escala: [{n:'Fá#', c:'--fa'}, {n:'Sol#', c:'--sol'}, {n:'Lá#', c:'--la'}, {n:'Si', c:'--si'}, {n:'Dó#', c:'--do'}, {n:'Ré#', c:'--re'}, {n:'Mi#', c:'--mi'}, {n:'Fá#', c:'--fa'}] },
-    { id: 'db', nome: 'RÉb', cor: 'var(--re)', freq: 277.18,
-      escala: [{n:'Réb', c:'--re'}, {n:'Mib', c:'--mi'}, {n:'Fá', c:'--fa'}, {n:'Solb', c:'--sol'}, {n:'Láb', c:'--la'}, {n:'Sib', c:'--si'}, {n:'Dó', c:'--do'}, {n:'Réb', c:'--re'}] },
-    { id: 'ab', nome: 'LÁb', cor: 'var(--la)', freq: 415.30,
-      escala: [{n:'Láb', c:'--la'}, {n:'Sib', c:'--si'}, {n:'Dó', c:'--do'}, {n:'Réb', c:'--re'}, {n:'Mib', c:'--mi'}, {n:'Fá', c:'--fa'}, {n:'Sol', c:'--sol'}, {n:'Láb', c:'--la'}] },
-    { id: 'eb', nome: 'MIb', cor: 'var(--mi)', freq: 311.13,
-      escala: [{n:'Mib', c:'--mi'}, {n:'Fá', c:'--fa'}, {n:'Sol', c:'--sol'}, {n:'Láb', c:'--la'}, {n:'Sib', c:'--si'}, {n:'Dó', c:'--do'}, {n:'Ré', c:'--re'}, {n:'Mib', c:'--mi'}] },
-    { id: 'bb', nome: 'SIb', cor: 'var(--si)', freq: 466.16,
-      escala: [{n:'Sib', c:'--si'}, {n:'Dó', c:'--do'}, {n:'Ré', c:'--re'}, {n:'Mib', c:'--mi'}, {n:'Fá', c:'--fa'}, {n:'Sol', c:'--sol'}, {n:'Lá', c:'--la'}, {n:'Sib', c:'--si'}] },
-    { id: 'f', nome: 'FÁ', cor: 'var(--fa)', freq: 349.23,
-      escala: [{n:'Fá', c:'--fa'}, {n:'Sol', c:'--sol'}, {n:'Lá', c:'--la'}, {n:'Sib', c:'--si'}, {n:'Dó', c:'--do'}, {n:'Ré', c:'--re'}, {n:'Mi', c:'--mi'}, {n:'Fá', c:'--fa'}] }
-];
+    {
+      id: 'c',
+      nome: 'DÓ',
+      cor: '--do',
+      freq: 261.63,
+      escala: [
+        ['Dó', '--do'],
+        ['Ré', '--re'],
+        ['Mi', '--mi'],
+        ['Fá', '--fa'],
+        ['Sol', '--sol'],
+        ['Lá', '--la'],
+        ['Si', '--si'],
+        ['Dó', '--do']
+      ]
+    },
 
-let notasDisponiveis = [...notas]; 
-let anguloAtual = 0;
-let rodadaAtual = 1;
-let estadoBotao = 'GIRAR'; 
+    {
+      id: 'g',
+      nome: 'SOL',
+      cor: '--sol',
+      freq: 392.00,
+      escala: [
+        ['Sol', '--sol'],
+        ['Lá', '--la'],
+        ['Si', '--si'],
+        ['Dó', '--do'],
+        ['Ré', '--re'],
+        ['Mi', '--mi'],
+        ['Fá#', '--fa'],
+        ['Sol', '--sol']
+      ]
+    },
 
-const canvas = document.getElementById('canvas-roleta');
-const ctx = canvas.getContext('2d');
+    {
+      id: 'd',
+      nome: 'RÉ',
+      cor: '--re',
+      freq: 293.66,
+      escala: [
+        ['Ré', '--re'],
+        ['Mi', '--mi'],
+        ['Fá#', '--fa'],
+        ['Sol', '--sol'],
+        ['Lá', '--la'],
+        ['Si', '--si'],
+        ['Dó#', '--do'],
+        ['Ré', '--re']
+      ]
+    },
 
-function desenharRoleta() {
-    document.fonts.ready.then(() => {
-        const fatias = notas.length;
-        const anguloFatia = (2 * Math.PI) / fatias;
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    {
+      id: 'a',
+      nome: 'LÁ',
+      cor: '--la',
+      freq: 440,
+      escala: [
+        ['Lá', '--la'],
+        ['Si', '--si'],
+        ['Dó#', '--do'],
+        ['Ré', '--re'],
+        ['Mi', '--mi'],
+        ['Fá#', '--fa'],
+        ['Sol#', '--sol'],
+        ['Lá', '--la']
+      ]
+    },
 
-        notas.forEach((nota, i) => {
-            const anguloInicio = i * anguloFatia;
-            ctx.beginPath();
-            
-            const corFinal = getComputedStyle(document.documentElement).getPropertyValue(nota.cor.match(/--[a-z]+/)[0]);
-            ctx.fillStyle = corFinal.trim();
-            
-            ctx.moveTo(200, 200); 
-            ctx.arc(200, 200, 195, anguloInicio, anguloInicio + anguloFatia);
-            ctx.fill();
+    {
+      id: 'e',
+      nome: 'MI',
+      cor: '--mi',
+      freq: 329.63,
+      escala: [
+        ['Mi', '--mi'],
+        ['Fá#', '--fa'],
+        ['Sol#', '--sol'],
+        ['Lá', '--la'],
+        ['Si', '--si'],
+        ['Dó#', '--do'],
+        ['Ré#', '--re'],
+        ['Mi', '--mi']
+      ]
+    },
 
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = "rgba(255,255,255,0.4)";
-            ctx.stroke();
+    {
+      id: 'b',
+      nome: 'SI',
+      cor: '--si',
+      freq: 493.88,
+      escala: [
+        ['Si', '--si'],
+        ['Dó#', '--do'],
+        ['Ré#', '--re'],
+        ['Mi', '--mi'],
+        ['Fá#', '--fa'],
+        ['Sol#', '--sol'],
+        ['Lá#', '--la'],
+        ['Si', '--si']
+      ]
+    },
 
-            ctx.save();
-            ctx.translate(200, 200);
-            ctx.rotate(anguloInicio + anguloFatia / 2);
-            ctx.fillStyle = "white";
-            ctx.font = "800 18px 'Poppins'"; 
-            ctx.textAlign = "right";
-            ctx.textBaseline = "middle";
-            ctx.fillText(nota.nome, 160, 0); 
-            ctx.restore();
-        });
-    });
-}
+    {
+      id: 'fs',
+      nome: 'FÁ#',
+      cor: '--fa',
+      freq: 369.99,
+      escala: [
+        ['Fá#', '--fa'],
+        ['Sol#', '--sol'],
+        ['Lá#', '--la'],
+        ['Si', '--si'],
+        ['Dó#', '--do'],
+        ['Ré#', '--re'],
+        ['Mi#', '--mi'],
+        ['Fá#', '--fa']
+      ]
+    },
 
-// --- LÓGICA DO JOGO ---
-function girarRoleta() {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    const btn = document.getElementById('btn-acao');
-    const feedbackTxt = document.getElementById('feedback-txt');
-    const roletaContainer = document.getElementById('container-roleta');
-    const escalaDisplay = document.getElementById('escala-display');
+    {
+      id: 'db',
+      nome: 'RÉb',
+      cor: '--re',
+      freq: 277.18,
+      escala: [
+        ['Réb', '--re'],
+        ['Mib', '--mi'],
+        ['Fá', '--fa'],
+        ['Solb', '--sol'],
+        ['Láb', '--la'],
+        ['Sib', '--si'],
+        ['Dó', '--do'],
+        ['Réb', '--re']
+      ]
+    },
 
-    if (estadoBotao === 'TOQUEI') {
-        rodadaAtual++;
-        if(rodadaAtual > 12) {
-            finalizarJogo();
-            return;
-        }
-        document.getElementById('pontos').innerText = rodadaAtual;
-        roletaContainer.classList.remove('hidden');
-        escalaDisplay.classList.add('hidden');
-        escalaDisplay.innerHTML = '';
-        btn.innerHTML = "GIRAR ROLETA";
-        btn.classList.remove('acao-concluida');
-        feedbackTxt.innerText = "Prepare o seu instrumento...";
-        estadoBotao = 'GIRAR';
+    {
+      id: 'ab',
+      nome: 'LÁb',
+      cor: '--la',
+      freq: 415.30,
+      escala: [
+        ['Láb', '--la'],
+        ['Sib', '--si'],
+        ['Dó', '--do'],
+        ['Réb', '--re'],
+        ['Mib', '--mi'],
+        ['Fá', '--fa'],
+        ['Sol', '--sol'],
+        ['Láb', '--la']
+      ]
+    },
+
+    {
+      id: 'eb',
+      nome: 'MIb',
+      cor: '--mi',
+      freq: 311.13,
+      escala: [
+        ['Mib', '--mi'],
+        ['Fá', '--fa'],
+        ['Sol', '--sol'],
+        ['Láb', '--la'],
+        ['Sib', '--si'],
+        ['Dó', '--do'],
+        ['Ré', '--re'],
+        ['Mib', '--mi']
+      ]
+    },
+
+    {
+      id: 'bb',
+      nome: 'SIb',
+      cor: '--si',
+      freq: 466.16,
+      escala: [
+        ['Sib', '--si'],
+        ['Dó', '--do'],
+        ['Ré', '--re'],
+        ['Mib', '--mi'],
+        ['Fá', '--fa'],
+        ['Sol', '--sol'],
+        ['Lá', '--la'],
+        ['Sib', '--si']
+      ]
+    },
+
+    {
+      id: 'f',
+      nome: 'FÁ',
+      cor: '--fa',
+      freq: 349.23,
+      escala: [
+        ['Fá', '--fa'],
+        ['Sol', '--sol'],
+        ['Lá', '--la'],
+        ['Sib', '--si'],
+        ['Dó', '--do'],
+        ['Ré', '--re'],
+        ['Mi', '--mi'],
+        ['Fá', '--fa']
+      ]
+    }
+
+  ];
+
+
+  /* =====================================================
+     ELEMENTOS
+  ===================================================== */
+
+  const $ = selector =>
+    document.querySelector(selector);
+
+
+  const start =
+    $('#start-screen');
+
+  const game =
+    $('#game-area');
+
+  const victory =
+    $('#victory-screen');
+
+
+  const canvas =
+    $('#canvas-roleta');
+
+  const ctx =
+    canvas.getContext('2d');
+
+
+  const btnAction =
+    $('#btn-acao');
+
+  const feedback =
+    $('#feedback-txt');
+
+  const helper =
+    $('#helper-text');
+
+  const scale =
+    $('#escala-display');
+
+
+  const settings =
+    $('#settings-dropdown');
+
+  const sfxBtn =
+    $('#toggle-sfx');
+
+  const musicBtn =
+    $('#toggle-music');
+
+
+  /* =====================================================
+     ESTADO
+  ===================================================== */
+
+  let pool =
+    [...notas];
+
+  let round =
+    1;
+
+  let angle =
+    0;
+
+  let state =
+    'spin';
+
+  let audioCtx =
+    null;
+
+  let bgmTimer =
+    null;
+
+  let sfxMuted =
+    false;
+
+  let musicMuted =
+    false;
+
+
+  /* =====================================================
+     WEB AUDIO API
+  ===================================================== */
+
+  function initAudio() {
+
+    if (!audioCtx) {
+
+      audioCtx =
+        new (
+          window.AudioContext ||
+          window.webkitAudioContext
+        )();
+
+    }
+
+
+    if (
+      audioCtx.state ===
+      'suspended'
+    ) {
+
+      audioCtx.resume();
+
+    }
+
+  }
+
+
+  /* EFEITOS SONOROS */
+
+  function tone(
+    freq,
+    dur = .12,
+    type = 'sine',
+    vol = .08
+  ) {
+
+    if (
+      sfxMuted ||
+      !audioCtx
+    ) return;
+
+
+    const oscillator =
+      audioCtx.createOscillator();
+
+    const gain =
+      audioCtx.createGain();
+
+    const now =
+      audioCtx.currentTime;
+
+
+    oscillator.type =
+      type;
+
+    oscillator.frequency
+      .setValueAtTime(
+        freq,
+        now
+      );
+
+
+    gain.gain
+      .setValueAtTime(
+        .0001,
+        now
+      );
+
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        vol,
+        now + .012
+      );
+
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        .001,
+        now + dur
+      );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(
+      audioCtx.destination
+    );
+
+
+    oscillator.start(now);
+
+    oscillator.stop(
+      now + dur + .02
+    );
+
+  }
+
+
+  /* MÚSICA INDEPENDENTE */
+
+  function bgmTone(
+    freq,
+    dur = .48,
+    vol = .038
+  ) {
+
+    if (
+      musicMuted ||
+      !audioCtx
+    ) return;
+
+
+    const oscillator =
+      audioCtx.createOscillator();
+
+    const gain =
+      audioCtx.createGain();
+
+    const now =
+      audioCtx.currentTime;
+
+
+    oscillator.type =
+      'sine';
+
+
+    oscillator.frequency
+      .setValueAtTime(
+        freq,
+        now
+      );
+
+
+    gain.gain
+      .setValueAtTime(
+        .0001,
+        now
+      );
+
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        vol,
+        now + .035
+      );
+
+
+    gain.gain
+      .exponentialRampToValueAtTime(
+        .0001,
+        now + dur
+      );
+
+
+    oscillator.connect(gain);
+
+    gain.connect(
+      audioCtx.destination
+    );
+
+
+    oscillator.start(now);
+
+    oscillator.stop(
+      now + dur + .04
+    );
+
+  }
+
+
+  function clickSound() {
+
+    tone(
+      650,
+      .08,
+      'triangle',
+      .05
+    );
+
+  }
+
+
+  function winTone(freq) {
+
+    if (
+      sfxMuted ||
+      !audioCtx
+    ) return;
+
+
+    [
+      1,
+      1.25,
+      1.5
+    ]
+    .forEach(
+      (multiplier, index) => {
+
+        setTimeout(
+          () => {
+
+            tone(
+              freq * multiplier,
+              .45,
+              'triangle',
+              .10
+            );
+
+          },
+
+          index * 110
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     MÚSICA DE FUNDO
+     ESCALA DE DÓ MAIOR
+  ===================================================== */
+
+  function startMusic() {
+
+    stopMusic();
+
+
+    if (
+      musicMuted ||
+      !audioCtx
+    ) return;
+
+
+    const cMajor = [
+
+      261.63, // Dó
+      293.66, // Ré
+      329.63, // Mi
+      349.23, // Fá
+      392.00, // Sol
+      440.00, // Lá
+      493.88, // Si
+      523.25, // Dó
+
+      493.88, // Si
+      440.00, // Lá
+      392.00, // Sol
+      349.23, // Fá
+      329.63, // Mi
+      293.66  // Ré
+
+    ];
+
+
+    let i = 0;
+
+
+    bgmTone(
+      cMajor[i++],
+      .52,
+      .038
+    );
+
+
+    bgmTimer =
+      setInterval(
+        () => {
+
+          if (
+            !musicMuted &&
+            game.style.display !== 'none' &&
+            !document.hidden
+          ) {
+
+            bgmTone(
+              cMajor[
+                i++ %
+                cMajor.length
+              ],
+              .52,
+              .038
+            );
+
+          }
+
+        },
+
+        620
+      );
+
+  }
+
+
+  function stopMusic() {
+
+    if (bgmTimer) {
+
+      clearInterval(
+        bgmTimer
+      );
+
+      bgmTimer =
+        null;
+
+    }
+
+  }
+
+
+  /* =====================================================
+     SOM DOS BOTÕES
+  ===================================================== */
+
+  document
+    .querySelectorAll(
+      '.sound-click'
+    )
+    .forEach(
+      button => {
+
+        button
+          .addEventListener(
+            'click',
+            () => {
+
+              initAudio();
+
+              clickSound();
+
+            }
+          );
+
+      }
+    );
+
+
+  /* =====================================================
+     DESENHAR ROLETA
+  ===================================================== */
+
+  function drawWheel() {
+
+    const total =
+      notas.length;
+
+    const slice =
+      Math.PI * 2 /
+      total;
+
+
+    ctx.clearRect(
+      0,
+      0,
+      500,
+      500
+    );
+
+
+    notas.forEach(
+      (note, index) => {
+
+        const angle =
+          index *
+          slice;
+
+
+        const color =
+          getComputedStyle(
+            document.documentElement
+          )
+          .getPropertyValue(
+            note.cor
+          )
+          .trim();
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+          250,
+          250
+        );
+
+
+        ctx.arc(
+          250,
+          250,
+          242,
+          angle,
+          angle + slice
+        );
+
+
+        ctx.fillStyle =
+          color;
+
+        ctx.fill();
+
+
+        ctx.lineWidth =
+          2;
+
+
+        ctx.strokeStyle =
+          'rgba(255,255,255,.5)';
+
+
+        ctx.stroke();
+
+
+        ctx.save();
+
+
+        ctx.translate(
+          250,
+          250
+        );
+
+
+        ctx.rotate(
+          angle +
+          slice / 2
+        );
+
+
+        ctx.fillStyle =
+          '#fff';
+
+
+        ctx.font =
+          '800 22px Inter';
+
+
+        ctx.textAlign =
+          'right';
+
+
+        ctx.textBaseline =
+          'middle';
+
+
+        ctx.shadowColor =
+          'rgba(0,0,0,.28)';
+
+
+        ctx.shadowBlur =
+          4;
+
+
+        ctx.fillText(
+          note.nome,
+          202,
+          0
+        );
+
+
+        ctx.restore();
+
+      }
+    );
+
+  }
+
+
+  /* =====================================================
+     TROCA DE TELAS
+  ===================================================== */
+
+  function showScreen(element) {
+
+    [
+      start,
+      game,
+      victory
+    ]
+    .forEach(
+      screen => {
+
+        screen.style.opacity =
+          '0';
+
+
+        setTimeout(
+          () => {
+
+            if (
+              screen !==
+              element
+            ) {
+
+              screen.style.display =
+                'none';
+
+            }
+
+          },
+
+          380
+        );
+
+      }
+    );
+
+
+    setTimeout(
+      () => {
+
+        element.style.display =
+          'flex';
+
+
+        requestAnimationFrame(
+          () => {
+
+            element.style.opacity =
+              '1';
+
+          }
+        );
+
+      },
+
+      390
+    );
+
+  }
+
+
+  /* =====================================================
+     FULLSCREEN
+  ===================================================== */
+
+  function fullscreen(on) {
+
+    const documentRef =
+      document;
+
+
+    if (on) {
+
+      document
+        .documentElement
+        .requestFullscreen?.()
+        .catch(
+          () => {}
+        );
+
+    }
+    else if (
+      documentRef.fullscreenElement
+    ) {
+
+      documentRef
+        .exitFullscreen?.()
+        .catch(
+          () => {}
+        );
+
+    }
+
+  }
+
+
+  /* =====================================================
+     PROGRESSO
+  ===================================================== */
+
+  function updateProgress() {
+
+    $('#pontos')
+      .textContent =
+      round;
+
+
+    $('#round-badge')
+      .textContent =
+      `Rodada ${round}`;
+
+
+    $('#progress-fill')
+      .style.width =
+      `${
+        ((round - 1) / 12) * 100
+      }%`;
+
+  }
+
+
+  /* =====================================================
+     RESET DA RODADA
+  ===================================================== */
+
+  function resetRoundView() {
+
+    state =
+      'spin';
+
+
+    btnAction.textContent =
+      'GIRAR ROLETA';
+
+
+    btnAction
+      .classList
+      .remove('done');
+
+
+    btnAction.disabled =
+      false;
+
+
+    feedback.textContent =
+      'Prepare o seu instrumento';
+
+
+    helper.textContent =
+      'A roleta escolherá uma tonalidade. Depois, toque a escala indicada no seu instrumento.';
+
+
+    scale.innerHTML =
+      '';
+
+
+    scale
+      .classList
+      .add('hidden');
+
+
+    $('#container-roleta')
+      .style.opacity =
+      '1';
+
+
+    updateProgress();
+
+  }
+
+
+  function resetGame() {
+
+    pool =
+      [...notas];
+
+
+    round =
+      1;
+
+
+    angle =
+      0;
+
+
+    canvas.style.transform =
+      'rotate(0deg)';
+
+
+    resetRoundView();
+
+  }
+
+
+  /* =====================================================
+     GIRAR ROLETA
+  ===================================================== */
+
+  function spin() {
+
+    initAudio();
+
+
+    /* ALUNO JÁ TOCOU */
+
+    if (
+      state ===
+      'done'
+    ) {
+
+      if (
+        round >= 12
+      ) {
+
+        finish();
+
         return;
+
+      }
+
+
+      round++;
+
+
+      resetRoundView();
+
+
+      return;
+
     }
 
-    // GIRANDO
-    btn.disabled = true;
-    feedbackTxt.innerText = "Sorteando a escala...";
 
-    const indiceSorteado = Math.floor(Math.random() * notasDisponiveis.length);
-    const notaVencedora = notasDisponiveis[indiceSorteado];
-    notasDisponiveis.splice(indiceSorteado, 1);
+    btnAction.disabled =
+      true;
 
-    const indiceVisual = notas.findIndex(n => n.id === notaVencedora.id);
-    const fatias = notas.length;
-    const anguloFatia = 360 / fatias;
-    const centroDeg = (indiceVisual * anguloFatia) + (anguloFatia / 2); 
-    const giroNecessario = 270 - centroDeg; 
 
-    let giroBase = giroNecessario - (anguloAtual % 360);
-    if (giroBase < 0) giroBase += 360; 
-    const offsetSorteio = (Math.random() * (anguloFatia * 0.6)) - (anguloFatia * 0.3);
-    const voltasExtras = Math.floor(Math.random() * 3) + 5; 
-    const totalGiro = giroBase + offsetSorteio + (360 * voltasExtras);
-    
-    anguloAtual += totalGiro;
-    canvas.style.transform = `rotate(${anguloAtual}deg)`;
+    feedback.textContent =
+      'Sorteando a escala...';
 
-    let ticks = 0;
-    const intervalTick = setInterval(() => {
-        playTick();
-        ticks++;
-        if(ticks > 30) clearInterval(intervalTick); 
-    }, 120);
 
-    setTimeout(() => {
-        playNotaSorteada(notaVencedora.freq);
-        
-        roletaContainer.classList.add('hidden');
-        escalaDisplay.classList.remove('hidden');
-        
-        notaVencedora.escala.forEach((n, idx) => {
-            setTimeout(() => {
-                const bolinha = document.createElement('div');
-                bolinha.className = 'nota-bolinha';
-                bolinha.style.backgroundColor = `var(${n.c})`;
-                bolinha.innerText = n.n;
-                escalaDisplay.appendChild(bolinha);
-            }, idx * 150);
-        });
+    helper.textContent =
+      'Atenção à tonalidade indicada pela roleta.';
 
-        feedbackTxt.innerHTML = `✨ Escala de <strong>${notaVencedora.nome}</strong>! Toque as notas:`;
-        btn.innerHTML = "JÁ TOQUEI!";
-        btn.classList.add('acao-concluida');
-        btn.disabled = false;
-        estadoBotao = 'TOQUEI';
 
-    }, 4000);
-}
+    /* ESCOLHE UMA TONALIDADE */
 
-// --- NAVEGAÇÃO DO APP E ÁUDIO ---
-const musicaFundo = document.getElementById('musica-fundo');
-musicaFundo.volume = 0.02; // Volume a 2%[cite: 8]
-let usuarioMutou = false;
+    const randomIndex =
+      Math.floor(
+        Math.random() *
+        pool.length
+      );
 
-function toggleMusica() {
-    if(musicaFundo.paused) { 
-        musicaFundo.play(); 
-        document.getElementById('audio-toggle').innerText = "🔊";
-        usuarioMutou = false; 
-    } else { 
-        musicaFundo.pause(); 
-        document.getElementById('audio-toggle').innerText = "🔇";
-        usuarioMutou = true; 
+
+    const winner =
+      pool.splice(
+        randomIndex,
+        1
+      )[0];
+
+
+    const visualIndex =
+      notas.findIndex(
+        note =>
+          note.id ===
+          winner.id
+      );
+
+
+    const slice =
+      360 /
+      notas.length;
+
+
+    const center =
+      visualIndex *
+      slice +
+      slice / 2;
+
+
+    const target =
+      270 -
+      center;
+
+
+    let base =
+      target -
+      (
+        angle %
+        360
+      );
+
+
+    if (
+      base < 0
+    ) {
+
+      base +=
+        360;
+
     }
-}
 
-function iniciarJogo() {
-    if(!usuarioMutou && musicaFundo.paused) {
-        musicaFundo.play().catch(() => console.log("Áudio bloqueado pelo navegador"));
+
+    const jitter =
+      (
+        Math.random() *
+        slice *
+        .5
+      )
+      -
+      (
+        slice *
+        .25
+      );
+
+
+    const extra =
+      (
+        Math.floor(
+          Math.random() *
+          3
+        )
+        +
+        5
+      )
+      *
+      360;
+
+
+    const total =
+      base +
+      jitter +
+      extra;
+
+
+    angle +=
+      total;
+
+
+    canvas.style.transform =
+      `rotate(${angle}deg)`;
+
+
+    /* =====================================================
+       SOM DA ROLETA
+       TICKS DESACELERANDO
+    ===================================================== */
+
+    let spinTickTimer =
+      null;
+
+
+    const spinStartedAt =
+      performance.now();
+
+
+    const spinDuration =
+      3850;
+
+
+    function wheelTick() {
+
+      if (
+        sfxMuted ||
+        !audioCtx
+      ) return;
+
+
+      const elapsed =
+        performance.now() -
+        spinStartedAt;
+
+
+      const progress =
+        Math.min(
+          1,
+          elapsed /
+          spinDuration
+        );
+
+
+      const freq =
+        260 -
+        (
+          progress *
+          70
+        );
+
+
+      tone(
+        freq,
+        .045,
+        'square',
+        .075
+      );
+
+
+      if (
+        progress <
+        1
+      ) {
+
+        const nextDelay =
+          55 +
+          (
+            progress *
+            progress *
+            165
+          );
+
+
+        spinTickTimer =
+          setTimeout(
+            wheelTick,
+            nextDelay
+          );
+
+      }
+
     }
-    
-    document.getElementById('menu-inicial').classList.remove('active');
-    document.getElementById('area-jogo').classList.add('active');
-    document.getElementById('btn-voltar').classList.remove('hidden');
-    document.getElementById('placar-container').classList.remove('hidden');
-    desenharRoleta();
-}
 
-function abrirInstrucoes() {
-    document.getElementById('menu-inicial').classList.remove('active');
-    document.getElementById('tela-instrucoes').classList.add('active');
-}
 
-function voltarMenu() {
-    document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('menu-inicial').classList.add('active');
-    document.getElementById('btn-voltar').classList.add('hidden');
-    document.getElementById('placar-container').classList.add('hidden');
-}
+    wheelTick();
 
-function finalizarJogo() {
-    const somSucesso = document.getElementById('som-sucesso');
-    somSucesso.play().catch(e => console.log("Áudio bloqueado"));
-    document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('tela-vitoria').classList.add('active');
-    document.getElementById('btn-voltar').classList.add('hidden');
-}
 
-function reiniciarJogo() {
-    notasDisponiveis = [...notas];
-    rodadaAtual = 1;
-    estadoBotao = 'GIRAR';
-    document.getElementById('pontos').innerText = rodadaAtual;
-    document.getElementById('container-roleta').classList.remove('hidden');
-    document.getElementById('escala-display').innerHTML = '';
-    document.getElementById('escala-display').classList.add('hidden');
-    document.getElementById('btn-acao').innerHTML = "GIRAR ROLETA";
-    document.getElementById('btn-acao').classList.remove('acao-concluida');
-    document.getElementById('feedback-txt').innerText = "Prepare o seu instrumento...";
-    
-    document.querySelectorAll('.game-screen').forEach(s => s.classList.remove('active'));
-    document.getElementById('area-jogo').classList.add('active');
-}
+    /* =====================================================
+       RESULTADO
+    ===================================================== */
 
-desenharRoleta();
+    setTimeout(
+      () => {
+
+        if (
+          spinTickTimer
+        ) {
+
+          clearTimeout(
+            spinTickTimer
+          );
+
+        }
+
+
+        winTone(
+          winner.freq
+        );
+
+
+        feedback.innerHTML =
+          `Escala de <strong>${winner.nome}</strong>`;
+
+
+        helper.textContent =
+          'Toque esta sequência no seu instrumento:';
+
+
+        scale.innerHTML =
+          '';
+
+
+        scale
+          .classList
+          .remove('hidden');
+
+
+        winner.escala
+          .forEach(
+            (
+              [name, color],
+              index
+            ) => {
+
+              setTimeout(
+                () => {
+
+                  const note =
+                    document
+                      .createElement(
+                        'div'
+                      );
+
+
+                  note.className =
+                    'scale-note';
+
+
+                  note.textContent =
+                    name;
+
+
+                  note.style
+                    .backgroundColor =
+                    `var(${color})`;
+
+
+                  scale
+                    .appendChild(
+                      note
+                    );
+
+                },
+
+                index *
+                120
+              );
+
+            }
+          );
+
+
+        btnAction.textContent =
+          'JÁ TOQUEI!';
+
+
+        btnAction
+          .classList
+          .add('done');
+
+
+        btnAction.disabled =
+          false;
+
+
+        state =
+          'done';
+
+
+        $('#container-roleta')
+          .style.opacity =
+          '.28';
+
+      },
+
+      4000
+    );
+
+  }
+
+
+  /* =====================================================
+     FINAL DO JOGO
+  ===================================================== */
+
+  function finish() {
+
+    stopMusic();
+
+
+    $('#progress-fill')
+      .style.width =
+      '100%';
+
+
+    showScreen(
+      victory
+    );
+
+
+    fullscreen(
+      false
+    );
+
+
+    setTimeout(
+      () => {
+
+        initAudio();
+
+
+        [
+          523.25,
+          659.25,
+          783.99
+        ]
+        .forEach(
+          (
+            frequency,
+            index
+          ) => {
+
+            setTimeout(
+              () => {
+
+                tone(
+                  frequency,
+                  .7,
+                  'triangle',
+                  .12
+                );
+
+              },
+
+              index *
+              160
+            );
+
+          }
+        );
+
+      },
+
+      500
+    );
+
+  }
+
+
+  /* =====================================================
+     EVENTOS
+  ===================================================== */
+
+  $('#btn-play-big')
+    .addEventListener(
+      'click',
+      () => {
+
+        initAudio();
+
+        resetGame();
+
+        showScreen(
+          game
+        );
+
+        fullscreen(
+          true
+        );
+
+        startMusic();
+
+
+        setTimeout(
+          drawWheel,
+          450
+        );
+
+      }
+    );
+
+
+  $('#btn-back')
+    .addEventListener(
+      'click',
+      () => {
+
+        stopMusic();
+
+        showScreen(
+          start
+        );
+
+        fullscreen(
+          false
+        );
+
+      }
+    );
+
+
+  $('#btn-settings')
+    .addEventListener(
+      'click',
+      () => {
+
+        settings
+          .classList
+          .toggle('hidden');
+
+      }
+    );
+
+
+  /* SFX */
+
+  sfxBtn
+    .addEventListener(
+      'click',
+      () => {
+
+        sfxMuted =
+          !sfxMuted;
+
+
+        sfxBtn
+          .classList
+          .toggle(
+            'muted',
+            sfxMuted
+          );
+
+      }
+    );
+
+
+  /* MÚSICA */
+
+  musicBtn
+    .addEventListener(
+      'click',
+      () => {
+
+        musicMuted =
+          !musicMuted;
+
+
+        musicBtn
+          .classList
+          .toggle(
+            'muted',
+            musicMuted
+          );
+
+
+        if (
+          musicMuted
+        ) {
+
+          stopMusic();
+
+        }
+        else {
+
+          startMusic();
+
+        }
+
+      }
+    );
+
+
+  btnAction
+    .addEventListener(
+      'click',
+      spin
+    );
+
+
+  $('#btn-restart')
+    .addEventListener(
+      'click',
+      () => {
+
+        resetGame();
+
+        showScreen(
+          game
+        );
+
+        fullscreen(
+          true
+        );
+
+        startMusic();
+
+
+        setTimeout(
+          drawWheel,
+          450
+        );
+
+      }
+    );
+
+
+  $('#btn-home-victory')
+    .addEventListener(
+      'click',
+      () => {
+
+        showScreen(
+          start
+        );
+
+        fullscreen(
+          false
+        );
+
+      }
+    );
+
+
+  document
+    .addEventListener(
+      'keydown',
+      event => {
+
+        if (
+          event.key ===
+          'Escape'
+          &&
+          game.style.display !==
+          'none'
+        ) {
+
+          settings
+            .classList
+            .add('hidden');
+
+        }
+
+      }
+    );
+
+
+  /* PRIMEIRO DESENHO */
+
+  drawWheel();
+
+});
