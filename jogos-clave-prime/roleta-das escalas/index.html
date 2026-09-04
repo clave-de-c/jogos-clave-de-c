@@ -1,94 +1,330 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roleta de Escalas - Clave Colorida</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roleta das Escalas | Clave Prime</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <!-- Logo do Canto -->
-    <img src="claveprime-logo.png" alt="Clave Colorida" class="logo-tela-canto" onerror="this.style.display='none'">
 
-    <!-- Áudios de Fundo e Efeitos -->
-    <audio id="musica-fundo" loop autoplay>
-        <source src="fundo-piano.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="som-click" src="click.mp3"></audio>
-    <audio id="som-sucesso" src="sucesso-fim.mp3"></audio>
+  <!-- TELA INICIAL PADRÃO CLAVE PRIME -->
+  <section id="start-screen" class="fade-layer start-screen" style="opacity:1;display:flex;">
 
-    <div id="main-canvas">
-        <div id="game-card">
-            
-            <!-- Controles de Topo -->
-            <div class="card-top-controls">
-                <div id="placar-container" class="hidden">
-                    Escala: <span id="pontos">1</span>/12
-                </div>
-                <div class="right-buttons">
-                    <button id="btn-voltar" class="btn-mini hidden" onclick="voltarMenu()">Voltar ao Menu</button>
-                    <button id="audio-toggle" class="btn-audio" onclick="toggleMusica()">🔊</button>
-                </div>
-            </div>
+    <div class="start-content">
 
-            <!-- TELA 1: Menu Inicial -->
-            <div id="menu-inicial" class="game-screen active">
-                <h1 class="titulo-padrao">Roleta de Escalas</h1>
-                <p class="subtitulo-padrao">Sorteie e toque as 12 tonalidades do Ciclo de Quintas!</p>
-                <div class="btn-group">
-                    <button class="btn-main green" onclick="iniciarJogo()">Jogar</button>
-                    <button class="btn-main gray" onclick="abrirInstrucoes()">Instruções</button>
-                </div>
-            </div>
+      <button
+        id="btn-play-big"
+        class="sound-click play-big"
+        aria-label="Iniciar Roleta das Escalas"
+      >
+        <svg viewBox="0 0 100 100" class="play-icon" aria-hidden="true">
+          <circle cx="50" cy="50" r="45" fill="#FEC601"/>
+          <polygon points="40,30 70,50 40,70" fill="#FFFFFF"/>
+        </svg>
+      </button>
 
-            <!-- TELA 2: Instruções -->
-            <div id="tela-instrucoes" class="game-screen">
-                <h2 class="titulo-instrucao-zao">Como Jogar</h2>
-                <div class="box-texto-instrucao">
-                    <p>1. Clique em <strong>GIRAR</strong> para escolher uma escala aleatória.</p>
-                    <p>2. Preste atenção na sequência de notas que vai aparecer.</p>
-                    <p>3. Toque as notas no seu instrumento e clique em <strong>JÁ TOQUEI!</strong> para continuar.</p>
-                    <p><strong>Dica:</strong> A roleta não repete notas até que as 12 escalas sejam tocadas!</p>
-                </div>
-                <button class="btn-main green" onclick="voltarMenu()">Entendido</button>
-            </div>
+      <div class="instructions-card">
 
-            <!-- TELA 3: Área de Jogo -->
-            <div id="area-jogo" class="game-screen">
-                <div class="center-content">
-                    <h3 id="feedback-txt" class="msg-neutra">Prepare o seu instrumento...</h3>
-                    
-                    <!-- Display da Escala -->
-                    <div id="escala-display" class="hidden"></div>
+        <span class="game-kicker">
+          Harmonia • Escalas
+        </span>
 
-                    <div class="roleta-wrapper" id="container-roleta">
-                        <div id="marcador-prime"></div>
-                        <canvas id="canvas-roleta" width="400" height="400"></canvas>
-                    </div>
-                    
-                    <button id="btn-acao" class="btn-main-prime" onclick="girarRoleta()">GIRAR ROLETA</button>
-                </div>
-            </div>
+        <h1 class="game-title">
+          Roleta das Escalas
+        </h1>
 
-            <!-- TELA 4: Tela de Vitória -->
-            <div id="tela-vitoria" class="game-screen">
-                <h1 class="titulo-padrao">Parabéns! 🎉</h1>
-                <p class="subtitulo-padrao">Você dominou o Ciclo de Quintas e Quartas!</p>
-                <button class="btn-main green" onclick="reiniciarJogo()">Jogar Novamente</button>
-            </div>
+        <p class="game-desc">
+          Gire a roleta, descubra uma tonalidade e toque a escala completa no seu instrumento.
+        </p>
 
-            <!-- Rodapé Padrão -->
-            <div class="footer-container">
-                <footer class="game-footer">
-                    Desenvolvido por Clave de C - 
-                    <a href="http://www.clavedec.com.br" target="_blank">www.clavedec.com.br</a> - 
-                    <a href="https://instagram.com/clavedec.oficial" target="_blank">@clavedec.oficial</a>
-                </footer>
-            </div>
+        <p class="game-tip">
+          <strong>Objetivo:</strong>
+          completar as 12 tonalidades do Ciclo de Quintas sem repetição.
+        </p>
+
+        <div
+          class="controls-display"
+          title="Controles suportados neste jogo"
+          aria-label="Controles suportados"
+        >
+
+          <!-- Mouse -->
+          <svg
+            viewBox="0 0 24 24"
+            width="32"
+            height="32"
+            aria-label="Mouse"
+          >
+            <path
+              fill="#fff"
+              d="M13,22H11C7.14,22 4,18.86 4,15V9C4,5.14 7.14,2 11,2H13C16.86,2 20,5.14 20,9V15C20,18.86 16.86,22 13,22M11,4C8.24,4 6,6.24 6,9V15C6,17.76 8.24,20 11,20H13C15.76,20 18,17.76 18,15V9C18,6.24 15.76,4 13,4Z"
+            />
+          </svg>
+
+          <!-- Toque -->
+          <svg
+            viewBox="0 0 24 24"
+            width="32"
+            height="32"
+            aria-label="Toque"
+          >
+            <path
+              fill="#fff"
+              d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5V10.5C14 10.5 15.11 10.08 16.29 10.53C17.37 10.94 18 11.97 18 13.09V15.5C18 19.09 15.09 22 11.5 22C8.61 22 6.16 20.12 5.29 17.5L3.6 12.44C3.39 11.83 3.65 11.16 4.22 10.91C4.79 10.65 5.46 10.88 5.72 11.43L7 14.5V11.24H9M11.5 3C13.56 3 15.34 4.3 15.86 6.18L14 6.7C13.67 5.71 12.67 5 11.5 5S9.33 5.71 9 6.7L7.14 6.18C7.66 4.3 9.44 3 11.5 3Z"
+            />
+          </svg>
 
         </div>
+
+      </div>
+
     </div>
-    <script src="script.js"></script>
+
+  </section>
+
+
+  <!-- ÁREA DO JOGO -->
+  <section
+    id="game-area"
+    class="fade-layer game-area"
+    style="opacity:0;display:none;"
+  >
+
+    <!-- VOLTAR -->
+    <button
+      id="btn-back"
+      class="hud-btn-side sound-click left-side"
+      aria-label="Voltar ao início"
+    >
+      <svg viewBox="0 0 24 24">
+        <path
+          d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"
+        />
+      </svg>
+    </button>
+
+
+    <!-- CONFIGURAÇÕES -->
+    <div class="hud-menu-right">
+
+      <button
+        id="btn-settings"
+        class="circle-btn sound-click"
+        aria-label="Configurações"
+      >
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37L19.66,5.27L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42H9.5L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05L2.34,8.73L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63L4.34,18.73L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58H14.5L14.87,18.93C15.5,18.68 16.04,18.34 16.56,17.94L19.05,18.95L21.66,15.27Z"
+          />
+        </svg>
+      </button>
+
+      <div
+        id="settings-dropdown"
+        class="settings-dropdown hidden"
+      >
+
+        <!-- SFX -->
+        <button
+          id="toggle-sfx"
+          class="circle-btn small-btn sound-click"
+          aria-label="Alternar efeitos sonoros"
+          title="Efeitos sonoros"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
+            />
+          </svg>
+        </button>
+
+        <!-- MÚSICA -->
+        <button
+          id="toggle-music"
+          class="circle-btn small-btn sound-click"
+          aria-label="Alternar música"
+          title="Música de fundo"
+        >
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M21,3V15.5A3.5,3.5 0 0,1 17.5,19A3.5,3.5 0 0,1 14,15.5A3.5,3.5 0 0,1 17.5,12C18.04,12 18.55,12.12 19,12.34V6.47L9,8.6V17.5A3.5,3.5 0 0,1 5.5,21A3.5,3.5 0 0,1 2,17.5A3.5,3.5 0 0,1 5.5,14C6.04,14 6.55,14.12 7,14.34V3L21,3Z"
+            />
+          </svg>
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <main class="game-content">
+
+      <!-- PROGRESSO -->
+      <header class="game-topbar">
+
+        <div>
+          <span class="round-label">
+            PROGRESSO
+          </span>
+
+          <strong>
+            <span id="pontos">1</span>/12 escalas
+          </strong>
+        </div>
+
+        <div class="progress-track">
+          <span id="progress-fill"></span>
+        </div>
+
+      </header>
+
+
+      <div class="roulette-stage">
+
+        <!-- ROLETA -->
+        <section class="wheel-panel">
+
+          <div class="panel-title-row">
+
+            <div>
+              <span class="eyebrow">
+                Ciclo de Quintas
+              </span>
+
+              <h2>
+                Gire a roleta
+              </h2>
+            </div>
+
+            <span
+              class="round-badge"
+              id="round-badge"
+            >
+              Rodada 1
+            </span>
+
+          </div>
+
+
+          <div
+            class="roleta-wrapper"
+            id="container-roleta"
+          >
+
+            <div id="marcador-prime"></div>
+
+            <canvas
+              id="canvas-roleta"
+              width="500"
+              height="500"
+            ></canvas>
+
+            <div class="wheel-center">
+              <span>♬</span>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        <!-- DESAFIO -->
+        <aside class="challenge-panel">
+
+          <div class="challenge-icon">
+            🎹
+          </div>
+
+          <span class="eyebrow">
+            Seu desafio
+          </span>
+
+          <h3 id="feedback-txt">
+            Prepare o seu instrumento
+          </h3>
+
+          <p id="helper-text">
+            A roleta escolherá uma tonalidade. Depois, toque a escala indicada no seu instrumento.
+          </p>
+
+          <div
+            id="escala-display"
+            class="scale-display hidden"
+          ></div>
+
+          <button
+            id="btn-acao"
+            class="action-btn sound-click"
+          >
+            GIRAR ROLETA
+          </button>
+
+          <small class="no-repeat">
+            ✓ As tonalidades não se repetem até completar as 12.
+          </small>
+
+        </aside>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- TELA DE VITÓRIA -->
+  <section
+    id="victory-screen"
+    class="fade-layer victory-screen"
+    style="opacity:0;display:none;"
+  >
+
+    <div class="victory-card">
+
+      <div class="trophy">
+        🏆
+      </div>
+
+      <span class="game-kicker">
+        Desafio concluído
+      </span>
+
+      <h2>
+        Você completou o ciclo!
+      </h2>
+
+      <p>
+        As 12 tonalidades foram sorteadas e praticadas. Excelente trabalho!
+      </p>
+
+      <button
+        id="btn-restart"
+        class="victory-btn sound-click"
+      >
+        Jogar novamente
+      </button>
+
+      <button
+        id="btn-home-victory"
+        class="text-btn sound-click"
+      >
+        Voltar ao início
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <script src="script.js"></script>
+
 </body>
 </html>
